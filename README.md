@@ -3,7 +3,7 @@
 A comprehensive Dart and Flutter reference manual, written as structured textbook chapters plus a full JNTUK R23 lab manual — browsable as a website, and also downloadable as a Word document.
 
 🌐 **Live site:** `https://smsamspublications.github.io/<repo-name>/` (see setup steps below)
-📘 **[Download the Word version](./Dart_Flutter_Complete_Manual.docx)**
+
 
 ---
 
