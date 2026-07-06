@@ -1,8 +1,8 @@
 # Dart & Flutter — A Complete Language & Framework Manual
 
-A comprehensive Dart and Flutter reference manual, written as structured textbook chapters plus a full JNTUK R23 lab manual — browsable as a website, and also downloadable as a Word document.
+A comprehensive Dart and Flutter reference manual, written as structured textbook chapters plus a full JNTUK R23 lab manual — browsable as a website.
 
-🌐 **Live site:** `https://smsamspublications.github.io/<repo-name>/` (see setup steps below)
+🌐 **Live site:** `https://smsamspublications.github.io/flutter-projects/` (see setup steps below)
 
 
 ---
