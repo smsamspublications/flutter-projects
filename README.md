@@ -2,7 +2,7 @@
 
 A comprehensive, 138-page Dart and Flutter reference manual, written as structured textbook chapters with a quick-reference appendix section — created for the **JNTUK B.Tech AI & DS curriculum (R23 Regulation)**.
 
-📘 **[Download the manual (.docx)](./Dart_Flutter_Complete_Manual.docx)**
+
 
 ---
 
