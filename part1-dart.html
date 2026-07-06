@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>THE DART LANGUAGE · Dart & Flutter Manual</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-light.min.css">
+  <link rel="stylesheet" href="assets/style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+</head>
+<body>
+
+  <div class="topbar">
+    <button data-nav-toggle aria-label="Toggle navigation">&#9776; Menu</button>
+    <span class="brand">Dart &amp; Flutter Manual</span>
+  </div>
+<div class="shell">
+
+  <aside class="sidebar">
+    <a href="index.html" style="text-decoration:none;">
+      <span class="logo">Dart &amp; Flutter</span>
+      <span class="logo-sub">Complete Manual</span>
+    </a>
+    <nav class="parts"><a href="part1-dart.html" class="active">I. The Dart Language</a>
+<a href="part2-flutter.html" class="">II. The Flutter Framework</a>
+<a href="part3-capstone.html" class="">III. Capstone Project</a>
+<a href="part4-labmanual.html" class="">IV. JNTUK R23 Lab Manual</a>
+<a href="part5-appendices.html" class="">V. Quick-Reference Appendices</a></nav>
+    <div class="unit-nav">
+      <span class="unit-nav-label">On this page</span>
+      <ul><li><a href="#unit-1">Unit 1 · Introduction to Dart</a></li>
+<li><a href="#unit-2">Unit 2 · Variables, Data Types &amp; Operators</a></li>
+<li><a href="#unit-3">Unit 3 · Control Flow Statements</a></li>
+<li><a href="#unit-4">Unit 4 · Functions</a></li>
+<li><a href="#unit-5">Unit 5 · Collections — List, Set &amp; Map</a></li>
+<li><a href="#unit-6">Unit 6 · Object-Oriented Programming in Dart</a></li>
+<li><a href="#unit-7">Unit 7 · Generics</a></li>
+<li><a href="#unit-8">Unit 8 · Exception Handling</a></li>
+<li><a href="#unit-9">Unit 9 · Asynchronous Programming — Future, async/await &amp; Stream</a></li>
+<li><a href="#unit-10">Unit 10 · Null Safety</a></li>
+<li><a href="#unit-11">Unit 11 · Libraries, Packages &amp; pub.dev</a></li>
+<li><a href="#unit-12">Unit 12 · Extension Methods</a></li>
+<li><a href="#unit-13">Unit 13 · Records &amp; Pattern Matching (Dart 3)</a></li>
+<li><a href="#unit-14">Unit 14 · Isolates &amp; Concurrency</a></li>
+<li><a href="#unit-15">Unit 15 · Effective Dart — Style &amp; Conventions</a></li>
+<li><a href="#unit-16">Unit 16 · Iterables — A Functional Programming Deep Dive</a></li>
+<li><a href="#unit-17">Unit 17 · Working with DateTime &amp; Duration</a></li></ul>
+    </div>
+  </aside>
+<main class="main">
+  <div class="content-wrap">
+    <div class="part-hero"><div class="part-title">PART I — THE DART LANGUAGE</div><div class="part-subtitle">Foundations you need before Flutter makes sense</div></div><section class="unit"><h2 id="unit-1" class="unit-heading"><span class="unit-label">Unit 1</span>Introduction to Dart</h2><p>Dart is a client-optimized, object-oriented, garbage-collected programming language created by Google and first released in 2011. It was redesigned significantly for mobile and web app development, and today it exists primarily as the language that powers <strong>Flutter</strong>. Dart compiles in two directions: to native ARM/x64 machine code (used for fast-starting, high-performance mobile and desktop apps) and to JavaScript (used for the web). This dual compilation, combined with a <strong>Just-In-Time (JIT)</strong> compiler for development and an <strong>Ahead-Of-Time (AOT)</strong> compiler for release builds, is what gives Flutter apps both a fast development cycle (hot reload) and near-native runtime performance.</p>
+<h3 id="why-dart-for-flutter">Why Dart for Flutter?</h3>
+<ul><li><strong>Fast development cycles</strong> — Dart&#39;s JIT compiler enables Flutter&#39;s *hot reload*, which injects updated code into a running app in under a second without losing app state.</li><li><strong>Fast, predictable performance</strong> — Dart&#39;s AOT compiler produces native ARM/x64 code, so release apps do not carry a JavaScript-bridge performance tax the way some cross-platform frameworks do.</li><li><strong>Everything is an object</strong> — including numbers, functions, and <code class="inline-code">null</code>. This gives Dart a small, consistent set of rules with very few special cases.</li><li><strong>Sound null safety</strong> — the compiler statically guarantees that a variable declared as non-nullable can never hold <code class="inline-code">null</code>, eliminating an entire category of runtime crashes.</li><li><strong>Familiar C-style syntax</strong> — curly braces, semicolons, and a syntax family close to Java, C#, and JavaScript make Dart quick to pick up for most programmers.</li></ul>
+<h3 id="setting-up-dart">Setting Up Dart</h3>
+<p>Dart ships bundled with the Flutter SDK, so installing Flutter also installs Dart. If you only want to experiment with the language itself (without Flutter), you can install the standalone Dart SDK from dart.dev, or write and run snippets instantly in <strong>DartPad</strong> (dartpad.dev) — a free, browser-based editor that requires no installation and is the fastest way to try the examples in this manual.</p>
+<p>To check that Dart is available from your terminal once the SDK is installed:</p>
+<pre><code>dart --version
+# Expected output looks like:
+# Dart SDK version: 3.5.0 (stable) ...</code></pre>
+<h3 id="your-first-dart-program">Your First Dart Program</h3>
+<p>Every Dart application begins execution at a top-level function named <code class="inline-code">main()</code>. Save the following as <code class="inline-code">hello.dart</code>:</p>
+<pre><code>void main() {
+  print(&#39;Hello, World!&#39;);
+}</code></pre>
+<p>Run it from the terminal with:</p>
+<pre><code>dart run hello.dart</code></pre>
+<div class="note tip"><span class="note-label">TIP</span><code class="inline-code">print()</code> is Dart&#39;s built-in function for writing a line of text to the console. It accepts any object and calls <code class="inline-code">toString()</code> on it automatically, so <code class="inline-code">print(42)</code> and <code class="inline-code">print([1, 2, 3])</code> both work without extra conversion.</div>
+<div class="keypoints"><div class="keypoints-label">KEY POINTS</div><ul><li>Dart is the language behind Flutter, designed by Google for fast development and fast execution.</li><li>JIT compilation powers hot reload during development; AOT compilation produces optimized native code for release.</li><li>DartPad lets you run Dart in the browser with zero setup — ideal while working through this manual.</li><li>Execution always starts at the top-level <code class="inline-code">main()</code> function.</li></ul></div></section>
+<section class="unit"><h2 id="unit-2" class="unit-heading"><span class="unit-label">Unit 2</span>Variables, Data Types &amp; Operators</h2><p>Dart is statically typed but supports <strong>type inference</strong>, meaning the compiler can often determine a variable&#39;s type from the value assigned to it, without you writing the type explicitly.</p>
+<h3 id="declaring-variables">Declaring Variables</h3>
+<pre><code>var name = &#39;Sudhakar&#39;;       // inferred as String
+var age = 40;                // inferred as int
+String department = &#39;AI&amp;DS&#39;; // explicit type
+final joinedYear = 2015;     // value set once, at runtime
+const pi = 3.14159;          // value fixed at compile time</code></pre>
+<div class="table-wrap"><table><thead><tr><th>Keyword</th><th>Reassignable?</th><th>When the value is fixed</th><th>Typical use</th></tr></thead><tbody><tr><td><code class="inline-code">var</code></td><td>Yes</td><td>Any time</td><td>General-purpose, type inferred once</td></tr><tr><td>Explicit type (<code class="inline-code">int</code>, <code class="inline-code">String</code>, …)</td><td>Yes</td><td>Any time</td><td>When you want the type visible for clarity</td></tr><tr><td><code class="inline-code">final</code></td><td>No</td><td>Set once, at runtime</td><td>Values known only when the app runs (e.g. <code class="inline-code">DateTime.now()</code>)</td></tr><tr><td><code class="inline-code">const</code></td><td>No</td><td>Set once, at compile time</td><td>Truly constant values (e.g. <code class="inline-code">3.14159</code>, fixed strings)</td></tr></tbody></table></div>
+<h3 id="built-in-data-types">Built-in Data Types</h3>
+<div class="table-wrap"><table><thead><tr><th>Type</th><th>Description</th><th>Example</th></tr></thead><tbody><tr><td><code class="inline-code">int</code></td><td>Whole numbers (64-bit on native platforms)</td><td><code class="inline-code">int score = 95;</code></td></tr><tr><td><code class="inline-code">double</code></td><td>64-bit floating point numbers</td><td><code class="inline-code">double gpa = 9.2;</code></td></tr><tr><td><code class="inline-code">num</code></td><td>Superclass of both <code class="inline-code">int</code> and <code class="inline-code">double</code></td><td><code class="inline-code">num value = 10; value = 10.5;</code></td></tr><tr><td><code class="inline-code">String</code></td><td>Sequence of UTF-16 characters</td><td><code class="inline-code">String city = &#39;Vijayawada&#39;;</code></td></tr><tr><td><code class="inline-code">bool</code></td><td><code class="inline-code">true</code> or <code class="inline-code">false</code></td><td><code class="inline-code">bool isActive = true;</code></td></tr><tr><td><code class="inline-code">List&lt;T&gt;</code></td><td>Ordered collection</td><td><code class="inline-code">List&lt;int&gt; marks = [80, 90, 100];</code></td></tr><tr><td><code class="inline-code">Set&lt;T&gt;</code></td><td>Unordered collection of unique items</td><td><code class="inline-code">Set&lt;String&gt; tags = {&#39;ai&#39;, &#39;ml&#39;};</code></td></tr><tr><td><code class="inline-code">Map&lt;K,V&gt;</code></td><td>Key–value pairs</td><td><code class="inline-code">Map&lt;String,int&gt; ages = {&#39;A&#39;: 20};</code></td></tr><tr><td><code class="inline-code">dynamic</code></td><td>Type checking deferred to runtime</td><td><code class="inline-code">dynamic x = 10; x = &#39;now a string&#39;;</code></td></tr></tbody></table></div>
+<h3 id="string-interpolation-multi-line-strings">String Interpolation &amp; Multi-line Strings</h3>
+<pre><code>String name = &#39;Sudhakar&#39;;
+int papers = 118;
+print(&#39;Author: $name has $papers indexed records.&#39;);
+print(&#39;Next milestone: ${papers + 2} papers&#39;);
+
+String note = &#39;&#39;&#39;
+This is a multi-line string.
+It preserves line breaks exactly as written.
+&#39;&#39;&#39;;</code></pre>
+<div class="note tip"><span class="note-label">TIP</span>Use <code class="inline-code">${expression}</code> for any expression more complex than a bare variable name; a bare variable only needs <code class="inline-code">$variableName</code> without braces.</div>
+<h3 id="operators">Operators</h3>
+<div class="table-wrap"><table><thead><tr><th>Category</th><th>Operators</th><th>Notes</th></tr></thead><tbody><tr><td>Arithmetic</td><td><code class="inline-code">+  -  *  /  ~/  %</code></td><td><code class="inline-code">~/</code> is integer (floor) division: <code class="inline-code">7 ~/ 2</code> is <code class="inline-code">3</code></td></tr><tr><td>Relational</td><td><code class="inline-code">==  !=  &gt;  &lt;  &gt;=  &lt;=</code></td><td>Return a <code class="inline-code">bool</code></td></tr><tr><td>Logical</td><td><code class="inline-code">&amp;&amp;  ||  !</code></td><td>Short-circuit evaluation</td></tr><tr><td>Assignment</td><td><code class="inline-code">=  +=  -=  *=  /=  ??=</code></td><td><code class="inline-code">??=</code> assigns only if the variable is currently <code class="inline-code">null</code></td></tr><tr><td>Type test</td><td><code class="inline-code">is  is!</code></td><td><code class="inline-code">if (value is String) { ... }</code></td></tr><tr><td>Cascade</td><td><code class="inline-code">..</code></td><td>Chain multiple calls on the same object</td></tr><tr><td>Null-aware</td><td><code class="inline-code">??  ?.  !</code></td><td>Covered fully in Unit 10 (Null Safety)</td></tr></tbody></table></div>
+<pre><code>// Cascade notation — call several members on the same object
+var buffer = StringBuffer()
+  ..write(&#39;Hello&#39;)
+  ..write(&#39;, &#39;)
+  ..write(&#39;Flutter!&#39;);
+print(buffer.toString()); // Hello, Flutter!</code></pre>
+<div class="keypoints"><div class="keypoints-label">KEY POINTS</div><ul><li><code class="inline-code">var</code> infers a type once; <code class="inline-code">dynamic</code> allows the type to change at runtime.</li><li><code class="inline-code">final</code> is set once at runtime; <code class="inline-code">const</code> is fixed at compile time.</li><li><code class="inline-code">String</code> interpolation uses <code class="inline-code">$variable</code> or <code class="inline-code">${expression}</code>.</li><li>The cascade operator <code class="inline-code">..</code> lets you chain calls on one object without repeating its name.</li></ul></div></section>
+<section class="unit"><h2 id="unit-3" class="unit-heading"><span class="unit-label">Unit 3</span>Control Flow Statements</h2><h3 id="conditional-statements">Conditional Statements</h3>
+<pre><code>int marks = 78;
+
+if (marks &gt;= 90) {
+  print(&#39;Grade: A&#39;);
+} else if (marks &gt;= 75) {
+  print(&#39;Grade: B&#39;);
+} else {
+  print(&#39;Grade: C&#39;);
+}
+
+// Conditional (ternary) expression
+String result = marks &gt;= 40 ? &#39;Pass&#39; : &#39;Fail&#39;;</code></pre>
+<h3 id="switch-statements">Switch Statements</h3>
+<p>Dart 3 extended <code class="inline-code">switch</code> to support pattern matching, but the classic form is still the one you will use most often for simple value matching:</p>
+<pre><code>String grade = &#39;B&#39;;
+
+switch (grade) {
+  case &#39;A&#39;:
+    print(&#39;Excellent&#39;);
+    break;
+  case &#39;B&#39;:
+    print(&#39;Good&#39;);
+    break;
+  default:
+    print(&#39;Needs improvement&#39;);
+}
+
+// Dart 3 switch expression (more concise, returns a value)
+String remark = switch (grade) {
+  &#39;A&#39; =&gt; &#39;Excellent&#39;,
+  &#39;B&#39; =&gt; &#39;Good&#39;,
+  _   =&gt; &#39;Needs improvement&#39;,
+};</code></pre>
+<h3 id="loops">Loops</h3>
+<pre><code>// for loop
+for (int i = 1; i &lt;= 5; i++) {
+  print(&#39;Count: $i&#39;);
+}
+
+// for-in loop — iterating a collection
+List&lt;String&gt; subjects = [&#39;AI&#39;, &#39;DS&#39;, &#39;ML&#39;];
+for (var subject in subjects) {
+  print(subject);
+}
+
+// while loop — condition checked before each iteration
+int n = 0;
+while (n &lt; 3) {
+  print(&#39;n = $n&#39;);
+  n++;
+}
+
+// do-while loop — body always runs at least once
+int m = 0;
+do {
+  print(&#39;m = $m&#39;);
+  m++;
+} while (m &lt; 3);</code></pre>
+<h3 id="break-continue-labeled-loops">break, continue &amp; Labeled Loops</h3>
+<pre><code>outerLoop:
+for (int i = 0; i &lt; 3; i++) {
+  for (int j = 0; j &lt; 3; j++) {
+    if (j == 1) continue;        // skip this inner iteration
+    if (i == 2) break outerLoop;  // exit the labeled outer loop
+    print(&#39;i=$i, j=$j&#39;);
+  }
+}</code></pre>
+<div class="keypoints"><div class="keypoints-label">KEY POINTS</div><ul><li>Dart&#39;s classic <code class="inline-code">switch</code> needs an explicit <code class="inline-code">break</code> per case; the newer switch *expression* (<code class="inline-code">=&gt;</code>) does not.</li><li><code class="inline-code">for-in</code> is the idiomatic way to loop over any <code class="inline-code">Iterable</code> (List, Set, etc.).</li><li><code class="inline-code">do-while</code> guarantees the loop body executes at least once.</li><li>Labels let <code class="inline-code">break</code>/<code class="inline-code">continue</code> target an outer loop from within a nested one.</li></ul></div></section>
+<section class="unit"><h2 id="unit-4" class="unit-heading"><span class="unit-label">Unit 4</span>Functions</h2><p>Functions are first-class objects in Dart — they can be stored in variables, passed as arguments, and returned from other functions. This is essential in Flutter, where callbacks such as <code class="inline-code">onPressed</code> are simply functions passed as widget parameters.</p>
+<h3 id="basic-function-syntax">Basic Function Syntax</h3>
+<pre><code>int add(int a, int b) {
+  return a + b;
+}
+
+// Arrow syntax — for a function body that is a single expression
+int square(int x) =&gt; x * x;
+
+void main() {
+  print(add(2, 3));    // 5
+  print(square(4));    // 16
+}</code></pre>
+<h3 id="optional-positional-parameters">Optional Positional Parameters</h3>
+<pre><code>String greet(String name, [String? title]) {
+  if (title != null) return &#39;Hello, $title $name&#39;;
+  return &#39;Hello, $name&#39;;
+}
+
+print(greet(&#39;Sudhakar&#39;));            // Hello, Sudhakar
+print(greet(&#39;Sudhakar&#39;, &#39;Dr.&#39;));     // Hello, Dr. Sudhakar</code></pre>
+<h3 id="named-parameters">Named Parameters</h3>
+<p>Named parameters are wrapped in <code class="inline-code">{}</code> and are the pattern you will see constantly in Flutter widget constructors. Mark a named parameter <code class="inline-code">required</code> when the caller must supply it.</p>
+<pre><code>void printProfile({required String name, int age = 18}) {
+  print(&#39;$name is $age years old&#39;);
+}
+
+printProfile(name: &#39;Anita&#39;);            // Anita is 18 years old
+printProfile(name: &#39;Ravi&#39;, age: 21);    // Ravi is 21 years old</code></pre>
+<div class="note tip"><span class="note-label">TIP</span>This is exactly why Flutter widgets are constructed like <code class="inline-code">Text(&#39;Hello&#39;, style: TextStyle(fontSize: 20))</code> — the widget&#39;s constructor simply uses named parameters.</div>
+<h3 id="anonymous-functions-closures">Anonymous Functions &amp; Closures</h3>
+<pre><code>List&lt;int&gt; numbers = [1, 2, 3, 4, 5];
+
+// Anonymous function passed directly to forEach
+numbers.forEach((n) {
+  print(&#39;Number: $n&#39;);
+});
+
+// A closure — the returned function &#39;closes over&#39; the counter variable
+Function makeCounter() {
+  int count = 0;
+  return () {
+    count++;
+    return count;
+  };
+}
+
+void main() {
+  var counter = makeCounter();
+  print(counter()); // 1
+  print(counter()); // 2
+}</code></pre>
+<h3 id="higher-order-functions">Higher-Order Functions</h3>
+<pre><code>List&lt;int&gt; marks = [55, 90, 40, 72, 88];
+
+var passed = marks.where((m) =&gt; m &gt;= 50).toList();  // [55, 90, 72, 88]
+var doubled = marks.map((m) =&gt; m * 2).toList();     // [110, 180, 80, 144, 176]
+var total   = marks.reduce((a, b) =&gt; a + b);        // 345
+var anyFail = marks.any((m) =&gt; m &lt; 50);             // true</code></pre>
+<div class="keypoints"><div class="keypoints-label">KEY POINTS</div><ul><li>Functions are objects — they can be assigned, passed, and returned like any value.</li><li><code class="inline-code">[optional]</code> positional parameters and <code class="inline-code">{named}</code> parameters both make arguments optional; <code class="inline-code">required</code> forces a named parameter to be supplied.</li><li>Arrow syntax (<code class="inline-code">=&gt;</code>) is shorthand for a function body that returns a single expression.</li><li><code class="inline-code">where</code>, <code class="inline-code">map</code>, <code class="inline-code">reduce</code>, and <code class="inline-code">any</code> are the functional-style methods you&#39;ll use constantly when transforming lists.</li></ul></div></section>
+<section class="unit"><h2 id="unit-5" class="unit-heading"><span class="unit-label">Unit 5</span>Collections — List, Set &amp; Map</h2><h3 id="list-an-ordered-indexable-collection">List — an ordered, indexable collection</h3>
+<pre><code>List&lt;String&gt; subjects = [&#39;AI&#39;, &#39;DS&#39;, &#39;ML&#39;];
+subjects.add(&#39;DL&#39;);                 // [&#39;AI&#39;, &#39;DS&#39;, &#39;ML&#39;, &#39;DL&#39;]
+subjects.insert(1, &#39;Stats&#39;);         // insert at index 1
+subjects.remove(&#39;ML&#39;);
+print(subjects[0]);                  // AI
+print(subjects.length);              // 4
+
+// A fixed-length, immutable list
+final List&lt;int&gt; readOnly = List.unmodifiable([1, 2, 3]);</code></pre>
+<h3 id="set-unique-unordered-elements">Set — unique, unordered elements</h3>
+<pre><code>Set&lt;String&gt; tags = {&#39;flutter&#39;, &#39;dart&#39;, &#39;flutter&#39;}; // duplicate is dropped
+print(tags);              // {flutter, dart}
+print(tags.contains(&#39;dart&#39;)); // true
+
+var a = {1, 2, 3};
+var b = {2, 3, 4};
+print(a.union(b));         // {1, 2, 3, 4}
+print(a.intersection(b));  // {2, 3}</code></pre>
+<h3 id="map-key-value-pairs">Map — key-value pairs</h3>
+<pre><code>Map&lt;String, int&gt; credits = {
+  &#39;Flutter Lab&#39;: 2,
+  &#39;Explainable AI&#39;: 4,
+};
+
+credits[&#39;Data Science&#39;] = 3;        // add a new entry
+print(credits[&#39;Flutter Lab&#39;]);       // 2
+print(credits.containsKey(&#39;AI&#39;));    // false
+
+credits.forEach((subject, credit) {
+  print(&#39;$subject: $credit credits&#39;);
+});</code></pre>
+<h3 id="collection-if-for-the-spread-operator">Collection If / For &amp; the Spread Operator</h3>
+<p>Dart allows control-flow-like syntax directly inside a collection literal — extremely useful when building widget lists conditionally in Flutter.</p>
+<pre><code>bool showExtra = true;
+List&lt;int&gt; base = [1, 2, 3];
+
+List&lt;int&gt; combined = [
+  0,
+  ...base,                 // spread operator — unpacks all elements
+  if (showExtra) 4,        // collection-if
+  for (var i in [5, 6]) i, // collection-for
+];
+print(combined); // [0, 1, 2, 3, 4, 5, 6]</code></pre>
+<div class="table-wrap"><table><thead><tr><th>Collection</th><th>Ordered?</th><th>Duplicates?</th><th>Access by</th></tr></thead><tbody><tr><td><code class="inline-code">List</code></td><td>Yes</td><td>Allowed</td><td>Index (<code class="inline-code">list[0]</code>)</td></tr><tr><td><code class="inline-code">Set</code></td><td>No</td><td>Not allowed</td><td>Value lookup (<code class="inline-code">contains</code>)</td></tr><tr><td><code class="inline-code">Map</code></td><td>Insertion order preserved</td><td>Keys unique, values can repeat</td><td>Key (<code class="inline-code">map[&#39;key&#39;]</code>)</td></tr></tbody></table></div>
+<div class="keypoints"><div class="keypoints-label">KEY POINTS</div><ul><li><code class="inline-code">List</code>, <code class="inline-code">Set</code>, and <code class="inline-code">Map</code> are the three core collection types, each with a distinct purpose.</li><li>The spread operator <code class="inline-code">...</code> and collection-if/-for let you build a collection declaratively — the same technique you&#39;ll use to build widget children lists in Flutter.</li><li><code class="inline-code">List.unmodifiable()</code> and the <code class="inline-code">const</code> collection literals create collections that cannot be changed after creation.</li></ul></div></section>
+<section class="unit"><h2 id="unit-6" class="unit-heading"><span class="unit-label">Unit 6</span>Object-Oriented Programming in Dart</h2><p>Everything in Dart — including numbers and functions — is an instance of a class. Understanding classes, constructors, and inheritance is essential before Flutter&#39;s widget classes will make sense, since every widget is itself a Dart class.</p>
+<h3 id="classes-objects">Classes &amp; Objects</h3>
+<pre><code>class Student {
+  String name;
+  int rollNumber;
+
+  // Standard constructor
+  Student(this.name, this.rollNumber);
+
+  void display() {
+    print(&#39;$rollNumber: $name&#39;);
+  }
+}
+
+void main() {
+  var s1 = Student(&#39;Anita&#39;, 101);
+  s1.display(); // 101: Anita
+}</code></pre>
+<h3 id="named-factory-constructors">Named &amp; Factory Constructors</h3>
+<pre><code>class Point {
+  double x, y;
+
+  Point(this.x, this.y);
+
+  // Named constructor — an alternative way to build the same class
+  Point.origin() : x = 0, y = 0;
+
+  // Factory constructor — has full control over what gets returned,
+  // useful for caching or returning a subtype
+  factory Point.fromMap(Map&lt;String, double&gt; map) {
+    return Point(map[&#39;x&#39;]!, map[&#39;y&#39;]!);
+  }
+}
+
+var p1 = Point(3, 4);
+var p2 = Point.origin();
+var p3 = Point.fromMap({&#39;x&#39;: 1.0, &#39;y&#39;: 2.0});</code></pre>
+<h3 id="inheritance">Inheritance</h3>
+<pre><code>class Animal {
+  String name;
+  Animal(this.name);
+  void makeSound() =&gt; print(&#39;$name makes a sound&#39;);
+}
+
+class Dog extends Animal {
+  Dog(String name) : super(name);
+
+  @override
+  void makeSound() =&gt; print(&#39;$name barks&#39;);
+}
+
+void main() {
+  Animal a = Dog(&#39;Tommy&#39;);
+  a.makeSound(); // Tommy barks
+}</code></pre>
+<h3 id="abstract-classes-interfaces">Abstract Classes &amp; Interfaces</h3>
+<p>Dart has no separate <code class="inline-code">interface</code> keyword — <strong>every class implicitly defines an interface</strong>. Use <code class="inline-code">implements</code> to adopt that interface without inheriting behaviour, or <code class="inline-code">extends</code> an <code class="inline-code">abstract class</code> to inherit both a contract and shared implementation.</p>
+<pre><code>abstract class Shape {
+  double area(); // no body — subclasses must implement this
+}
+
+class Circle extends Shape {
+  double radius;
+  Circle(this.radius);
+
+  @override
+  double area() =&gt; 3.14159 * radius * radius;
+}</code></pre>
+<h3 id="mixins">Mixins</h3>
+<p>A mixin lets you reuse a chunk of functionality across multiple, otherwise unrelated class hierarchies — Dart&#39;s answer to &quot;multiple inheritance&quot; without the classic diamond problem. Flutter itself relies heavily on mixins, e.g. <code class="inline-code">SingleTickerProviderStateMixin</code> for animations.</p>
+<pre><code>mixin Logger {
+  void log(String message) =&gt; print(&#39;[LOG] $message&#39;);
+}
+
+class NetworkService with Logger {
+  void fetchData() {
+    log(&#39;Fetching data...&#39;);
+  }
+}</code></pre>
+<h3 id="enums">Enums</h3>
+<pre><code>enum Status { pending, approved, rejected }
+
+// Enhanced enums (Dart 2.17+) can carry fields and methods
+enum Priority {
+  low(1), medium(2), high(3);
+  final int level;
+  const Priority(this.level);
+}
+
+void main() {
+  var s = Status.approved;
+  print(s);              // Status.approved
+  print(Priority.high.level); // 3
+}</code></pre>
+<div class="table-wrap"><table><thead><tr><th>Keyword</th><th>Purpose</th></tr></thead><tbody><tr><td><code class="inline-code">extends</code></td><td>Inherit implementation from exactly one superclass</td></tr><tr><td><code class="inline-code">implements</code></td><td>Adopt a class&#39;s interface without inheriting its implementation (must re-implement every member)</td></tr><tr><td><code class="inline-code">with</code></td><td>Mix in reusable behaviour from one or more mixins</td></tr><tr><td><code class="inline-code">abstract</code></td><td>Declare a class that cannot be instantiated directly, and may contain unimplemented methods</td></tr></tbody></table></div>
+<div class="keypoints"><div class="keypoints-label">KEY POINTS</div><ul><li>Every class defines an implicit interface — <code class="inline-code">implements</code> uses that; <code class="inline-code">extends</code> inherits actual behaviour.</li><li>Named and factory constructors give you multiple, clearly-labelled ways to build the same class.</li><li>Mixins (<code class="inline-code">with</code>) let you share behaviour across unrelated class hierarchies — heavily used inside Flutter itself.</li><li>Enhanced enums can carry fields, constructors, and methods, not just a list of names.</li></ul></div></section>
+<section class="unit"><h2 id="unit-7" class="unit-heading"><span class="unit-label">Unit 7</span>Generics</h2><p>Generics let you write a class or function that works with any type while still catching type errors at compile time, instead of relying on <code class="inline-code">dynamic</code> and discovering mistakes at runtime. Dart&#39;s own collection types (<code class="inline-code">List&lt;T&gt;</code>, <code class="inline-code">Map&lt;K,V&gt;</code>) are generic classes, and Flutter&#39;s <code class="inline-code">State&lt;T extends StatefulWidget&gt;</code> is a generic class too.</p>
+<h3 id="generic-classes">Generic Classes</h3>
+<pre><code>class Box&lt;T&gt; {
+  T value;
+  Box(this.value);
+
+  void show() =&gt; print(&#39;Box contains: $value&#39;);
+}
+
+void main() {
+  var intBox = Box&lt;int&gt;(42);
+  var strBox = Box&lt;String&gt;(&#39;Flutter&#39;);
+  intBox.show();  // Box contains: 42
+  strBox.show();  // Box contains: Flutter
+}</code></pre>
+<h3 id="generic-functions">Generic Functions</h3>
+<pre><code>T firstElement&lt;T&gt;(List&lt;T&gt; items) {
+  return items[0];
+}
+
+print(firstElement&lt;String&gt;([&#39;a&#39;, &#39;b&#39;, &#39;c&#39;])); // a
+print(firstElement&lt;int&gt;([10, 20, 30]));       // 10</code></pre>
+<h3 id="bounded-type-parameters">Bounded Type Parameters</h3>
+<pre><code>// T must be a num or a subtype of num (int, double)
+T largest&lt;T extends num&gt;(T a, T b) =&gt; a &gt; b ? a : b;
+
+print(largest&lt;int&gt;(3, 7));       // 7
+print(largest&lt;double&gt;(2.5, 1.1)); // 2.5</code></pre>
+<div class="keypoints"><div class="keypoints-label">KEY POINTS</div><ul><li>Generics give you type safety without duplicating code for every possible type.</li><li><code class="inline-code">&lt;T extends SomeType&gt;</code> restricts the generic type to <code class="inline-code">SomeType</code> or its subtypes.</li><li>You&#39;ll see generics constantly in Flutter: <code class="inline-code">List&lt;Widget&gt;</code>, <code class="inline-code">Future&lt;String&gt;</code>, <code class="inline-code">State&lt;MyWidget&gt;</code>.</li></ul></div></section>
+<section class="unit"><h2 id="unit-8" class="unit-heading"><span class="unit-label">Unit 8</span>Exception Handling</h2><p>Dart uses <code class="inline-code">try</code>/<code class="inline-code">catch</code>/<code class="inline-code">finally</code>, similar to Java or C#. All Dart exceptions are unchecked — the compiler does not force you to catch them — so disciplined use of <code class="inline-code">try</code>/<code class="inline-code">catch</code> around risky operations (network calls, parsing, file access) is a habit worth building early.</p>
+<h3 id="basic-try-catch">Basic try-catch</h3>
+<pre><code>void divide(int a, int b) {
+  try {
+    print(a ~/ b);
+  } on IntegerDivisionByZeroException {
+    print(&#39;Cannot divide by zero!&#39;);
+  } catch (e) {
+    print(&#39;Something went wrong: $e&#39;);
+  } finally {
+    print(&#39;Division attempt finished.&#39;);
+  }
+}
+
+void main() {
+  divide(10, 0);
+}</code></pre>
+<h3 id="custom-exceptions">Custom Exceptions</h3>
+<pre><code>class InvalidMarksException implements Exception {
+  final String message;
+  InvalidMarksException(this.message);
+
+  @override
+  String toString() =&gt; &#39;InvalidMarksException: $message&#39;;
+}
+
+void setMarks(int marks) {
+  if (marks &lt; 0 || marks &gt; 100) {
+    throw InvalidMarksException(&#39;Marks must be between 0 and 100&#39;);
+  }
+  print(&#39;Marks set to $marks&#39;);
+}
+
+void main() {
+  try {
+    setMarks(150);
+  } on InvalidMarksException catch (e) {
+    print(e);
+  }
+}</code></pre>
+<div class="note warning"><span class="note-label">CAUTION</span>Catching a generic <code class="inline-code">catch (e)</code> swallows every possible error, including bugs you&#39;d rather discover during testing. Prefer <code class="inline-code">on SpecificException catch (e)</code> where you can, and reserve the generic catch for a final safety net.</div>
+<div class="keypoints"><div class="keypoints-label">KEY POINTS</div><ul><li><code class="inline-code">on ExceptionType</code> catches a specific exception; a bare <code class="inline-code">catch (e)</code> catches anything.</li><li><code class="inline-code">finally</code> always runs, whether or not an exception was thrown — ideal for closing streams or resetting UI loading state.</li><li>Implementing the <code class="inline-code">Exception</code> interface (<code class="inline-code">implements Exception</code>) is the idiomatic way to define your own exception types.</li></ul></div></section>
+<section class="unit"><h2 id="unit-9" class="unit-heading"><span class="unit-label">Unit 9</span>Asynchronous Programming — Future, async/await &amp; Stream</h2><p>Almost everything meaningful an app does — reading a file, calling an API, querying a database — takes time and should not block the UI thread while it happens. Dart handles this with a single-threaded <strong>event loop</strong> plus two core types: <strong>`Future`</strong> (a value that will be available *once*, later) and <strong>`Stream`</strong> (a sequence of values delivered *over time*).</p>
+<h3 id="future-async-await">Future &amp; async/await</h3>
+<pre><code>Future&lt;String&gt; fetchUserName() async {
+  await Future.delayed(Duration(seconds: 2)); // simulate network delay
+  return &#39;Sudhakar&#39;;
+}
+
+void main() async {
+  print(&#39;Fetching...&#39;);
+  String name = await fetchUserName();
+  print(&#39;Got: $name&#39;);
+}
+// Output:
+// Fetching...
+// (2 second pause)
+// Got: Sudhakar</code></pre>
+<p>A function marked <code class="inline-code">async</code> always returns a <code class="inline-code">Future</code>, even if you write a plain <code class="inline-code">return value;</code> inside it — Dart wraps the value for you. <code class="inline-code">await</code> pauses execution *of that function only* until the <code class="inline-code">Future</code> completes; it does not block the rest of the app.</p>
+<h3 id="handling-errors-in-async-code">Handling Errors in async Code</h3>
+<pre><code>Future&lt;int&gt; riskyOperation() async {
+  throw Exception(&#39;Network error&#39;);
+}
+
+void main() async {
+  try {
+    await riskyOperation();
+  } catch (e) {
+    print(&#39;Caught: $e&#39;);
+  }
+}</code></pre>
+<h3 id="chaining-futures-with-then">Chaining Futures with .then()</h3>
+<pre><code>fetchUserName()
+  .then((name) =&gt; print(&#39;Hello, $name&#39;))
+  .catchError((e) =&gt; print(&#39;Error: $e&#39;))
+  .whenComplete(() =&gt; print(&#39;Done&#39;));</code></pre>
+<div class="note tip"><span class="note-label">TIP</span><code class="inline-code">async</code>/<code class="inline-code">await</code> and <code class="inline-code">.then()</code> chains are two syntaxes for the same underlying mechanism. Prefer <code class="inline-code">async</code>/<code class="inline-code">await</code> for readability — it reads top-to-bottom like synchronous code — and reach for <code class="inline-code">.then()</code> mainly when you need to fire-and-forget without pausing the current function.</div>
+<h3 id="stream-a-sequence-of-asynchronous-values">Stream — a sequence of asynchronous values</h3>
+<pre><code>Stream&lt;int&gt; countStream() async* {
+  for (int i = 1; i &lt;= 5; i++) {
+    await Future.delayed(Duration(seconds: 1));
+    yield i;
+  }
+}
+
+void main() async {
+  await for (var value in countStream()) {
+    print(&#39;Received: $value&#39;);
+  }
+  print(&#39;Stream finished&#39;);
+}</code></pre>
+<div class="table-wrap"><table><thead><tr><th>Concept</th><th>Delivers</th><th>Typical Flutter use</th></tr></thead><tbody><tr><td><code class="inline-code">Future&lt;T&gt;</code></td><td>A single value, once, later</td><td>One-off API call, reading a file</td></tr><tr><td><code class="inline-code">Stream&lt;T&gt;</code></td><td>Zero or more values, over time</td><td>Live text field changes, <code class="inline-code">StreamBuilder</code>, real-time database listeners</td></tr><tr><td><code class="inline-code">async*</code> / <code class="inline-code">yield</code></td><td>Builds a <code class="inline-code">Stream</code> incrementally</td><td>Generating a sequence of values lazily</td></tr></tbody></table></div>
+<div class="keypoints"><div class="keypoints-label">KEY POINTS</div><ul><li><code class="inline-code">Future</code> = one value later; <code class="inline-code">Stream</code> = many values over time.</li><li><code class="inline-code">async</code> + <code class="inline-code">await</code> is the readable way to work with Futures; the function must be marked <code class="inline-code">async</code> to use <code class="inline-code">await</code> inside it.</li><li><code class="inline-code">await for</code> iterates a <code class="inline-code">Stream</code> the same way <code class="inline-code">for-in</code> iterates a <code class="inline-code">List</code>.</li><li>Always wrap <code class="inline-code">await</code> calls that can fail in <code class="inline-code">try</code>/<code class="inline-code">catch</code> — an uncaught exception inside an <code class="inline-code">async</code> function completes its <code class="inline-code">Future</code> with an error rather than crashing immediately, which is easy to miss.</li></ul></div></section>
+<section class="unit"><h2 id="unit-10" class="unit-heading"><span class="unit-label">Unit 10</span>Null Safety</h2><p>Since Dart 2.12, <strong>sound null safety</strong> is the default for all new code. The compiler tracks, for every variable, whether <code class="inline-code">null</code> is a legal value — and refuses to compile code where a non-nullable variable might end up <code class="inline-code">null</code>. This eliminates the classic &quot;null pointer / NoSuchMethodError on null&quot; crash at compile time rather than runtime.</p>
+<h3 id="nullable-vs-non-nullable-types">Nullable vs Non-Nullable Types</h3>
+<pre><code>String name = &#39;Sudhakar&#39;;   // non-nullable — can never be null
+String? nickname;           // nullable — defaults to null, marked with &#39;?&#39;
+
+// name = null;   // Compile-time error — not allowed
+nickname = null;  // OK — declared nullable</code></pre>
+<h3 id="null-aware-operators">Null-Aware Operators</h3>
+<div class="table-wrap"><table><thead><tr><th>Operator</th><th>Meaning</th><th>Example</th></tr></thead><tbody><tr><td><code class="inline-code">?.</code></td><td>Call a member only if the object isn&#39;t null</td><td><code class="inline-code">user?.name</code></td></tr><tr><td><code class="inline-code">??</code></td><td>Fallback value if the expression is null</td><td><code class="inline-code">nickname ?? &#39;Guest&#39;</code></td></tr><tr><td><code class="inline-code">??=</code></td><td>Assign only if the variable is currently null</td><td><code class="inline-code">nickname ??= &#39;Guest&#39;</code></td></tr><tr><td><code class="inline-code">!</code></td><td>Assert to the compiler &quot;this is not null&quot; (throws at runtime if wrong)</td><td><code class="inline-code">nickname!.length</code></td></tr></tbody></table></div>
+<pre><code>String? nickname;
+print(nickname?.toUpperCase());     // null (safe — no crash)
+print(nickname ?? &#39;Guest&#39;);          // Guest
+nickname ??= &#39;Ravi&#39;;
+print(nickname);                     // Ravi
+print(nickname!.toUpperCase());      // RAVI — safe now that we know it&#39;s set</code></pre>
+<div class="note warning"><span class="note-label">CAUTION</span>The <code class="inline-code">!</code> (null-assertion) operator is a promise you&#39;re making to the compiler, not a safety check. If the value actually is <code class="inline-code">null</code> at runtime, <code class="inline-code">!</code> throws immediately. Use it only when you are certain — e.g. right after a <code class="inline-code">null</code> check — and prefer <code class="inline-code">??</code> or <code class="inline-code">?.</code> wherever a sensible fallback exists.</div>
+<h3 id="the-late-keyword">The <code class="inline-code">late</code> Keyword</h3>
+<p><code class="inline-code">late</code> tells the compiler &quot;trust me, this non-nullable variable will be assigned before it&#39;s used&quot; — useful for values initialized in <code class="inline-code">initState()</code> in a Flutter <code class="inline-code">StatefulWidget</code>, where the field must be declared before it&#39;s set.</p>
+<pre><code>class UserSession {
+  late String token; // not assigned yet, but promised to be non-null before use
+
+  void login(String t) {
+    token = t;
+  }
+}</code></pre>
+<div class="keypoints"><div class="keypoints-label">KEY POINTS</div><ul><li>A type followed by <code class="inline-code">?</code> is nullable; without <code class="inline-code">?</code>, the compiler guarantees the variable is never null.</li><li><code class="inline-code">??</code>, <code class="inline-code">?.</code>, and <code class="inline-code">??=</code> let you handle possible <code class="inline-code">null</code> values gracefully.</li><li><code class="inline-code">!</code> forcibly asserts non-null and will throw at runtime if you&#39;re wrong — use sparingly.</li><li><code class="inline-code">late</code> defers a non-nullable variable&#39;s initialization, common for fields set inside <code class="inline-code">initState()</code>.</li></ul></div></section>
+<section class="unit"><h2 id="unit-11" class="unit-heading"><span class="unit-label">Unit 11</span>Libraries, Packages &amp; pub.dev</h2><p>Every Dart file is implicitly its own library. You share code between files with <code class="inline-code">import</code>, and share code between *projects* by publishing or consuming packages through <strong>pub.dev</strong>, the official Dart/Flutter package repository.</p>
+<h3 id="importing-files">Importing Files</h3>
+<pre><code>// core Dart library
+import &#39;dart:math&#39;;
+
+// a third-party package (declared in pubspec.yaml)
+import &#39;package:http/http.dart&#39; as http;
+
+// a file from within your own project
+import &#39;models/student.dart&#39;;
+
+void main() {
+  print(sqrt(16)); // 4.0 — from dart:math
+}</code></pre>
+<h3 id="pubspec-yaml-the-project-manifest">pubspec.yaml — the project manifest</h3>
+<p>Every Dart/Flutter project has a <code class="inline-code">pubspec.yaml</code> file at its root declaring the project&#39;s name, SDK constraints, and dependencies.</p>
+<pre><code>name: my_app
+description: A sample Flutter application.
+version: 1.0.0+1
+
+environment:
+  sdk: &#39;&gt;=3.0.0 &lt;4.0.0&#39;
+
+dependencies:
+  flutter:
+    sdk: flutter
+  http: ^1.2.0
+  provider: ^6.1.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter</code></pre>
+<p>After editing <code class="inline-code">pubspec.yaml</code>, fetch the declared packages with:</p>
+<pre><code>flutter pub get</code></pre>
+<div class="note tip"><span class="note-label">TIP</span>The caret (<code class="inline-code">^1.2.0</code>) means &quot;any version compatible with 1.2.0&quot; — i.e. <code class="inline-code">&gt;=1.2.0 &lt;2.0.0</code>. This lets your project automatically receive bug-fix and minor updates without risking a breaking major-version change.</div>
+<h3 id="organizing-your-own-code-into-libraries">Organizing Your Own Code into Libraries</h3>
+<pre><code>// file: utils/validators.dart
+bool isValidEmail(String email) =&gt; email.contains(&#39;@&#39;);
+
+// file: main.dart
+import &#39;utils/validators.dart&#39;;
+
+void main() {
+  print(isValidEmail(&#39;test@lbrce.ac.in&#39;)); // true
+}</code></pre>
+<div class="keypoints"><div class="keypoints-label">KEY POINTS</div><ul><li><code class="inline-code">import &#39;dart:...&#39;</code> brings in core SDK libraries; <code class="inline-code">import &#39;package:...&#39;</code> brings in third-party or your own package&#39;s code.</li><li><code class="inline-code">pubspec.yaml</code> declares every dependency your project needs; <code class="inline-code">flutter pub get</code> downloads them.</li><li>Caret syntax (<code class="inline-code">^x.y.z</code>) in version constraints allows safe, non-breaking updates automatically.</li></ul></div></section>
+<section class="unit"><h2 id="unit-12" class="unit-heading"><span class="unit-label">Unit 12</span>Extension Methods</h2><p>Extension methods let you add new functionality to an <strong>existing</strong> type — including types you don&#39;t own, like <code class="inline-code">String</code> or <code class="inline-code">int</code> from the Dart core library — without subclassing it or modifying its source. This is purely a compile-time, syntactic convenience; it does not change the underlying class.</p>
+<h3 id="defining-and-using-an-extension">Defining and Using an Extension</h3>
+<pre><code>extension StringValidation on String {
+  bool get isValidEmail =&gt; contains(&#39;@&#39;) &amp;&amp; contains(&#39;.&#39;);
+
+  String capitalize() {
+    if (isEmpty) return this;
+    return this[0].toUpperCase() + substring(1);
+  }
+}
+
+void main() {
+  print(&#39;sudhakar@lbrce.ac.in&#39;.isValidEmail); // true
+  print(&#39;flutter&#39;.capitalize());              // Flutter
+}</code></pre>
+<h3 id="extensions-on-custom-and-generic-types">Extensions on Custom and Generic Types</h3>
+<pre><code>extension ListSum on List&lt;int&gt; {
+  int get total =&gt; fold(0, (sum, item) =&gt; sum + item);
+}
+
+void main() {
+  print([10, 20, 30].total); // 60
+}</code></pre>
+<div class="note tip"><span class="note-label">TIP</span>Extension methods are resolved statically, based on the variable&#39;s declared type at the call site — not its runtime type. If two imported extensions define the same member name for the same type, you&#39;ll need to disambiguate with an explicit <code class="inline-code">import &#39;package:x.dart&#39; show ExtensionName</code> or by calling <code class="inline-code">ExtensionName(value).member</code>.</div>
+<div class="keypoints"><div class="keypoints-label">KEY POINTS</div><ul><li>Extensions add methods/getters to existing types without inheritance or modifying the original source.</li><li>They are resolved at compile time based on static type, not the runtime object&#39;s actual type.</li><li>Widely used in Flutter codebases for small conveniences, e.g. <code class="inline-code">context.theme</code>, <code class="inline-code">.toDateString()</code> on <code class="inline-code">DateTime</code>.</li></ul></div></section>
+<section class="unit"><h2 id="unit-13" class="unit-heading"><span class="unit-label">Unit 13</span>Records &amp; Pattern Matching (Dart 3)</h2><p>Dart 3 introduced two closely related features that significantly reduce boilerplate: <strong>records</strong>, a way to bundle multiple values together without declaring a class, and <strong>pattern matching</strong>, a way to inspect and destructure data in a single, declarative expression.</p>
+<h3 id="records">Records</h3>
+<pre><code>// A record with positional fields
+(String, int) getStudent() {
+  return (&#39;Anita&#39;, 101);
+}
+
+// A record with named fields — often clearer
+({String name, int rollNumber}) getStudentNamed() {
+  return (name: &#39;Anita&#39;, rollNumber: 101);
+}
+
+void main() {
+  var (name, roll) = getStudent();     // destructuring assignment
+  print(&#39;$name: $roll&#39;);
+
+  var student = getStudentNamed();
+  print(&#39;${student.name}: ${student.rollNumber}&#39;);
+}</code></pre>
+<div class="note tip"><span class="note-label">TIP</span>Records are the idiomatic replacement for returning multiple values from a function — previously you&#39;d need a small custom class or an untyped <code class="inline-code">List</code>/<code class="inline-code">Map</code> just to return a pair of values.</div>
+<h3 id="pattern-matching-with-switch">Pattern Matching with switch</h3>
+<pre><code>String describe(Object value) {
+  return switch (value) {
+    int n when n &lt; 0 =&gt; &#39;Negative number&#39;,
+    int n when n == 0 =&gt; &#39;Zero&#39;,
+    int() =&gt; &#39;Positive number&#39;,
+    String s =&gt; &#39;A string of length ${s.length}&#39;,
+    [int a, int b] =&gt; &#39;A pair: $a, $b&#39;,
+    _ =&gt; &#39;Unknown type&#39;,
+  };
+}
+
+void main() {
+  print(describe(-5));       // Negative number
+  print(describe(&#39;hi&#39;));     // A string of length 2
+  print(describe([1, 2]));   // A pair: 1, 2
+}</code></pre>
+<h3 id="destructuring-in-practice">Destructuring in Practice</h3>
+<pre><code>Map&lt;String, dynamic&gt; json = {&#39;name&#39;: &#39;Ravi&#39;, &#39;age&#39;: 21};
+
+// Destructure a map directly in a variable declaration
+var {&#39;name&#39;: String name, &#39;age&#39;: int age} = json;
+print(&#39;$name is $age&#39;);</code></pre>
+<div class="keypoints"><div class="keypoints-label">KEY POINTS</div><ul><li>Records (<code class="inline-code">(...)</code> or <code class="inline-code">(field: value, ...)</code>) bundle multiple values without needing a dedicated class.</li><li>Pattern matching in <code class="inline-code">switch</code> expressions can match on type, structure, and conditions (<code class="inline-code">when</code>) in one place.</li><li>Destructuring assignment pulls values straight out of records, lists, and maps into named variables.</li></ul></div></section>
+<section class="unit"><h2 id="unit-14" class="unit-heading"><span class="unit-label">Unit 14</span>Isolates &amp; Concurrency</h2><p>Dart code runs on a single thread by default, using an event loop to interleave asynchronous work (this is what <code class="inline-code">Future</code>/<code class="inline-code">async</code>/<code class="inline-code">await</code> manage). For genuinely <strong>CPU-intensive</strong> work — parsing a huge JSON file, image processing, complex calculations — that would otherwise block the UI thread and cause visible jank, Dart provides <strong>isolates</strong>: independent workers with their own memory, running in true parallel.</p>
+<h3 id="why-not-just-use-a-future">Why Not Just Use a Future?</h3>
+<p>A <code class="inline-code">Future</code> schedules work to run *later* on the same single thread — it does not run in parallel, and a long, synchronous, CPU-bound loop inside an <code class="inline-code">async</code> function will still freeze the UI, because the event loop can&#39;t process anything else until that loop finishes. Isolates solve this by running the heavy work on a genuinely separate thread.</p>
+<h3 id="compute-the-simple-way-in-flutter">compute() — the simple way in Flutter</h3>
+<p>Flutter&#39;s <code class="inline-code">compute()</code> function wraps isolate creation for the common case: run one function, with one argument, on a background isolate, and get the result back as a <code class="inline-code">Future</code>.</p>
+<pre><code>import &#39;package:flutter/foundation.dart&#39;;
+
+// This function must be a top-level or static function
+int expensiveCalculation(int input) {
+  int result = 0;
+  for (int i = 0; i &lt; 1000000000; i++) {
+    result += i % input;
+  }
+  return result;
+}
+
+Future&lt;void&gt; runInBackground() async {
+  final result = await compute(expensiveCalculation, 7);
+  print(&#39;Result: $result&#39;);
+}</code></pre>
+<h3 id="manual-isolates-with-isolate-spawn">Manual Isolates with Isolate.spawn</h3>
+<pre><code>import &#39;dart:isolate&#39;;
+
+void heavyWork(SendPort sendPort) {
+  int sum = 0;
+  for (int i = 0; i &lt; 1000000000; i++) {
+    sum += i;
+  }
+  sendPort.send(sum);
+}
+
+Future&lt;void&gt; main() async {
+  final receivePort = ReceivePort();
+  await Isolate.spawn(heavyWork, receivePort.sendPort);
+  final result = await receivePort.first;
+  print(&#39;Sum: $result&#39;);
+}</code></pre>
+<div class="note warning"><span class="note-label">CAUTION</span>Isolates do not share memory — data passed between them is copied, not referenced. This means you cannot pass things like an open database connection or a <code class="inline-code">BuildContext</code> into an isolate; only simple, serializable data (numbers, strings, lists, maps of those) can cross the boundary safely.</div>
+<div class="keypoints"><div class="keypoints-label">KEY POINTS</div><ul><li>Dart&#39;s event loop handles asynchronous *waiting* (Futures) on a single thread; it does not give you true parallelism.</li><li>Isolates run on separate threads with their own memory, ideal for genuinely CPU-heavy work.</li><li><code class="inline-code">compute()</code> is the easiest entry point for one-off background computation in a Flutter app.</li></ul></div></section>
+<section class="unit"><h2 id="unit-15" class="unit-heading"><span class="unit-label">Unit 15</span>Effective Dart — Style &amp; Conventions</h2><p>Dart&#39;s official style guide (&quot;Effective Dart&quot;) is unusually well-followed across the ecosystem, which makes any Dart/Flutter codebase you open feel familiar. The <code class="inline-code">dart format</code> tool enforces most formatting automatically; the conventions below are the ones a formatter cannot decide for you.</p>
+<h3 id="naming-conventions">Naming Conventions</h3>
+<div class="table-wrap"><table><thead><tr><th>Element</th><th>Convention</th><th>Example</th></tr></thead><tbody><tr><td>Classes, enums, extensions, typedefs</td><td>UpperCamelCase</td><td><code class="inline-code">class StudentCard</code>, <code class="inline-code">enum Status</code></td></tr><tr><td>Variables, functions, parameters</td><td>lowerCamelCase</td><td><code class="inline-code">int rollNumber</code>, <code class="inline-code">void fetchData()</code></td></tr><tr><td>Constants</td><td>lowerCamelCase (not SCREAMING_CASE)</td><td><code class="inline-code">const pi = 3.14159;</code></td></tr><tr><td>Files and folders</td><td>lowercase_with_underscores</td><td><code class="inline-code">student_card.dart</code></td></tr><tr><td>Private members</td><td>Prefix with a single underscore</td><td><code class="inline-code">int _count;</code>, <code class="inline-code">class _MyWidgetState</code></td></tr></tbody></table></div>
+<h3 id="formatting-linting">Formatting &amp; Linting</h3>
+<pre><code># Auto-format every Dart file in the project
+dart format .
+
+# Run the static analyzer for type errors, unused imports, and lint issues
+dart analyze</code></pre>
+<p>Most Flutter projects also include an <code class="inline-code">analysis_options.yaml</code> file that pulls in the community-standard <code class="inline-code">flutter_lints</code> package, which adds recommended lint rules on top of the base analyzer.</p>
+<pre><code># analysis_options.yaml
+include: package:flutter_lints/flutter.yaml
+
+linter:
+  rules:
+    prefer_const_constructors: true
+    avoid_print: true</code></pre>
+<h3 id="practical-guidelines">Practical Guidelines</h3>
+<ul><li>Prefer <code class="inline-code">final</code> over <code class="inline-code">var</code> for any variable that is assigned exactly once — it communicates intent and prevents accidental reassignment.</li><li>Use <code class="inline-code">const</code> constructors wherever the widget&#39;s configuration is genuinely fixed at compile time (see Unit 27&#39;s performance discussion for why this matters, not just style).</li><li>Keep one class per file where reasonable, and name the file after the class it contains.</li><li>Write doc comments (<code class="inline-code">///</code>) on public APIs — they show up in IDE tooltips and generated documentation.</li></ul>
+<pre><code>/// Represents a single student enrolled in the department.
+///
+/// [rollNumber] must be unique within an academic year.
+class Student {
+  final String name;
+  final int rollNumber;
+  const Student({required this.name, required this.rollNumber});
+}</code></pre>
+<div class="keypoints"><div class="keypoints-label">KEY POINTS</div><ul><li><code class="inline-code">dart format</code> and <code class="inline-code">dart analyze</code> should run cleanly before every commit — most teams enforce this in CI.</li><li>Naming conventions (UpperCamelCase for types, lowerCamelCase for members) are followed almost universally across the Dart ecosystem.</li><li><code class="inline-code">///</code> doc comments are worth writing on anything public — they&#39;re not just documentation, they power IDE autocomplete tooltips.</li></ul></div></section>
+<section class="unit"><h2 id="unit-16" class="unit-heading"><span class="unit-label">Unit 16</span>Iterables — A Functional Programming Deep Dive</h2><p>Unit 4 introduced <code class="inline-code">where</code>, <code class="inline-code">map</code>, and <code class="inline-code">reduce</code>. Dart&#39;s <code class="inline-code">Iterable</code> interface (implemented by <code class="inline-code">List</code>, <code class="inline-code">Set</code>, and more) offers a much richer functional toolkit that, once familiar, replaces the majority of manual loops you&#39;d otherwise write.</p>
+<div class="table-wrap"><table><thead><tr><th>Method</th><th>Returns</th><th>Purpose</th></tr></thead><tbody><tr><td><code class="inline-code">map(f)</code></td><td><code class="inline-code">Iterable</code></td><td>Transform every element</td></tr><tr><td><code class="inline-code">where(f)</code></td><td><code class="inline-code">Iterable</code></td><td>Keep only elements matching a condition</td></tr><tr><td><code class="inline-code">fold(initial, f)</code></td><td>A single value</td><td>Accumulate a result across all elements, with a starting value</td></tr><tr><td><code class="inline-code">reduce(f)</code></td><td>A single value</td><td>Like <code class="inline-code">fold</code>, but uses the first element as the starting value (fails on empty)</td></tr><tr><td><code class="inline-code">expand(f)</code></td><td><code class="inline-code">Iterable</code></td><td>Map each element to zero or more results and flatten them</td></tr><tr><td><code class="inline-code">take(n)</code> / <code class="inline-code">skip(n)</code></td><td><code class="inline-code">Iterable</code></td><td>First <code class="inline-code">n</code> elements / all but the first <code class="inline-code">n</code></td></tr><tr><td><code class="inline-code">takeWhile(f)</code> / <code class="inline-code">skipWhile(f)</code></td><td><code class="inline-code">Iterable</code></td><td>Elements while a condition holds, from the start</td></tr><tr><td><code class="inline-code">firstWhere(f)</code></td><td>A single element</td><td>First element matching a condition (throws if none found — use <code class="inline-code">orElse</code>)</td></tr><tr><td><code class="inline-code">every(f)</code> / <code class="inline-code">any(f)</code></td><td><code class="inline-code">bool</code></td><td>True if all / any elements satisfy the condition</td></tr><tr><td><code class="inline-code">toList()</code> / <code class="inline-code">toSet()</code></td><td><code class="inline-code">List</code> / <code class="inline-code">Set</code></td><td>Materialize a lazy iterable into a concrete collection</td></tr></tbody></table></div>
+<pre><code>List&lt;Map&lt;String, dynamic&gt;&gt; students = [
+  {&#39;name&#39;: &#39;Anita&#39;, &#39;marks&#39;: 92},
+  {&#39;name&#39;: &#39;Ravi&#39;, &#39;marks&#39;: 58},
+  {&#39;name&#39;: &#39;Priya&#39;, &#39;marks&#39;: 76},
+];
+
+// fold — compute the average marks
+double average = students.fold(0, (sum, s) =&gt; sum + (s[&#39;marks&#39;] as int)) / students.length;
+print(average); // 75.33...
+
+// where + map chained — names of students who passed with distinction
+var distinctionNames = students
+    .where((s) =&gt; (s[&#39;marks&#39;] as int) &gt;= 75)
+    .map((s) =&gt; s[&#39;name&#39;])
+    .toList();
+print(distinctionNames); // [Anita, Priya]
+
+// expand — flatten a list of lists
+var nested = [[1, 2], [3, 4], [5]];
+var flat = nested.expand((list) =&gt; list).toList();
+print(flat); // [1, 2, 3, 4, 5]
+
+// firstWhere with a fallback
+var topper = students.firstWhere(
+  (s) =&gt; (s[&#39;marks&#39;] as int) &gt; 90,
+  orElse: () =&gt; {&#39;name&#39;: &#39;None&#39;, &#39;marks&#39;: 0},
+);
+print(topper[&#39;name&#39;]); // Anita</code></pre>
+<div class="note tip"><span class="note-label">TIP</span><code class="inline-code">Iterable</code> operations are <strong>lazy</strong> by default — chaining <code class="inline-code">.where().map()</code> does not actually iterate the collection until something forces evaluation, like <code class="inline-code">.toList()</code>, <code class="inline-code">.length</code>, or a <code class="inline-code">for-in</code> loop. This means you can chain several transformations without worrying about intermediate copies being built at each step.</div>
+<div class="keypoints"><div class="keypoints-label">KEY POINTS</div><ul><li><code class="inline-code">fold</code> and <code class="inline-code">reduce</code> both accumulate a single result; <code class="inline-code">fold</code> lets you specify a starting value, <code class="inline-code">reduce</code> does not.</li><li><code class="inline-code">expand</code> flattens one level of nesting while mapping — useful for turning a list of lists into a single list.</li><li>Iterable chains are lazy; nothing actually runs until you call something that forces evaluation.</li></ul></div></section>
+<section class="unit"><h2 id="unit-17" class="unit-heading"><span class="unit-label">Unit 17</span>Working with DateTime &amp; Duration</h2><h3 id="creating-and-reading-dates">Creating and Reading Dates</h3>
+<pre><code>DateTime now = DateTime.now();
+DateTime specific = DateTime(2026, 7, 6);           // July 6, 2026
+DateTime parsed = DateTime.parse(&#39;2026-07-06T10:30:00&#39;);
+
+print(now.year);
+print(now.month);
+print(now.weekday); // 1 = Monday ... 7 = Sunday</code></pre>
+<h3 id="duration-date-arithmetic">Duration &amp; Date Arithmetic</h3>
+<pre><code>DateTime deadline = DateTime.now().add(const Duration(days: 7));
+DateTime pastEvent = DateTime.now().subtract(const Duration(hours: 3));
+
+Duration difference = deadline.difference(DateTime.now());
+print(&#39;${difference.inDays} days remaining&#39;);
+
+bool isOverdue = DateTime.now().isAfter(deadline);</code></pre>
+<h3 id="formatting-with-intl">Formatting with intl</h3>
+<pre><code>import &#39;package:intl/intl.dart&#39;;
+
+final formatted = DateFormat(&#39;dd MMM yyyy, hh:mm a&#39;).format(DateTime.now());
+print(formatted); // e.g. 06 Jul 2026, 03:45 PM</code></pre>
+<div class="note warning"><span class="note-label">CAUTION</span><code class="inline-code">DateTime.now()</code> returns the device&#39;s local time by default. When storing timestamps that need to be compared across time zones (e.g. a server-side deadline), convert explicitly with <code class="inline-code">.toUtc()</code> before storing, and <code class="inline-code">.toLocal()</code> only when displaying to the user.</div>
+<div class="keypoints"><div class="keypoints-label">KEY POINTS</div><ul><li><code class="inline-code">DateTime</code> represents a specific point in time; <code class="inline-code">Duration</code> represents a span of time.</li><li><code class="inline-code">.add()</code>/<code class="inline-code">.subtract()</code> with a <code class="inline-code">Duration</code> is the correct way to shift a date, rather than manual day/month arithmetic.</li><li>Store timestamps in UTC and convert to local time only for display, to avoid time-zone bugs.</li></ul></div></section>
+    <div class="page-nav"><span></span><a href="part2-flutter.html" class="next"><span class="dir">Next &rarr;</span>II. The Flutter Framework</a></div>
+  </div>
+</main>
+</div>
+<script src="assets/script.js"></script>
+</body>
+</html>

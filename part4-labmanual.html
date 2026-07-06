@@ -1,0 +1,1629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JNTUK R23 LAB MANUAL · Dart & Flutter Manual</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-light.min.css">
+  <link rel="stylesheet" href="assets/style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+</head>
+<body>
+
+  <div class="topbar">
+    <button data-nav-toggle aria-label="Toggle navigation">&#9776; Menu</button>
+    <span class="brand">Dart &amp; Flutter Manual</span>
+  </div>
+<div class="shell">
+
+  <aside class="sidebar">
+    <a href="index.html" style="text-decoration:none;">
+      <span class="logo">Dart &amp; Flutter</span>
+      <span class="logo-sub">Complete Manual</span>
+    </a>
+    <nav class="parts"><a href="part1-dart.html" class="">I. The Dart Language</a>
+<a href="part2-flutter.html" class="">II. The Flutter Framework</a>
+<a href="part3-capstone.html" class="">III. Capstone Project</a>
+<a href="part4-labmanual.html" class="active">IV. JNTUK R23 Lab Manual</a>
+<a href="part5-appendices.html" class="">V. Quick-Reference Appendices</a></nav>
+    <div class="unit-nav">
+      <span class="unit-nav-label">On this page</span>
+      <ul><li><a href="#unit-1">Experiment 1 · Installing Flutter &amp; Dart, and Dart Language Basics</a></li>
+<li><a href="#unit-2">Experiment 2 · Exploring Flutter Widgets and Layout Structures</a></li>
+<li><a href="#unit-3">Experiment 3 · Responsive UI with MediaQuery and Breakpoints</a></li>
+<li><a href="#unit-4">Experiment 4 · Navigation Between Screens</a></li>
+<li><a href="#unit-5">Experiment 5 · Stateful &amp; Stateless Widgets, State Management</a></li>
+<li><a href="#unit-6">Experiment 6 · Custom Widgets and Theming</a></li>
+<li><a href="#unit-7">Experiment 7 · Forms, Input Fields, and Validation</a></li>
+<li><a href="#unit-8">Experiment 8 · Scrollable Lists and Item Selection</a></li>
+<li><a href="#unit-9">Experiment 9 · Animations in Flutter</a></li>
+<li><a href="#unit-10">Experiment 10 · Fetching and Displaying REST API Data</a></li></ul>
+    </div>
+  </aside>
+<main class="main">
+  <div class="content-wrap">
+    <div class="part-hero"><div class="part-title">PART IV — JNTUK R23 LAB MANUAL</div><div class="part-subtitle">Flutter Application Development Laboratory — 10 Experiments (as per JNTUK Kakinada R23 Regulation)</div></div><section class="unit"><h2 id="unit-1" class="unit-heading"><span class="unit-label">Experiment 1</span>Installing Flutter &amp; Dart, and Dart Language Basics</h2><p><strong>Aim:</strong> (a) To install the Flutter SDK and Dart SDK and verify the setup. (b) To write a simple Dart program to understand core language basics — variables, data types, operators, conditionals, loops, and functions.</p>
+<p><strong>Software Required:</strong> A computer with internet access, Flutter SDK (bundled with Dart SDK), Visual Studio Code or Android Studio with the Flutter/Dart plugins, an Android Emulator or physical Android device with USB debugging enabled.</p>
+<h3 id="part-a-installing-flutter-and-dart-sdk-procedure">Part (a): Installing Flutter and Dart SDK — Procedure</h3>
+<ol><li>Download the Flutter SDK zip file for your operating system from flutter.dev and extract it to a permanent folder (e.g. <code class="inline-code">C:\src\flutter</code> on Windows, <code class="inline-code">~/development/flutter</code> on macOS/Linux).</li><li>Add the <code class="inline-code">flutter/bin</code> folder to your system&#39;s <code class="inline-code">PATH</code> environment variable, so the <code class="inline-code">flutter</code> and <code class="inline-code">dart</code> commands work from any terminal location.</li><li>Install Android Studio (for the Android SDK and an emulator) and, inside it, install the <strong>Flutter</strong> and <strong>Dart</strong> plugins from the plugin marketplace.</li><li>Open a terminal and run <code class="inline-code">flutter doctor</code> — this checks your entire setup and lists anything still missing.</li><li>Resolve any issues <code class="inline-code">flutter doctor</code> reports (accepting Android licenses with <code class="inline-code">flutter doctor --android-licenses</code> is a common one), then run <code class="inline-code">flutter doctor</code> again until all checks pass.</li><li>Create a test project with <code class="inline-code">flutter create test_app</code>, then run it with <code class="inline-code">flutter run</code> to confirm everything works end-to-end.</li></ol>
+<pre><code># Step 4 — verify the installation
+flutter doctor</code></pre>
+<h3 id="expected-output">Expected Output</h3>
+<pre><code>Doctor summary (to see all details, run flutter doctor -v):
+[✓] Flutter (Channel stable, 3.24.0, on Microsoft Windows)
+[✓] Windows Version
+[✓] Android toolchain - develop for Android devices
+[✓] Chrome - develop for the web
+[✓] Android Studio (version 2024.1)
+[✓] Connected device (1 available)
+[✓] Network resources
+
+• No issues found!</code></pre>
+<div class="note tip"><span class="note-label">TIP</span>&quot;No issues found!&quot; confirms your machine is fully ready for Flutter development. If any line shows a cross (✗) instead of a tick, read the message beneath it carefully — <code class="inline-code">flutter doctor</code> always tells you exactly what command to run next.</div>
+<h3 id="part-b-program-dart-language-basics">Part (b): Program — Dart Language Basics</h3>
+<pre><code>// Experiment 1(b) - Dart Language Basics
+// This program demonstrates variables, data types, operators,
+// conditionals, loops, lists, and functions in Dart.
+
+void main() {
+  // ---------- VARIABLES &amp; DATA TYPES ----------
+  String studentName = &#39;Sudhakar&#39;;   // String - holds text
+  int rollNumber = 1;                // int - holds whole numbers
+  double cgpa = 9.2;                 // double - holds decimal numbers
+  bool isPassed = true;               // bool - holds true/false
+
+  // Print the basic details using string interpolation ($variable)
+  print(&#39;Student Name : $studentName&#39;);
+  print(&#39;Roll Number  : $rollNumber&#39;);
+  print(&#39;CGPA         : $cgpa&#39;);
+  print(&#39;Passed?      : $isPassed&#39;);
+  print(&#39;----------------------------------&#39;);
+
+  // ---------- OPERATORS ----------
+  int marks1 = 85;                    // First subject&#39;s marks
+  int marks2 = 90;                    // Second subject&#39;s marks
+  int totalMarks = marks1 + marks2;   // &#39;+&#39; is the addition operator
+  double average = totalMarks / 2;    // &#39;/&#39; is the division operator
+
+  print(&#39;Total Marks  : $totalMarks&#39;);
+  print(&#39;Average      : $average&#39;);
+  print(&#39;----------------------------------&#39;);
+
+  // ---------- CONDITIONAL STATEMENT (if-else) ----------
+  String grade;                       // Will hold the computed grade
+  if (average &gt;= 90) {
+    grade = &#39;A+&#39;;                      // Runs only if average is 90 or above
+  } else if (average &gt;= 75) {
+    grade = &#39;A&#39;;                       // Runs if average is between 75 and 89
+  } else {
+    grade = &#39;B&#39;;                       // Runs for anything below 75
+  }
+  print(&#39;Grade        : $grade&#39;);
+  print(&#39;----------------------------------&#39;);
+
+  // ---------- LOOP (for) + LIST ----------
+  List&lt;int&gt; subjectMarks = [85, 90, 88]; // A list holding 3 subjects&#39; marks
+  for (int i = 0; i &lt; subjectMarks.length; i++) {
+    // i starts at 0 and runs while i is less than the list&#39;s length
+    print(&#39;Subject ${i + 1} Marks: ${subjectMarks[i]}&#39;);
+  }
+  print(&#39;----------------------------------&#39;);
+
+  // ---------- FUNCTION CALL ----------
+  String message = greetStudent(studentName); // Call the function below
+  print(message);
+
+  // ---------- ENCOURAGING FINAL OUTPUT ----------
+  print(&#39;----------------------------------&#39;);
+  print(&#39;🎉 Great job! You just ran your first Dart program successfully!&#39;);
+}
+
+// A function that takes a String parameter and RETURNS a String
+String greetStudent(String name) {
+  return &#39;Welcome to Dart programming, $name!&#39;; // &#39;return&#39; sends this value back
+}</code></pre>
+<h3 id="expected-output">Expected Output</h3>
+<pre><code>Student Name : Sudhakar
+Roll Number  : 1
+CGPA         : 9.2
+Passed?      : true
+----------------------------------
+Total Marks  : 175
+Average      : 87.5
+----------------------------------
+Grade        : A
+----------------------------------
+Subject 1 Marks: 85
+Subject 2 Marks: 90
+Subject 3 Marks: 88
+----------------------------------
+Welcome to Dart programming, Sudhakar!
+----------------------------------
+🎉 Great job! You just ran your first Dart program successfully!</code></pre>
+<div class="note tip"><span class="note-label">TIP</span>Try running this in DartPad (dartpad.dev) first if Flutter isn&#39;t fully installed yet on your machine — it needs zero setup and is perfect for practicing pure Dart basics before moving on to Flutter widgets in Experiment 2.</div>
+<div class="keypoints"><div class="keypoints-label">KEY POINTS</div><ul><li><strong>Result:</strong> Flutter and Dart SDKs were successfully installed and verified using <code class="inline-code">flutter doctor</code>, and a Dart program demonstrating variables, operators, conditionals, loops, and functions was executed successfully.</li></ul></div>
+<h3 id="viva-voce-questions">Viva Voce Questions</h3>
+<ul><li>What is the purpose of running <code class="inline-code">flutter doctor</code>, and what does &quot;No issues found!&quot; confirm?</li><li>What is the difference between <code class="inline-code">var</code> and explicitly typing a variable as <code class="inline-code">String</code>/<code class="inline-code">int</code>?</li><li>Why does <code class="inline-code">average</code> need to be a <code class="inline-code">double</code> instead of an <code class="inline-code">int</code> in this program?</li><li>What does the <code class="inline-code">return</code> keyword do inside <code class="inline-code">greetStudent</code>?</li><li>What is the difference between <code class="inline-code">print()</code> and using string interpolation with <code class="inline-code">$variable</code>?</li></ul></section>
+<section class="unit"><h2 id="unit-2" class="unit-heading"><span class="unit-label">Experiment 2</span>Exploring Flutter Widgets and Layout Structures</h2><p><strong>Aim:</strong> (a) To explore various built-in Flutter widgets such as <code class="inline-code">Text</code>, <code class="inline-code">Image</code>, <code class="inline-code">Container</code>, and <code class="inline-code">Icon</code>. (b) To implement different layout structures using <code class="inline-code">Row</code>, <code class="inline-code">Column</code>, and <code class="inline-code">Stack</code> widgets.</p>
+<p><strong>Software Required:</strong> Flutter SDK, VS Code/Android Studio, an emulator or physical device with an active internet connection (for the network image in Part (a)).</p>
+<h3 id="part-a-program-exploring-flutter-widgets">Part (a): Program — Exploring Flutter Widgets</h3>
+<pre><code>// Experiment 2(a) - Exploring Flutter Widgets
+// Demonstrates Text, Icon, Container, and Image widgets.
+import &#39;package:flutter/material.dart&#39;; // Gives access to Material widgets
+
+void main() {
+  runApp(const WidgetExplorerApp()); // Attaches the root widget to the screen
+}
+
+// The root widget - a StatelessWidget because its content never changes
+class WidgetExplorerApp extends StatelessWidget {
+  const WidgetExplorerApp({super.key}); // Constructor
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: &#39;Widget Explorer&#39;,              // App title (task switcher)
+      debugShowCheckedModeBanner: false,      // Hides the red debug banner
+      home: Scaffold(                         // Basic page structure
+        appBar: AppBar(
+          title: const Text(&#39;Exploring Flutter Widgets&#39;), // AppBar text
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(16),   // 16px space on all sides
+          child: Column(                       // Arranges children vertically
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              // 1. TEXT WIDGET - displays a string
+              const Text(
+                &#39;Hello, Flutter Learner!&#39;,
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 16), // Empty vertical gap
+
+              // 2. ICON WIDGET - a built-in Material icon
+              const Icon(Icons.school, size: 50, color: Colors.indigo),
+              const SizedBox(height: 16),
+
+              // 3. CONTAINER WIDGET - a decorated box
+              Container(
+                padding: const EdgeInsets.all(12),          // Inner spacing
+                decoration: BoxDecoration(
+                  color: Colors.indigo.shade50,              // Background colour
+                  borderRadius: BorderRadius.circular(10),   // Rounded corners
+                  border: Border.all(color: Colors.indigo),  // Border colour
+                ),
+                child: const Text(&#39;I am inside a Container widget!&#39;),
+              ),
+              const SizedBox(height: 16),
+
+              // 4. IMAGE WIDGET - loads an image from the network
+              Image.network(
+                &#39;https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg&#39;,
+                width: 150,
+                height: 100,
+                fit: BoxFit.cover, // Scales the image to fill the given box
+              ),
+              const SizedBox(height: 16),
+
+              // 5. Encouraging message to conclude the exploration
+              const Text(
+                &#39;🎉 Great! You explored 4 core Flutter widgets!&#39;,
+                style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}</code></pre>
+<h3 id="expected-output">Expected Output</h3>
+<p>The app opens with an AppBar titled &quot;Exploring Flutter Widgets&quot;. Below it, the screen shows (top to bottom): a bold heading &quot;Hello, Flutter Learner!&quot;, a large indigo school icon, a light-indigo rounded box containing the text &quot;I am inside a Container widget!&quot;, a small network photo of an owl, and finally a green congratulatory message confirming all four widgets were explored successfully.</p>
+<h3 id="part-b-program-row-column-stack-layouts">Part (b): Program — Row, Column &amp; Stack Layouts</h3>
+<pre><code>// Experiment 2(b) - Row, Column &amp; Stack Layouts
+import &#39;package:flutter/material.dart&#39;;
+
+void main() {
+  runApp(const LayoutDemoApp());
+}
+
+class LayoutDemoApp extends StatelessWidget {
+  const LayoutDemoApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(title: const Text(&#39;Row, Column &amp; Stack Demo&#39;)),
+        body: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column( // OUTER column - arranges everything vertically
+            children: [
+              const Text(&#39;1. Row Example&#39;, style: TextStyle(fontWeight: FontWeight.bold)),
+              const SizedBox(height: 8),
+
+              // ROW - arranges its 3 children horizontally, side by side
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly, // Even gaps
+                children: [
+                  Container(width: 50, height: 50, color: Colors.red),
+                  Container(width: 50, height: 50, color: Colors.green),
+                  Container(width: 50, height: 50, color: Colors.blue),
+                ],
+              ),
+              const SizedBox(height: 24),
+
+              const Text(&#39;2. Column Example&#39;, style: TextStyle(fontWeight: FontWeight.bold)),
+              const SizedBox(height: 8),
+
+              // Nested COLUMN - arranges its 2 children vertically
+              Column(
+                children: [
+                  Container(width: 100, height: 30, color: Colors.orange),
+                  const SizedBox(height: 4),
+                  Container(width: 100, height: 30, color: Colors.purple),
+                ],
+              ),
+              const SizedBox(height: 24),
+
+              const Text(&#39;3. Stack Example&#39;, style: TextStyle(fontWeight: FontWeight.bold)),
+              const SizedBox(height: 8),
+
+              // STACK - overlaps its children ON TOP of each other
+              SizedBox(
+                width: 150,
+                height: 150,
+                child: Stack(
+                  alignment: Alignment.center, // Centers children by default
+                  children: [
+                    Container(width: 150, height: 150, color: Colors.blueGrey.shade100),
+                    const Icon(Icons.star, size: 60, color: Colors.amber),
+                    const Positioned( // Positioned pins a child at an exact spot
+                      bottom: 8,
+                      child: Text(&#39;Stacked!&#39;, style: TextStyle(fontWeight: FontWeight.bold)),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 24),
+
+              const Text(
+                &#39;🎉 Excellent! You mastered Row, Column &amp; Stack layouts!&#39;,
+                style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}</code></pre>
+<h3 id="expected-output">Expected Output</h3>
+<p>The screen shows three labelled sections: a row of three coloured squares (red, green, blue) spaced evenly; a column of an orange bar stacked above a purple bar; and a 150×150 grey box with a large amber star centered on it and the label &quot;Stacked!&quot; pinned near its bottom edge. A green success message appears at the end.</p>
+<div class="keypoints"><div class="keypoints-label">KEY POINTS</div><ul><li><strong>Result:</strong> Various Flutter widgets (Text, Icon, Container, Image) were explored, and Row, Column, and Stack layout structures were implemented and executed successfully.</li></ul></div>
+<h3 id="viva-voce-questions">Viva Voce Questions</h3>
+<ul><li>What is the difference between a <code class="inline-code">Container</code> and a <code class="inline-code">SizedBox</code>?</li><li>Why must an <code class="inline-code">Image.network</code> widget be given a <code class="inline-code">width</code>/<code class="inline-code">height</code> or a bounded parent?</li><li>What is the difference between <code class="inline-code">mainAxisAlignment</code> and <code class="inline-code">crossAxisAlignment</code>?</li><li>Why does the <code class="inline-code">Stack</code> example need to be wrapped in a <code class="inline-code">SizedBox</code>?</li><li>What would happen if <code class="inline-code">Positioned</code> were used outside of a <code class="inline-code">Stack</code>?</li></ul></section>
+<section class="unit"><h2 id="unit-3" class="unit-heading"><span class="unit-label">Experiment 3</span>Responsive UI with MediaQuery and Breakpoints</h2><p><strong>Aim:</strong> (a) To design a responsive UI that adapts to different screen sizes. (b) To implement media queries and breakpoints for responsiveness.</p>
+<p><strong>Software Required:</strong> Flutter SDK, VS Code/Android Studio, an emulator (test by resizing the emulator window or using the responsive preview in DevTools).</p>
+<h3 id="part-a-program-responsive-ui-using-mediaquery">Part (a): Program — Responsive UI using MediaQuery</h3>
+<pre><code>// Experiment 3(a) - Responsive UI using MediaQuery
+import &#39;package:flutter/material.dart&#39;;
+
+void main() {
+  runApp(const ResponsiveApp());
+}
+
+class ResponsiveApp extends StatelessWidget {
+  const ResponsiveApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: const ResponsiveHome(),
+    );
+  }
+}
+
+class ResponsiveHome extends StatelessWidget {
+  const ResponsiveHome({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    // MediaQuery.of(context) gives details about the whole screen
+    double screenWidth = MediaQuery.of(context).size.width; // Read screen width
+
+    bool isTablet = screenWidth &gt; 600; // true if width is over 600 pixels
+
+    return Scaffold(
+      appBar: AppBar(title: const Text(&#39;Responsive UI with MediaQuery&#39;)),
+      body: Center(
+        // Show a different layout depending on the detected screen width
+        child: isTablet ? buildTabletLayout(screenWidth) : buildMobileLayout(screenWidth),
+      ),
+    );
+  }
+
+  // Layout used on narrow (phone) screens
+  Widget buildMobileLayout(double width) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const Icon(Icons.phone_android, size: 80, color: Colors.indigo),
+        const SizedBox(height: 12),
+        Text(&#39;Mobile Layout (width: ${width.toInt()}px)&#39;),
+        const SizedBox(height: 12),
+        const Text(&#39;🎉 Great! The UI adapted to a small screen!&#39;),
+      ],
+    );
+  }
+
+  // Layout used on wide (tablet) screens
+  Widget buildTabletLayout(double width) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const Icon(Icons.tablet_mac, size: 80, color: Colors.teal),
+        const SizedBox(width: 20),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(&#39;Tablet Layout (width: ${width.toInt()}px)&#39;),
+            const SizedBox(height: 12),
+            const Text(&#39;🎉 Great! The UI adapted to a large screen!&#39;),
+          ],
+        ),
+      ],
+    );
+  }
+}</code></pre>
+<h3 id="expected-output">Expected Output</h3>
+<p>On a phone-sized screen, a vertical layout appears with a large phone icon, the detected width in pixels, and a green confirmation message. On a tablet-sized screen (or a resized emulator window wider than 600px), a horizontal layout appears instead, with a tablet icon beside the text.</p>
+<h3 id="part-b-program-breakpoints-using-layoutbuilder">Part (b): Program — Breakpoints using LayoutBuilder</h3>
+<pre><code>// Experiment 3(b) - Breakpoints using LayoutBuilder
+import &#39;package:flutter/material.dart&#39;;
+
+void main() {
+  runApp(const BreakpointApp());
+}
+
+class BreakpointApp extends StatelessWidget {
+  const BreakpointApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(title: const Text(&#39;Breakpoints with LayoutBuilder&#39;)),
+        // LayoutBuilder reports the space available to THIS widget
+        body: LayoutBuilder(
+          builder: (context, constraints) {
+            // Three breakpoints: mobile &lt; 600, tablet &lt; 1024, else desktop
+            if (constraints.maxWidth &lt; 600) {
+              return buildLayout(&#39;Mobile&#39;, 1, Colors.red);      // 1 column
+            } else if (constraints.maxWidth &lt; 1024) {
+              return buildLayout(&#39;Tablet&#39;, 2, Colors.orange);   // 2 columns
+            } else {
+              return buildLayout(&#39;Desktop&#39;, 4, Colors.green);   // 4 columns
+            }
+          },
+        ),
+      ),
+    );
+  }
+
+  // Builds a simple grid with the given number of columns
+  Widget buildLayout(String label, int columns, Color color) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(&#39;$label Breakpoint Detected&#39;, style: const TextStyle(fontSize: 20)),
+        const SizedBox(height: 12),
+        GridView.count(
+          shrinkWrap: true,          // Let the grid size itself to its content
+          crossAxisCount: columns,   // Number of columns based on breakpoint
+          padding: const EdgeInsets.all(16),
+          children: List.generate(
+            columns * 2, // Create a few sample boxes to fill the grid
+            (index) =&gt; Container(
+              margin: const EdgeInsets.all(4),
+              color: color.withOpacity(0.3),
+              height: 60,
+              child: Center(child: Text(&#39;Box ${index + 1}&#39;)),
+            ),
+          ),
+        ),
+        const SizedBox(height: 12),
+        const Text(&#39;🎉 Well done! You implemented responsive breakpoints!&#39;),
+      ],
+    );
+  }
+}</code></pre>
+<h3 id="expected-output">Expected Output</h3>
+<p>On a narrow window, a single red-tinted column of boxes appears under the label &quot;Mobile Breakpoint Detected&quot;. Resizing the window past 600px switches to two orange columns labelled &quot;Tablet Breakpoint Detected&quot;; past 1024px, four green columns appear labelled &quot;Desktop Breakpoint Detected&quot; — all updating live as the window is resized.</p>
+<div class="keypoints"><div class="keypoints-label">KEY POINTS</div><ul><li><strong>Result:</strong> A responsive UI adapting to different screen sizes was designed using <code class="inline-code">MediaQuery</code>, and breakpoint-based layouts were implemented using <code class="inline-code">LayoutBuilder</code>, both executed successfully.</li></ul></div>
+<h3 id="viva-voce-questions">Viva Voce Questions</h3>
+<ul><li>What is the difference between <code class="inline-code">MediaQuery</code> and <code class="inline-code">LayoutBuilder</code>?</li><li>Why might <code class="inline-code">LayoutBuilder</code> give a different width than <code class="inline-code">MediaQuery</code> for the same widget?</li><li>What are typical breakpoint values used to distinguish mobile, tablet, and desktop layouts?</li><li>What does <code class="inline-code">constraints.maxWidth</code> represent inside a <code class="inline-code">LayoutBuilder</code>?</li><li>Why is <code class="inline-code">shrinkWrap: true</code> needed on the <code class="inline-code">GridView</code> in this program?</li></ul></section>
+<section class="unit"><h2 id="unit-4" class="unit-heading"><span class="unit-label">Experiment 4</span>Navigation Between Screens</h2><p><strong>Aim:</strong> (a) To set up navigation between different screens using <code class="inline-code">Navigator</code>. (b) To implement navigation using named routes.</p>
+<p><strong>Software Required:</strong> Flutter SDK, VS Code/Android Studio, an emulator or physical device.</p>
+<h3 id="part-a-program-navigator-push-pop">Part (a): Program — Navigator push/pop</h3>
+<pre><code>// Experiment 4(a) - Navigation using Navigator.push and Navigator.pop
+import &#39;package:flutter/material.dart&#39;;
+
+void main() {
+  runApp(const NavigationApp());
+}
+
+class NavigationApp extends StatelessWidget {
+  const NavigationApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: const FirstScreen(), // The screen shown when the app opens
+    );
+  }
+}
+
+// The first screen of the app
+class FirstScreen extends StatelessWidget {
+  const FirstScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text(&#39;First Screen&#39;)),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            // Navigator.push ADDS a new screen on top of the current one
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) =&gt; const SecondScreen()),
+            );
+          },
+          child: const Text(&#39;Go to Second Screen&#39;),
+        ),
+      ),
+    );
+  }
+}
+
+// The second screen of the app
+class SecondScreen extends StatelessWidget {
+  const SecondScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text(&#39;Second Screen&#39;)),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text(&#39;🎉 Great! You navigated successfully!&#39;),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () {
+                // Navigator.pop REMOVES the current screen, showing the previous one
+                Navigator.pop(context);
+              },
+              child: const Text(&#39;Go Back&#39;),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}</code></pre>
+<h3 id="expected-output">Expected Output</h3>
+<p>The app opens on &quot;First Screen&quot; with a button. Tapping it slides in &quot;Second Screen&quot;, showing a congratulatory message and a &quot;Go Back&quot; button, which returns to &quot;First Screen&quot; with the standard Android back-slide transition.</p>
+<h3 id="part-b-program-named-routes">Part (b): Program — Named Routes</h3>
+<pre><code>// Experiment 4(b) - Navigation using Named Routes
+import &#39;package:flutter/material.dart&#39;;
+
+void main() {
+  runApp(const NamedRouteApp());
+}
+
+class NamedRouteApp extends StatelessWidget {
+  const NamedRouteApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      initialRoute: &#39;/&#39;,           // The route displayed when the app starts
+      routes: {                    // Maps a route NAME to a screen builder
+        &#39;/&#39;: (context) =&gt; const HomeRoute(),
+        &#39;/details&#39;: (context) =&gt; const DetailsRoute(),
+      },
+    );
+  }
+}
+
+class HomeRoute extends StatelessWidget {
+  const HomeRoute({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text(&#39;Home Route&#39;)),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            // Navigate using the route&#39;s registered NAME, not its class
+            Navigator.pushNamed(context, &#39;/details&#39;);
+          },
+          child: const Text(&#39;Go to Details (Named Route)&#39;),
+        ),
+      ),
+    );
+  }
+}
+
+class DetailsRoute extends StatelessWidget {
+  const DetailsRoute({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text(&#39;Details Route&#39;)),
+      body: const Center(
+        child: Text(&#39;🎉 Awesome! Named routing works perfectly!&#39;),
+      ),
+    );
+  }
+}</code></pre>
+<h3 id="expected-output">Expected Output</h3>
+<p>The app opens on &quot;Home Route&quot; with a button labelled &quot;Go to Details (Named Route)&quot;. Tapping it navigates to &quot;Details Route&quot;, displaying a congratulatory message confirming the named route was resolved and navigated to correctly.</p>
+<div class="keypoints"><div class="keypoints-label">KEY POINTS</div><ul><li><strong>Result:</strong> Navigation between screens was successfully implemented using both <code class="inline-code">Navigator.push</code>/<code class="inline-code">pop</code> and named routes.</li></ul></div>
+<h3 id="viva-voce-questions">Viva Voce Questions</h3>
+<ul><li>What is the difference between <code class="inline-code">Navigator.push</code> and <code class="inline-code">Navigator.pushNamed</code>?</li><li>What does <code class="inline-code">MaterialPageRoute</code> do?</li><li>Why might named routes be preferred in an app with many screens?</li><li>How would you pass data back from a popped screen to the screen that pushed it?</li><li>What is stored in the <code class="inline-code">routes</code> map of a <code class="inline-code">MaterialApp</code>?</li></ul></section>
+<section class="unit"><h2 id="unit-5" class="unit-heading"><span class="unit-label">Experiment 5</span>Stateful &amp; Stateless Widgets, State Management</h2><p><strong>Aim:</strong> (a) To learn about stateful and stateless widgets. (b) To implement state management using <code class="inline-code">setState</code> and the <code class="inline-code">Provider</code> package.</p>
+<p><strong>Software Required:</strong> Flutter SDK, VS Code/Android Studio, an emulator or physical device, and the <code class="inline-code">provider</code> package added to <code class="inline-code">pubspec.yaml</code> for Part (b).</p>
+<pre><code># Add this line under dependencies in pubspec.yaml, then run: flutter pub get
+dependencies:
+  flutter:
+    sdk: flutter
+  provider: ^6.1.0</code></pre>
+<h3 id="part-a-program-stateless-vs-stateful-widgets">Part (a): Program — Stateless vs Stateful Widgets</h3>
+<pre><code>// Experiment 5(a) - Stateless vs Stateful Widgets
+import &#39;package:flutter/material.dart&#39;;
+
+void main() {
+  runApp(const StateDemoApp());
+}
+
+class StateDemoApp extends StatelessWidget {
+  const StateDemoApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(title: const Text(&#39;Stateless vs Stateful&#39;)),
+        body: const Column(
+          children: [
+            SizedBox(height: 20),
+            GreetingWidget(name: &#39;Sudhakar&#39;), // A StatelessWidget
+            SizedBox(height: 40),
+            CounterWidget(), // A StatefulWidget
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// StatelessWidget - output depends ONLY on the constructor arguments
+class GreetingWidget extends StatelessWidget {
+  final String name; // Set once, never changes
+  const GreetingWidget({super.key, required this.name});
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(&#39;Hello, $name! (StatelessWidget)&#39;, style: const TextStyle(fontSize: 18));
+  }
+}
+
+// StatefulWidget - CAN hold data that changes over time
+class CounterWidget extends StatefulWidget {
+  const CounterWidget({super.key});
+
+  @override
+  State&lt;CounterWidget&gt; createState() =&gt; _CounterWidgetState();
+}
+
+// The State object holds the mutable data for CounterWidget
+class _CounterWidgetState extends State&lt;CounterWidget&gt; {
+  int _count = 0; // Mutable field, starts at 0
+
+  // Increases the counter and tells Flutter to redraw the widget
+  void _increment() {
+    setState(() {
+      _count++; // Must happen INSIDE setState so Flutter knows to rebuild
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text(&#39;Counter Value: $_count&#39;, style: const TextStyle(fontSize: 20)),
+        const SizedBox(height: 8),
+        ElevatedButton(onPressed: _increment, child: const Text(&#39;Increment&#39;)),
+        const SizedBox(height: 8),
+        if (_count &gt;= 5) // Encouragement appears after enough taps
+          const Text(&#39;🎉 Great! You understood StatefulWidgets!&#39;,
+              style: TextStyle(color: Colors.green)),
+      ],
+    );
+  }
+}</code></pre>
+<h3 id="expected-output">Expected Output</h3>
+<p>The screen shows &quot;Hello, Sudhakar! (StatelessWidget)&quot; at the top, followed by a live counter starting at 0 with an &quot;Increment&quot; button. Each tap increases the number shown; after 5 taps, a green message confirms understanding of <code class="inline-code">StatefulWidget</code> behaviour.</p>
+<h3 id="part-b-program-state-management-with-setstate-and-provider">Part (b): Program — State Management with setState and Provider</h3>
+<pre><code>// Experiment 5(b) - State Management with setState and Provider
+import &#39;package:flutter/material.dart&#39;;
+import &#39;package:provider/provider.dart&#39;; // From the provider package
+
+void main() {
+  runApp(
+    // ChangeNotifierProvider makes CounterModel available to all widgets below it
+    ChangeNotifierProvider(
+      create: (context) =&gt; CounterModel(),
+      child: const ProviderDemoApp(),
+    ),
+  );
+}
+
+// CounterModel holds the shared count and notifies listeners when it changes
+class CounterModel extends ChangeNotifier {
+  int _count = 0;             // Private - only this class can modify it
+  int get count =&gt; _count;    // Public getter - other widgets read through this
+
+  void increment() {
+    _count++;                 // Update the private field
+    notifyListeners();        // Tell every watching widget to rebuild
+  }
+}
+
+class ProviderDemoApp extends StatelessWidget {
+  const ProviderDemoApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(title: const Text(&#39;setState vs Provider&#39;)),
+        body: const Center(child: CounterDisplay()),
+      ),
+    );
+  }
+}
+
+// This widget only DISPLAYS the count and rebuilds automatically when it changes
+class CounterDisplay extends StatelessWidget {
+  const CounterDisplay({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    // context.watch SUBSCRIBES this widget to CounterModel&#39;s changes
+    final count = context.watch&lt;CounterModel&gt;().count;
+
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(&#39;Provider Counter: $count&#39;, style: const TextStyle(fontSize: 22)),
+        const SizedBox(height: 12),
+        ElevatedButton(
+          onPressed: () {
+            // context.read reads once WITHOUT subscribing - correct inside callbacks
+            context.read&lt;CounterModel&gt;().increment();
+          },
+          child: const Text(&#39;Increment via Provider&#39;),
+        ),
+        const SizedBox(height: 12),
+        const Text(&#39;🎉 Fantastic! You used Provider for state management!&#39;),
+      ],
+    );
+  }
+}</code></pre>
+<h3 id="expected-output">Expected Output</h3>
+<p>The screen shows &quot;Provider Counter: 0&quot; with an &quot;Increment via Provider&quot; button. Each tap increases the displayed count immediately, along with a green-styled congratulatory message confirming the <code class="inline-code">Provider</code> pattern is working.</p>
+<div class="note tip"><span class="note-label">TIP</span>Compare the two programs side by side: in Part (a), <code class="inline-code">setState()</code> rebuilds only the local widget holding the state; in Part (b), <code class="inline-code">notifyListeners()</code> can rebuild *any* widget anywhere in the tree that is watching <code class="inline-code">CounterModel</code> — this is the key difference that makes <code class="inline-code">Provider</code> useful for sharing state across distant widgets.</div>
+<div class="keypoints"><div class="keypoints-label">KEY POINTS</div><ul><li><strong>Result:</strong> The behaviour of stateless and stateful widgets was studied, and state management was successfully implemented using both <code class="inline-code">setState</code> and the <code class="inline-code">Provider</code> package.</li></ul></div>
+<h3 id="viva-voce-questions">Viva Voce Questions</h3>
+<ul><li>Why can&#39;t a <code class="inline-code">StatelessWidget</code> have a mutable counter field the way <code class="inline-code">CounterWidget</code>&#39;s <code class="inline-code">State</code> class does?</li><li>What is the difference between <code class="inline-code">context.watch&lt;T&gt;()</code> and <code class="inline-code">context.read&lt;T&gt;()</code>?</li><li>What does <code class="inline-code">notifyListeners()</code> actually do?</li><li>Why is <code class="inline-code">ChangeNotifierProvider</code> placed above <code class="inline-code">MyApp</code> in <code class="inline-code">runApp()</code>?</li><li>What would happen if <code class="inline-code">setState()</code> were removed from the <code class="inline-code">_increment()</code> method in Part (a)?</li></ul></section>
+<section class="unit"><h2 id="unit-6" class="unit-heading"><span class="unit-label">Experiment 6</span>Custom Widgets and Theming</h2><p><strong>Aim:</strong> (a) To create custom widgets for specific UI elements. (b) To apply styling using themes and custom styles.</p>
+<p><strong>Software Required:</strong> Flutter SDK, VS Code/Android Studio, an emulator or physical device.</p>
+<h3 id="part-a-program-creating-a-custom-widget">Part (a): Program — Creating a Custom Widget</h3>
+<pre><code>// Experiment 6(a) - Creating a Reusable Custom Widget
+import &#39;package:flutter/material.dart&#39;;
+
+void main() {
+  runApp(const CustomWidgetApp());
+}
+
+class CustomWidgetApp extends StatelessWidget {
+  const CustomWidgetApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(title: const Text(&#39;Custom Widget Demo&#39;)),
+        body: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            children: [
+              // Reuse the SAME custom widget with DIFFERENT data each time
+              const ProfileCard(name: &#39;Anita&#39;, role: &#39;Student&#39;, icon: Icons.person),
+              const SizedBox(height: 12),
+              const ProfileCard(name: &#39;Dr. Sudhakar&#39;, role: &#39;Faculty&#39;, icon: Icons.school),
+              const SizedBox(height: 20),
+              const Text(&#39;🎉 Nice! You built a reusable custom widget!&#39;),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+// A CUSTOM, reusable widget representing one profile card
+class ProfileCard extends StatelessWidget {
+  final String name;   // The person&#39;s name
+  final String role;   // The person&#39;s role
+  final IconData icon; // An icon representing the person
+
+  const ProfileCard({
+    super.key,
+    required this.name,
+    required this.role,
+    required this.icon,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(                       // Gives a shadowed, rounded surface
+      elevation: 3,                    // Shadow depth
+      child: ListTile(
+        leading: Icon(icon, size: 36, color: Colors.indigo), // Icon on the left
+        title: Text(name, style: const TextStyle(fontWeight: FontWeight.bold)),
+        subtitle: Text(role),           // Role shown below the name
+      ),
+    );
+  }
+}</code></pre>
+<h3 id="expected-output">Expected Output</h3>
+<p>Two shadowed cards appear stacked vertically — the first showing a person icon with &quot;Anita / Student&quot;, the second showing a school icon with &quot;Dr. Sudhakar / Faculty&quot; — proving the same <code class="inline-code">ProfileCard</code> widget was reused successfully with different data, followed by a confirmation message.</p>
+<h3 id="part-b-program-theming-and-custom-styles">Part (b): Program — Theming and Custom Styles</h3>
+<pre><code>// Experiment 6(b) - Theming and Custom Styles
+import &#39;package:flutter/material.dart&#39;;
+
+void main() {
+  runApp(const ThemingApp());
+}
+
+class ThemingApp extends StatelessWidget {
+  const ThemingApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      // ThemeData centralizes colours, fonts, and component styles app-wide
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple), // Colour palette
+        textTheme: const TextTheme(
+          headlineSmall: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.deepPurple, // Button background colour
+            foregroundColor: Colors.white,        // Button text colour
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+          ),
+        ),
+      ),
+      home: const ThemedHome(),
+    );
+  }
+}
+
+class ThemedHome extends StatelessWidget {
+  const ThemedHome({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context); // Reads the currently active theme
+
+    return Scaffold(
+      appBar: AppBar(title: const Text(&#39;Theming &amp; Custom Styles&#39;)),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(&#39;Styled Heading&#39;, style: theme.textTheme.headlineSmall), // From theme
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {},
+              child: const Text(&#39;Themed Button&#39;), // Auto-styled by the theme
+            ),
+            const SizedBox(height: 20),
+            const Text(&#39;🎉 Excellent! You applied a custom app-wide theme!&#39;),
+          ],
+        ),
+      ),
+    );
+  }
+}</code></pre>
+<h3 id="expected-output">Expected Output</h3>
+<p>The screen shows a bold, 22px &quot;Styled Heading&quot;, a deep-purple button labelled &quot;Themed Button&quot; with white text, and a confirmation message — all styled from the single <code class="inline-code">ThemeData</code> object defined in <code class="inline-code">main()</code>, without styling each widget individually.</p>
+<div class="keypoints"><div class="keypoints-label">KEY POINTS</div><ul><li><strong>Result:</strong> A custom, reusable widget was created, and app-wide styling was successfully applied using <code class="inline-code">ThemeData</code>.</li></ul></div>
+<h3 id="viva-voce-questions">Viva Voce Questions</h3>
+<ul><li>Why is extracting <code class="inline-code">ProfileCard</code> into its own widget better than copy-pasting the <code class="inline-code">Card</code> code twice?</li><li>What is the benefit of using <code class="inline-code">ThemeData</code> instead of styling each widget individually?</li><li>How does <code class="inline-code">Theme.of(context)</code> retrieve the active theme?</li><li>What parameters does the <code class="inline-code">ProfileCard</code> constructor require, and why are they marked <code class="inline-code">required</code>?</li><li>How would you switch the app to a dark theme using the same <code class="inline-code">ThemeData</code> approach?</li></ul></section>
+<section class="unit"><h2 id="unit-7" class="unit-heading"><span class="unit-label">Experiment 7</span>Forms, Input Fields, and Validation</h2><p><strong>Aim:</strong> (a) To design a form with various input fields. (b) To implement form validation and error handling.</p>
+<p><strong>Software Required:</strong> Flutter SDK, VS Code/Android Studio, an emulator or physical device.</p>
+<h3 id="part-a-program-form-with-various-input-fields">Part (a): Program — Form with Various Input Fields</h3>
+<pre><code>// Experiment 7(a) - Form with Various Input Fields
+import &#39;package:flutter/material.dart&#39;;
+
+void main() {
+  runApp(const FormApp());
+}
+
+class FormApp extends StatefulWidget {
+  const FormApp({super.key});
+
+  @override
+  State&lt;FormApp&gt; createState() =&gt; _FormAppState();
+}
+
+class _FormAppState extends State&lt;FormApp&gt; {
+  // Controllers read whatever text is typed into each TextField
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  String _gender = &#39;Male&#39;; // Holds the currently selected radio value
+  bool _agree = false;     // Holds the checkbox state
+
+  @override
+  void dispose() {
+    _nameController.dispose();  // Free the controller&#39;s resources
+    _emailController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(title: const Text(&#39;Form with Various Inputs&#39;)),
+        body: Padding(
+          padding: const EdgeInsets.all(16),
+          child: ListView( // ListView so the form scrolls on small screens
+            children: [
+              // Text field for the name
+              TextField(
+                controller: _nameController,
+                decoration: const InputDecoration(labelText: &#39;Full Name&#39;),
+              ),
+              const SizedBox(height: 12),
+
+              // Text field for the email
+              TextField(
+                controller: _emailController,
+                decoration: const InputDecoration(labelText: &#39;Email&#39;),
+              ),
+              const SizedBox(height: 12),
+
+              // Radio buttons for selecting gender
+              const Text(&#39;Gender:&#39;),
+              RadioListTile&lt;String&gt;(
+                title: const Text(&#39;Male&#39;),
+                value: &#39;Male&#39;,
+                groupValue: _gender,          // The currently selected value
+                onChanged: (value) =&gt; setState(() =&gt; _gender = value!),
+              ),
+              RadioListTile&lt;String&gt;(
+                title: const Text(&#39;Female&#39;),
+                value: &#39;Female&#39;,
+                groupValue: _gender,
+                onChanged: (value) =&gt; setState(() =&gt; _gender = value!),
+              ),
+
+              // Checkbox for agreeing to terms
+              CheckboxListTile(
+                title: const Text(&#39;I agree to the terms&#39;),
+                value: _agree,
+                onChanged: (value) =&gt; setState(() =&gt; _agree = value!),
+              ),
+              const SizedBox(height: 12),
+
+              ElevatedButton(
+                onPressed: () {
+                  // Show all collected values inside a dialog
+                  showDialog(
+                    context: context,
+                    builder: (context) =&gt; AlertDialog(
+                      title: const Text(&#39;🎉 Form Submitted!&#39;),
+                      content: Text(
+                        &#39;Name: ${_nameController.text}\n&#39;
+                        &#39;Email: ${_emailController.text}\n&#39;
+                        &#39;Gender: $_gender\n&#39;
+                        &#39;Agreed: $_agree&#39;,
+                      ),
+                    ),
+                  );
+                },
+                child: const Text(&#39;Submit&#39;),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}</code></pre>
+<h3 id="expected-output">Expected Output</h3>
+<p>A scrollable form appears with a name field, an email field, two radio buttons (Male/Female), and a checkbox for agreeing to terms. Tapping &quot;Submit&quot; opens a dialog titled &quot;🎉 Form Submitted!&quot; echoing back everything the student entered.</p>
+<h3 id="part-b-program-form-validation-and-error-handling">Part (b): Program — Form Validation and Error Handling</h3>
+<pre><code>// Experiment 7(b) - Form Validation and Error Handling
+import &#39;package:flutter/material.dart&#39;;
+
+void main() {
+  runApp(const ValidatedFormApp());
+}
+
+class ValidatedFormApp extends StatefulWidget {
+  const ValidatedFormApp({super.key});
+
+  @override
+  State&lt;ValidatedFormApp&gt; createState() =&gt; _ValidatedFormAppState();
+}
+
+class _ValidatedFormAppState extends State&lt;ValidatedFormApp&gt; {
+  // A GlobalKey lets us validate and control the Form from outside its widgets
+  final _formKey = GlobalKey&lt;FormState&gt;();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(title: const Text(&#39;Form Validation&#39;)),
+        body: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Form(
+            key: _formKey, // Attach the key so we can call validate() later
+            child: Column(
+              children: [
+                // Email field WITH a validator function
+                TextFormField(
+                  controller: _emailController,
+                  decoration: const InputDecoration(labelText: &#39;Email&#39;),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return &#39;Email is required&#39;;       // Shown if empty
+                    }
+                    if (!value.contains(&#39;@&#39;)) {
+                      return &#39;Enter a valid email&#39;;      // Shown if @ missing
+                    }
+                    return null;                         // null = valid
+                  },
+                ),
+                const SizedBox(height: 12),
+
+                // Password field with a minimum-length validator
+                TextFormField(
+                  controller: _passwordController,
+                  obscureText: true, // Hides the typed characters
+                  decoration: const InputDecoration(labelText: &#39;Password&#39;),
+                  validator: (value) {
+                    if (value == null || value.length &lt; 6) {
+                      return &#39;Password must be at least 6 characters&#39;;
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 20),
+
+                ElevatedButton(
+                  onPressed: () {
+                    // validate() runs EVERY field&#39;s validator at once
+                    if (_formKey.currentState!.validate()) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text(&#39;🎉 Great! Form validated successfully!&#39;),
+                        ),
+                      );
+                    }
+                  },
+                  child: const Text(&#39;Login&#39;),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}</code></pre>
+<h3 id="expected-output">Expected Output</h3>
+<p>Tapping &quot;Login&quot; with empty or invalid fields shows red error text directly beneath the offending field (e.g. &quot;Enter a valid email&quot;). Once both fields are valid, tapping &quot;Login&quot; shows a green SnackBar at the bottom of the screen: &quot;🎉 Great! Form validated successfully!&quot;</p>
+<div class="keypoints"><div class="keypoints-label">KEY POINTS</div><ul><li><strong>Result:</strong> A form with multiple input types was designed, and field-level validation with error handling was successfully implemented and verified.</li></ul></div>
+<h3 id="viva-voce-questions">Viva Voce Questions</h3>
+<ul><li>What does a <code class="inline-code">validator</code> function return when a field&#39;s value is valid?</li><li>What is the role of the <code class="inline-code">GlobalKey&lt;FormState&gt;</code> in this program?</li><li>What is the difference between <code class="inline-code">TextField</code> (Part a) and <code class="inline-code">TextFormField</code> (Part b)?</li><li>What does <code class="inline-code">obscureText: true</code> do on the password field?</li><li>What happens when <code class="inline-code">_formKey.currentState!.validate()</code> is called and one field fails validation?</li></ul></section>
+<section class="unit"><h2 id="unit-8" class="unit-heading"><span class="unit-label">Experiment 8</span>Scrollable Lists and Item Selection</h2><p><strong>Aim:</strong> (a) To create a scrollable list widget and add items to it. (b) To implement <code class="inline-code">ListView</code> and display the selected item in a prompt window.</p>
+<p><strong>Software Required:</strong> Flutter SDK, VS Code/Android Studio, an emulator or physical device.</p>
+<h3 id="part-a-program-scrollable-list-with-add-item">Part (a): Program — Scrollable List with Add Item</h3>
+<pre><code>// Experiment 8(a) - Scrollable ListView with Add Item Feature
+import &#39;package:flutter/material.dart&#39;;
+
+void main() {
+  runApp(const ListAddApp());
+}
+
+class ListAddApp extends StatefulWidget {
+  const ListAddApp({super.key});
+
+  @override
+  State&lt;ListAddApp&gt; createState() =&gt; _ListAddAppState();
+}
+
+class _ListAddAppState extends State&lt;ListAddApp&gt; {
+  final TextEditingController _itemController = TextEditingController();
+  final List&lt;String&gt; _items = []; // Holds every item the user has added
+
+  // Adds the typed text to the list, then clears the input field
+  void _addItem() {
+    if (_itemController.text.isNotEmpty) {
+      setState(() {
+        _items.add(_itemController.text); // Append the new item
+      });
+      _itemController.clear(); // Clear the field after adding
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(title: const Text(&#39;Scrollable List - Add Items&#39;)),
+        body: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(12),
+              child: Row(
+                children: [
+                  // Expanded makes the text field fill the remaining width
+                  Expanded(
+                    child: TextField(
+                      controller: _itemController,
+                      decoration: const InputDecoration(labelText: &#39;Enter an item&#39;),
+                    ),
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.add_circle, color: Colors.indigo),
+                    onPressed: _addItem, // Add the item when tapped
+                  ),
+                ],
+              ),
+            ),
+            // Encouraging hint shown only while the list is empty
+            if (_items.isEmpty) const Text(&#39;Add your first item above! 👆&#39;),
+
+            // Expanded makes the list take up all remaining vertical space
+            Expanded(
+              child: ListView.builder(
+                itemCount: _items.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    leading: const Icon(Icons.check_circle_outline),
+                    title: Text(_items[index]), // Show each item&#39;s text
+                  );
+                },
+              ),
+            ),
+            if (_items.length &gt;= 3)
+              const Padding(
+                padding: EdgeInsets.all(8),
+                child: Text(&#39;🎉 Great! You added multiple items to the list!&#39;),
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+}</code></pre>
+<h3 id="expected-output">Expected Output</h3>
+<p>A text field with an &quot;add&quot; icon button sits at the top. Typing text and tapping the icon appends a new row to the scrollable list below, each with a checkmark icon. After adding 3 or more items, a congratulatory message appears beneath the list.</p>
+<h3 id="part-b-program-listview-with-selection-prompt">Part (b): Program — ListView with Selection Prompt</h3>
+<pre><code>// Experiment 8(b) - ListView with Selected Item Shown in a Prompt (Dialog)
+import &#39;package:flutter/material.dart&#39;;
+
+void main() {
+  runApp(const SelectItemApp());
+}
+
+class SelectItemApp extends StatelessWidget {
+  const SelectItemApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    // A fixed list of subjects to choose from
+    final List&lt;String&gt; subjects = const [
+      &#39;Data Structures&#39;,
+      &#39;Flutter Application Development&#39;,
+      &#39;Explainable AI&#39;,
+      &#39;Computer Networks&#39;,
+      &#39;Big Data Analytics&#39;,
+    ];
+
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(title: const Text(&#39;Select an Item from the List&#39;)),
+        body: ListView.builder(
+          itemCount: subjects.length,
+          itemBuilder: (context, index) {
+            return ListTile(
+              leading: const Icon(Icons.book),
+              title: Text(subjects[index]),
+              onTap: () {
+                // Show the tapped item&#39;s name inside an AlertDialog (a &#39;prompt window&#39;)
+                showDialog(
+                  context: context,
+                  builder: (context) =&gt; AlertDialog(
+                    title: const Text(&#39;You Selected&#39;),
+                    content: Text(&#39;${subjects[index]}\n\n🎉 Great choice!&#39;),
+                    actions: [
+                      TextButton(
+                        onPressed: () =&gt; Navigator.pop(context), // Close the dialog
+                        child: const Text(&#39;OK&#39;),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            );
+          },
+        ),
+      ),
+    );
+  }
+}</code></pre>
+<h3 id="expected-output">Expected Output</h3>
+<p>A scrollable list of five subjects appears, each with a book icon. Tapping any item pops up a dialog titled &quot;You Selected&quot; showing that subject&#39;s name followed by &quot;🎉 Great choice!&quot;, with an &quot;OK&quot; button to dismiss it.</p>
+<div class="keypoints"><div class="keypoints-label">KEY POINTS</div><ul><li><strong>Result:</strong> A scrollable list with an add-item feature was created, and item selection with a confirmation prompt was successfully implemented using <code class="inline-code">ListView</code> and <code class="inline-code">AlertDialog</code>.</li></ul></div>
+<h3 id="viva-voce-questions">Viva Voce Questions</h3>
+<ul><li>Why is <code class="inline-code">ListView.builder</code> preferred over a plain <code class="inline-code">ListView(children: [...])</code> for the item list?</li><li>What is the purpose of wrapping <code class="inline-code">TextField</code> in <code class="inline-code">Expanded</code> in Part (a)?</li><li>How does <code class="inline-code">showDialog</code> display the selected item, and how is the dialog dismissed?</li><li>Why is <code class="inline-code">_itemController.clear()</code> called after adding an item in Part (a)?</li><li>What does the <code class="inline-code">leading</code> property of a <code class="inline-code">ListTile</code> do?</li></ul></section>
+<section class="unit"><h2 id="unit-9" class="unit-heading"><span class="unit-label">Experiment 9</span>Animations in Flutter</h2><p><strong>Aim:</strong> (a) To add animations to UI elements using Flutter&#39;s animation framework. (b) To experiment with different types of animations (fade, slide, scale).</p>
+<p><strong>Software Required:</strong> Flutter SDK, VS Code/Android Studio, an emulator or physical device.</p>
+<h3 id="part-a-program-basic-fade-animation">Part (a): Program — Basic Fade Animation</h3>
+<pre><code>// Experiment 9(a) - Basic Animation using AnimationController
+import &#39;package:flutter/material.dart&#39;;
+
+void main() {
+  runApp(const FadeAnimationApp());
+}
+
+class FadeAnimationApp extends StatefulWidget {
+  const FadeAnimationApp({super.key});
+
+  @override
+  State&lt;FadeAnimationApp&gt; createState() =&gt; _FadeAnimationAppState();
+}
+
+// SingleTickerProviderStateMixin supplies the &#39;vsync&#39; AnimationController needs
+class _FadeAnimationAppState extends State&lt;FadeAnimationApp&gt;
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;   // Controls the animation&#39;s timing
+  late Animation&lt;double&gt; _fadeAnimation;   // The value that changes over time
+
+  @override
+  void initState() {
+    super.initState();
+    // Create a controller that runs its animation over 2 seconds
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 2),
+    );
+    // Tween defines start (0.0 = invisible) and end (1.0 = fully visible) values
+    _fadeAnimation = Tween&lt;double&gt;(begin: 0.0, end: 1.0).animate(_controller);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose(); // Always release the controller&#39;s resources
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(title: const Text(&#39;Fade Animation&#39;)),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // FadeTransition automatically animates its child&#39;s opacity
+              FadeTransition(
+                opacity: _fadeAnimation,
+                child: const Icon(Icons.flutter_dash, size: 100, color: Colors.blue),
+              ),
+              const SizedBox(height: 24),
+              ElevatedButton(
+                onPressed: () {
+                  _controller.forward(from: 0); // Play the animation from the start
+                },
+                child: const Text(&#39;Fade In&#39;),
+              ),
+              const SizedBox(height: 12),
+              const Text(&#39;🎉 Nice! You created your first Flutter animation!&#39;),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}</code></pre>
+<h3 id="expected-output">Expected Output</h3>
+<p>A large Flutter icon starts invisible. Tapping &quot;Fade In&quot; smoothly fades it into full visibility over 2 seconds, alongside a confirmation message below the button.</p>
+<h3 id="part-b-program-fade-slide-scale-animations">Part (b): Program — Fade, Slide &amp; Scale Animations</h3>
+<pre><code>// Experiment 9(b) - Fade, Slide, and Scale Animations (implicit animations)
+import &#39;package:flutter/material.dart&#39;;
+
+void main() {
+  runApp(const MultiAnimationApp());
+}
+
+class MultiAnimationApp extends StatefulWidget {
+  const MultiAnimationApp({super.key});
+
+  @override
+  State&lt;MultiAnimationApp&gt; createState() =&gt; _MultiAnimationAppState();
+}
+
+class _MultiAnimationAppState extends State&lt;MultiAnimationApp&gt; {
+  bool _toggled = false; // One flag drives all three animations together
+
+  // Flips the flag - each Animated* widget below animates to its new state
+  void _toggle() {
+    setState(() {
+      _toggled = !_toggled;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(title: const Text(&#39;Fade, Slide &amp; Scale Animations&#39;)),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // 1. FADE - AnimatedOpacity smoothly changes transparency
+            AnimatedOpacity(
+              opacity: _toggled ? 1.0 : 0.2,
+              duration: const Duration(milliseconds: 600),
+              child: const Text(&#39;Fade Animation&#39;, style: TextStyle(fontSize: 18)),
+            ),
+            const SizedBox(height: 40),
+
+            // 2. SLIDE - AnimatedAlign smoothly moves its child
+            AnimatedAlign(
+              alignment: _toggled ? Alignment.centerRight : Alignment.centerLeft,
+              duration: const Duration(milliseconds: 600),
+              child: Container(width: 50, height: 50, color: Colors.blue),
+            ),
+            const SizedBox(height: 40),
+
+            // 3. SCALE - AnimatedContainer smoothly changes size
+            AnimatedContainer(
+              duration: const Duration(milliseconds: 600),
+              width: _toggled ? 150 : 60,
+              height: _toggled ? 150 : 60,
+              color: Colors.green,
+              child: const Center(child: Text(&#39;Scale&#39;)),
+            ),
+            const SizedBox(height: 40),
+
+            ElevatedButton(onPressed: _toggle, child: const Text(&#39;Play Animations&#39;)),
+            const SizedBox(height: 12),
+            const Text(&#39;🎉 Awesome! You explored fade, slide &amp; scale animations!&#39;),
+          ],
+        ),
+      ),
+    );
+  }
+}</code></pre>
+<h3 id="expected-output">Expected Output</h3>
+<p>Tapping &quot;Play Animations&quot; simultaneously fades the text to full opacity, slides the blue box from left to right, and grows the green box from 60×60 to 150×150 — all animating smoothly over 600 milliseconds, followed by a congratulatory message.</p>
+<div class="note tip"><span class="note-label">TIP</span>Notice Part (a) uses an explicit <code class="inline-code">AnimationController</code> (full manual control), while Part (b) uses implicit <code class="inline-code">Animated*</code> widgets that manage their own controller internally — exactly the two categories introduced in Unit 23 of this manual.</div>
+<div class="keypoints"><div class="keypoints-label">KEY POINTS</div><ul><li><strong>Result:</strong> UI animations were successfully added using Flutter&#39;s animation framework, covering both explicit (<code class="inline-code">AnimationController</code>) and implicit (fade, slide, scale) animation techniques.</li></ul></div>
+<h3 id="viva-voce-questions">Viva Voce Questions</h3>
+<ul><li>What is the difference between an implicit animation and an explicit animation?</li><li>Why must <code class="inline-code">_controller.dispose()</code> be called in Part (a)?</li><li>What single variable drives all three animations in Part (b), and how?</li><li>What does <code class="inline-code">Tween&lt;double&gt;(begin: 0.0, end: 1.0)</code> define in Part (a)?</li><li>What is the role of <code class="inline-code">vsync: this</code> in the <code class="inline-code">AnimationController</code> constructor?</li></ul></section>
+<section class="unit"><h2 id="unit-10" class="unit-heading"><span class="unit-label">Experiment 10</span>Fetching and Displaying REST API Data</h2><p><strong>Aim:</strong> (a) To fetch data from a REST API. (b) To display the fetched data in a meaningful way in the UI.</p>
+<p><strong>Software Required:</strong> Flutter SDK, VS Code/Android Studio, an emulator or physical device with internet access, and the <code class="inline-code">http</code> package added to <code class="inline-code">pubspec.yaml</code>.</p>
+<pre><code># Add this line under dependencies in pubspec.yaml, then run: flutter pub get
+dependencies:
+  flutter:
+    sdk: flutter
+  http: ^1.2.0</code></pre>
+<h3 id="part-a-program-fetching-data-from-a-rest-api">Part (a): Program — Fetching Data from a REST API</h3>
+<pre><code>// Experiment 10(a) - Fetching Data from a REST API
+import &#39;package:flutter/material.dart&#39;;
+import &#39;dart:convert&#39;;                    // For decoding JSON text
+import &#39;package:http/http.dart&#39; as http;   // For making HTTP requests
+
+void main() {
+  runApp(const ApiFetchApp());
+}
+
+class ApiFetchApp extends StatelessWidget {
+  const ApiFetchApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: const FetchDataScreen(),
+    );
+  }
+}
+
+// A simple model class representing one user from the API
+class ApiUser {
+  final String name;
+  final String email;
+
+  ApiUser({required this.name, required this.email});
+
+  // Factory constructor - builds an ApiUser from a JSON map
+  factory ApiUser.fromJson(Map&lt;String, dynamic&gt; json) {
+    return ApiUser(
+      name: json[&#39;name&#39;] as String,
+      email: json[&#39;email&#39;] as String,
+    );
+  }
+}
+
+// Fetches a list of users from a free public test API
+Future&lt;List&lt;ApiUser&gt;&gt; fetchUsers() async {
+  final response = await http.get(
+    Uri.parse(&#39;https://jsonplaceholder.typicode.com/users&#39;), // Public test API
+  );
+
+  if (response.statusCode == 200) {
+    // Decode the JSON response body into a Dart List
+    List&lt;dynamic&gt; data = jsonDecode(response.body);
+    // Convert each JSON object into an ApiUser instance
+    return data.map((json) =&gt; ApiUser.fromJson(json)).toList();
+  } else {
+    throw Exception(&#39;Failed to load users&#39;); // Thrown on a server error
+  }
+}
+
+class FetchDataScreen extends StatefulWidget {
+  const FetchDataScreen({super.key});
+
+  @override
+  State&lt;FetchDataScreen&gt; createState() =&gt; _FetchDataScreenState();
+}
+
+class _FetchDataScreenState extends State&lt;FetchDataScreen&gt; {
+  late Future&lt;List&lt;ApiUser&gt;&gt; _usersFuture; // Holds the pending/completed call
+
+  @override
+  void initState() {
+    super.initState();
+    _usersFuture = fetchUsers(); // Start the API call once, when the screen loads
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text(&#39;Fetch Data from REST API&#39;)),
+      body: FutureBuilder&lt;List&lt;ApiUser&gt;&gt;(
+        future: _usersFuture,
+        builder: (context, snapshot) {
+          // While waiting for the response, show a loading spinner
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          // If something went wrong, display the error
+          if (snapshot.hasError) {
+            return Center(child: Text(&#39;Error: ${snapshot.error}&#39;));
+          }
+          // Data has arrived successfully
+          final users = snapshot.data!;
+          return Column(
+            children: [
+              const Padding(
+                padding: EdgeInsets.all(12),
+                child: Text(&#39;🎉 Great! Data fetched successfully from the API!&#39;),
+              ),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: users.length,
+                  itemBuilder: (context, index) =&gt; ListTile(
+                    leading: const Icon(Icons.person),
+                    title: Text(users[index].name),
+                    subtitle: Text(users[index].email),
+                  ),
+                ),
+              ),
+            ],
+          );
+        },
+      ),
+    );
+  }
+}</code></pre>
+<h3 id="expected-output">Expected Output</h3>
+<p>A loading spinner briefly appears, then a green confirmation message shows above a scrollable list of ten users, each row showing that person&#39;s name and email fetched live from the public API.</p>
+<h3 id="part-b-program-displaying-fetched-data-meaningfully-cards-pull-to-refresh">Part (b): Program — Displaying Fetched Data Meaningfully (Cards + Pull-to-Refresh)</h3>
+<pre><code>// Experiment 10(b) - Displaying Fetched Data in a Meaningful, Styled Way
+import &#39;package:flutter/material.dart&#39;;
+import &#39;dart:convert&#39;;
+import &#39;package:http/http.dart&#39; as http;
+
+void main() {
+  runApp(const MeaningfulDisplayApp());
+}
+
+class MeaningfulDisplayApp extends StatelessWidget {
+  const MeaningfulDisplayApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: const PostsScreen(),
+    );
+  }
+}
+
+// Model representing one blog post from the API
+class Post {
+  final String title;
+  final String body;
+
+  Post({required this.title, required this.body});
+
+  factory Post.fromJson(Map&lt;String, dynamic&gt; json) {
+    return Post(
+      title: json[&#39;title&#39;] as String,
+      body: json[&#39;body&#39;] as String,
+    );
+  }
+}
+
+// Fetches the first 10 posts from the public test API
+Future&lt;List&lt;Post&gt;&gt; fetchPosts() async {
+  final response = await http.get(
+    Uri.parse(&#39;https://jsonplaceholder.typicode.com/posts?_limit=10&#39;),
+  );
+  if (response.statusCode == 200) {
+    List&lt;dynamic&gt; data = jsonDecode(response.body);
+    return data.map((json) =&gt; Post.fromJson(json)).toList();
+  } else {
+    throw Exception(&#39;Failed to load posts&#39;);
+  }
+}
+
+class PostsScreen extends StatefulWidget {
+  const PostsScreen({super.key});
+
+  @override
+  State&lt;PostsScreen&gt; createState() =&gt; _PostsScreenState();
+}
+
+class _PostsScreenState extends State&lt;PostsScreen&gt; {
+  late Future&lt;List&lt;Post&gt;&gt; _postsFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _postsFuture = fetchPosts(); // Load the posts once when the screen opens
+  }
+
+  // Re-fetches the posts - called when the user pulls down to refresh
+  Future&lt;void&gt; _refresh() async {
+    setState(() {
+      _postsFuture = fetchPosts(); // Trigger a fresh API call
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text(&#39;Blog Posts (Styled Display)&#39;)),
+      body: FutureBuilder&lt;List&lt;Post&gt;&gt;(
+        future: _postsFuture,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          if (snapshot.hasError) {
+            return Center(child: Text(&#39;Error: ${snapshot.error}&#39;));
+          }
+
+          final posts = snapshot.data!;
+          // RefreshIndicator adds pull-to-refresh support around the list
+          return RefreshIndicator(
+            onRefresh: _refresh,
+            child: ListView.builder(
+              itemCount: posts.length,
+              itemBuilder: (context, index) {
+                final post = posts[index];
+                // Each post is shown inside a Card for a clean, readable look
+                return Card(
+                  margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  elevation: 2,
+                  child: Padding(
+                    padding: const EdgeInsets.all(12),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          post.title,
+                          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                        ),
+                        const SizedBox(height: 6),
+                        Text(post.body, maxLines: 2, overflow: TextOverflow.ellipsis),
+                      ],
+                    ),
+                  ),
+                );
+              },
+            ),
+          );
+        },
+      ),
+      // A floating button confirming the whole lab manual is complete
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text(&#39;🎉 Congratulations! Lab manual completed!&#39;)),
+          );
+        },
+        label: const Text(&#39;Finish&#39;),
+        icon: const Icon(Icons.celebration),
+      ),
+    );
+  }
+}</code></pre>
+<h3 id="expected-output">Expected Output</h3>
+<p>Ten neatly styled cards appear, each showing a post&#39;s bold title and a two-line preview of its body. Pulling down from the top re-fetches fresh data with a spinning refresh indicator. Tapping the &quot;Finish&quot; button at the bottom right shows a final congratulatory SnackBar.</p>
+<div class="note tip"><span class="note-label">TIP</span>Compare Part (a)&#39;s plain <code class="inline-code">ListTile</code> rows with Part (b)&#39;s <code class="inline-code">Card</code>-based layout — both display the same kind of fetched data, but Part (b) demonstrates what &quot;meaningful, presentable&quot; display looks like in a real app, exactly as the experiment asks.</div>
+<div class="keypoints"><div class="keypoints-label">KEY POINTS</div><ul><li><strong>Result:</strong> Data was successfully fetched from a public REST API and displayed in the UI, first as a simple list and then in a meaningfully styled, refreshable card layout.</li></ul></div>
+<h3 id="viva-voce-questions">Viva Voce Questions</h3>
+<ul><li>Why is the API call started inside <code class="inline-code">initState()</code> rather than directly inside <code class="inline-code">build()</code>?</li><li>What are the three states a <code class="inline-code">FutureBuilder</code> can be in, and how does this program handle each?</li><li>What does <code class="inline-code">RefreshIndicator</code> add to the user experience?</li><li>What is the purpose of the <code class="inline-code">fromJson</code> factory constructor in the <code class="inline-code">Post</code>/<code class="inline-code">ApiUser</code> model classes?</li><li>What HTTP status code indicates a successful response, and how is it checked in this program?</li></ul></section>
+    <div class="page-nav"><a href="part3-capstone.html"><span class="dir">&larr; Previous</span>III. Capstone Project</a><a href="part5-appendices.html" class="next"><span class="dir">Next &rarr;</span>V. Quick-Reference Appendices</a></div>
+  </div>
+</main>
+</div>
+<script src="assets/script.js"></script>
+</body>
+</html>

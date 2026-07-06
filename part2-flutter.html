@@ -1,0 +1,1428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>THE FLUTTER FRAMEWORK · Dart & Flutter Manual</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-light.min.css">
+  <link rel="stylesheet" href="assets/style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+</head>
+<body>
+
+  <div class="topbar">
+    <button data-nav-toggle aria-label="Toggle navigation">&#9776; Menu</button>
+    <span class="brand">Dart &amp; Flutter Manual</span>
+  </div>
+<div class="shell">
+
+  <aside class="sidebar">
+    <a href="index.html" style="text-decoration:none;">
+      <span class="logo">Dart &amp; Flutter</span>
+      <span class="logo-sub">Complete Manual</span>
+    </a>
+    <nav class="parts"><a href="part1-dart.html" class="">I. The Dart Language</a>
+<a href="part2-flutter.html" class="active">II. The Flutter Framework</a>
+<a href="part3-capstone.html" class="">III. Capstone Project</a>
+<a href="part4-labmanual.html" class="">IV. JNTUK R23 Lab Manual</a>
+<a href="part5-appendices.html" class="">V. Quick-Reference Appendices</a></nav>
+    <div class="unit-nav">
+      <span class="unit-nav-label">On this page</span>
+      <ul><li><a href="#unit-18">Unit 18 · Introduction to Flutter</a></li>
+<li><a href="#unit-19">Unit 19 · Setting Up the Development Environment</a></li>
+<li><a href="#unit-20">Unit 20 · Anatomy of a Flutter Project</a></li>
+<li><a href="#unit-21">Unit 21 · Widgets: The Building Blocks</a></li>
+<li><a href="#unit-22">Unit 22 · Core Layout Widgets</a></li>
+<li><a href="#unit-23">Unit 23 · Advanced Layouts &amp; Scrolling</a></li>
+<li><a href="#unit-24">Unit 24 · User Input, Forms &amp; Buttons</a></li>
+<li><a href="#unit-25">Unit 25 · Navigation &amp; Routing</a></li>
+<li><a href="#unit-26">Unit 26 · State Management</a></li>
+<li><a href="#unit-27">Unit 27 · Networking &amp; REST APIs</a></li>
+<li><a href="#unit-28">Unit 28 · Local Data Persistence</a></li>
+<li><a href="#unit-29">Unit 29 · Animations</a></li>
+<li><a href="#unit-30">Unit 30 · Theming &amp; Styling</a></li>
+<li><a href="#unit-31">Unit 31 · Gestures &amp; Interactivity</a></li>
+<li><a href="#unit-32">Unit 32 · Testing in Flutter</a></li>
+<li><a href="#unit-33">Unit 33 · Building, Debugging &amp; Deployment</a></li>
+<li><a href="#unit-34">Unit 34 · Custom Widgets &amp; Composition</a></li>
+<li><a href="#unit-35">Unit 35 · Slivers &amp; CustomScrollView</a></li>
+<li><a href="#unit-36">Unit 36 · Custom Painting with CustomPainter</a></li>
+<li><a href="#unit-37">Unit 37 · Responsive &amp; Adaptive Design</a></li>
+<li><a href="#unit-38">Unit 38 · Accessibility</a></li>
+<li><a href="#unit-39">Unit 39 · Internationalization (i18n &amp; l10n)</a></li>
+<li><a href="#unit-40">Unit 40 · Platform Channels — Talking to Native Code</a></li>
+<li><a href="#unit-41">Unit 41 · Firebase Integration Overview</a></li>
+<li><a href="#unit-42">Unit 42 · Push Notifications</a></li>
+<li><a href="#unit-43">Unit 43 · App Icons, Splash Screens &amp; Build Flavors</a></li>
+<li><a href="#unit-44">Unit 44 · App Architecture &amp; Dependency Injection</a></li>
+<li><a href="#unit-45">Unit 45 · Integration Testing</a></li>
+<li><a href="#unit-46">Unit 46 · Performance Optimization &amp; Best Practices</a></li>
+<li><a href="#unit-47">Unit 47 · App Lifecycle &amp; State Restoration</a></li>
+<li><a href="#unit-48">Unit 48 · Error Handling &amp; Crash Reporting in Production</a></li>
+<li><a href="#unit-49">Unit 49 · Working with Camera, Gallery &amp; Media</a></li>
+<li><a href="#unit-50">Unit 50 · Geolocation &amp; Maps Overview</a></li>
+<li><a href="#unit-51">Unit 51 · WebSockets &amp; Real-Time Communication</a></li>
+<li><a href="#unit-52">Unit 52 · Advanced Forms &amp; Multi-Step Wizards</a></li></ul>
+    </div>
+  </aside>
+<main class="main">
+  <div class="content-wrap">
+    <div class="part-hero"><div class="part-title">PART II — THE FLUTTER FRAMEWORK</div><div class="part-subtitle">From widgets to shipped applications</div></div><section class="unit"><h2 id="unit-18" class="unit-heading"><span class="unit-label">Unit 18</span>Introduction to Flutter</h2><p>Flutter is Google&#39;s open-source UI toolkit for building natively compiled applications for mobile, web, and desktop from a <strong>single Dart codebase</strong>. Unlike frameworks that wrap native platform widgets, Flutter draws every pixel itself using its own high-performance rendering engine (based on the Impeller/Skia graphics engines), which is why a Flutter button looks and behaves identically on Android, iOS, web, and desktop.</p>
+<h3 id="how-flutter-renders-a-screen">How Flutter Renders a Screen</h3>
+<p>Everything you see on screen in Flutter is a <strong>widget</strong> — and widgets themselves are lightweight, immutable configuration objects, not the actual pixels. When something changes, Flutter doesn&#39;t repaint the whole screen; it rebuilds only the affected part of a tree of three parallel structures:</p>
+<ul><li><strong>Widget tree</strong> — the declarative description of what the UI should look like (what you write).</li><li><strong>Element tree</strong> — the mutable, live instantiation that manages a widget&#39;s lifecycle and links a widget to its position in the tree.</li><li><strong>Render tree (RenderObject)</strong> — the layer that actually handles layout, painting, and hit-testing.</li></ul>
+<div class="note tip"><span class="note-label">TIP</span>You will spend almost all of your time working with the widget tree; Elements and RenderObjects work behind the scenes and you rarely touch them directly unless you&#39;re building highly custom, low-level widgets.</div>
+<h3 id="flutter-vs-other-approaches">Flutter vs Other Approaches</h3>
+<div class="table-wrap"><table><thead><tr><th>Approach</th><th>Example</th><th>How UI is rendered</th></tr></thead><tbody><tr><td>Native</td><td>Swift/Kotlin</td><td>Platform&#39;s own native widgets, separate codebase per platform</td></tr><tr><td>WebView-based hybrid</td><td>Cordova/Ionic</td><td>HTML/CSS/JS rendered in an embedded browser</td></tr><tr><td>Native-bridge</td><td>React Native</td><td>JavaScript logic calls out to real native widgets via a bridge</td></tr><tr><td>Flutter</td><td>Dart + Flutter</td><td>Flutter&#39;s own engine draws every pixel directly, one codebase, no bridge</td></tr></tbody></table></div>
+<div class="keypoints"><div class="keypoints-label">KEY POINTS</div><ul><li>Flutter draws its own UI rather than wrapping native platform widgets, giving pixel-perfect consistency across platforms.</li><li>&quot;Everything is a widget&quot; — text, padding, layout, even animations are all expressed as widgets.</li><li>The Widget → Element → RenderObject pipeline is what makes Flutter fast: only the parts of the tree that actually changed are rebuilt and repainted.</li></ul></div></section>
+<section class="unit"><h2 id="unit-19" class="unit-heading"><span class="unit-label">Unit 19</span>Setting Up the Development Environment</h2><h3 id="installing-the-flutter-sdk">Installing the Flutter SDK</h3>
+<ol><li>Download the Flutter SDK for your OS from flutter.dev and extract it to a permanent location (e.g. <code class="inline-code">C:\src\flutter</code> on Windows or <code class="inline-code">~/development/flutter</code> on macOS/Linux).</li><li>Add the <code class="inline-code">flutter/bin</code> directory to your system <code class="inline-code">PATH</code>.</li><li>Run <code class="inline-code">flutter doctor</code> in a terminal — this checks your setup and tells you exactly what&#39;s missing.</li></ol>
+<pre><code>flutter doctor
+
+# Sample output:
+# [✓] Flutter (Channel stable, 3.24.0)
+# [✓] Android toolchain - develop for Android devices
+# [✗] Xcode - develop for iOS and macOS (not installed)
+# [✓] Chrome - develop for the web
+# [✓] Android Studio
+# [✓] Connected device (1 available)</code></pre>
+<div class="note tip"><span class="note-label">TIP</span>Run <code class="inline-code">flutter doctor</code> again after installing anything it flags — it re-checks every requirement and tells you exactly what&#39;s still outstanding.</div>
+<h3 id="choosing-an-ide">Choosing an IDE</h3>
+<div class="table-wrap"><table><thead><tr><th>IDE</th><th>Notes</th></tr></thead><tbody><tr><td>Visual Studio Code</td><td>Lightweight, install the official &quot;Flutter&quot; and &quot;Dart&quot; extensions. Most widely used for Flutter.</td></tr><tr><td>Android Studio / IntelliJ</td><td>Full-featured, built-in Android emulator management, official Flutter plugin available.</td></tr></tbody></table></div>
+<h3 id="creating-and-running-your-first-project">Creating and Running Your First Project</h3>
+<pre><code>flutter create my_first_app
+cd my_first_app
+flutter run</code></pre>
+<p><code class="inline-code">flutter run</code> builds a debug version and launches it on any connected device, emulator, or in Chrome. While it&#39;s running, three keyboard shortcuts matter most in the terminal:</p>
+<div class="table-wrap"><table><thead><tr><th>Key</th><th>Action</th></tr></thead><tbody><tr><td><code class="inline-code">r</code></td><td>Hot reload — pushes your latest code changes into the running app in under a second, preserving app state</td></tr><tr><td><code class="inline-code">R</code></td><td>Hot restart — resets the app&#39;s state and rebuilds it from scratch, faster than a full re-run</td></tr><tr><td><code class="inline-code">q</code></td><td>Quit the running app</td></tr></tbody></table></div>
+<div class="keypoints"><div class="keypoints-label">KEY POINTS</div><ul><li><code class="inline-code">flutter doctor</code> is the first command to run whenever something in your setup seems wrong.</li><li><code class="inline-code">flutter create &lt;name&gt;</code> scaffolds a new, ready-to-run project.</li><li>Hot reload (<code class="inline-code">r</code>) is one of Flutter&#39;s signature productivity features — use it constantly during UI development.</li></ul></div></section>
+<section class="unit"><h2 id="unit-20" class="unit-heading"><span class="unit-label">Unit 20</span>Anatomy of a Flutter Project</h2><p>Running <code class="inline-code">flutter create</code> scaffolds a standard folder structure. Understanding what each folder is for will save you a lot of confusion later.</p>
+<div class="table-wrap"><table><thead><tr><th>Folder / File</th><th>Purpose</th></tr></thead><tbody><tr><td><code class="inline-code">lib/</code></td><td>Your Dart source code lives here. <code class="inline-code">lib/main.dart</code> is the entry point.</td></tr><tr><td><code class="inline-code">android/</code>, <code class="inline-code">ios/</code></td><td>Native platform project files — you&#39;ll rarely edit these directly, mostly for platform-specific configuration (permissions, app icons, signing).</td></tr><tr><td><code class="inline-code">web/</code></td><td>Files needed for the web build target (e.g. <code class="inline-code">index.html</code>).</td></tr><tr><td><code class="inline-code">test/</code></td><td>Automated test files, run with <code class="inline-code">flutter test</code>.</td></tr><tr><td><code class="inline-code">pubspec.yaml</code></td><td>Project manifest — dependencies, assets, fonts, metadata (see Unit 11).</td></tr><tr><td><code class="inline-code">pubspec.lock</code></td><td>Auto-generated; pins exact resolved versions of every dependency.</td></tr><tr><td><code class="inline-code">build/</code></td><td>Auto-generated build output — never edit or commit this.</td></tr></tbody></table></div>
+<h3 id="the-default-main-dart">The Default main.dart</h3>
+<pre><code>import &#39;package:flutter/material.dart&#39;;
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: &#39;My First App&#39;,
+      theme: ThemeData(primarySwatch: Colors.blue),
+      home: const HomePage(),
+    );
+  }
+}</code></pre>
+<p><code class="inline-code">runApp()</code> takes a widget and makes it the root of the entire widget tree, attaching it to the screen. <code class="inline-code">MaterialApp</code> is a convenience widget that sets up Material Design theming, navigation, and localization for the whole app in one place.</p>
+<h3 id="registering-assets">Registering Assets</h3>
+<p>Images, fonts, and other files must be declared in <code class="inline-code">pubspec.yaml</code> under <code class="inline-code">flutter:</code> before you can use them — Flutter does not scan folders automatically.</p>
+<pre><code>flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/logo.png
+    - assets/data/
+  fonts:
+    - family: Poppins
+      fonts:
+        - asset: assets/fonts/Poppins-Regular.ttf
+        - asset: assets/fonts/Poppins-Bold.ttf
+          weight: 700</code></pre>
+<div class="keypoints"><div class="keypoints-label">KEY POINTS</div><ul><li><code class="inline-code">lib/main.dart</code> is where execution starts; <code class="inline-code">runApp()</code> attaches your root widget to the screen.</li><li><code class="inline-code">MaterialApp</code> bundles theming, routing, and localization setup for the whole app.</li><li>Every asset (image, font, data file) must be explicitly listed in <code class="inline-code">pubspec.yaml</code> before use.</li></ul></div></section>
+<section class="unit"><h2 id="unit-21" class="unit-heading"><span class="unit-label">Unit 21</span>Widgets: The Building Blocks</h2><p>There are two fundamental categories of widget in Flutter, and choosing the right one for each piece of UI is one of the first real design decisions you&#39;ll make in any screen.</p>
+<h3 id="statelesswidget">StatelessWidget</h3>
+<p>A <code class="inline-code">StatelessWidget</code> describes UI that never changes once built — it has no internal, mutable data. It is rebuilt only when its <strong>parent</strong> passes it new configuration.</p>
+<pre><code>class Greeting extends StatelessWidget {
+  final String name;
+  const Greeting({super.key, required this.name});
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(&#39;Hello, $name!&#39;);
+  }
+}</code></pre>
+<h3 id="statefulwidget">StatefulWidget</h3>
+<p>A <code class="inline-code">StatefulWidget</code> can hold data that changes over time (a counter, a toggled switch, text typed by the user) and rebuild itself whenever that data changes, via <code class="inline-code">setState()</code>. Every <code class="inline-code">StatefulWidget</code> is paired with a separate <code class="inline-code">State</code> object that actually holds the mutable data — the widget itself stays immutable.</p>
+<pre><code>class Counter extends StatefulWidget {
+  const Counter({super.key});
+
+  @override
+  State&lt;Counter&gt; createState() =&gt; _CounterState();
+}
+
+class _CounterState extends State&lt;Counter&gt; {
+  int _count = 0;
+
+  void _increment() {
+    setState(() {
+      _count++;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text(&#39;Count: $_count&#39;),
+        ElevatedButton(onPressed: _increment, child: const Text(&#39;Add&#39;)),
+      ],
+    );
+  }
+}</code></pre>
+<div class="note warning"><span class="note-label">CAUTION</span>Never mutate state fields directly (<code class="inline-code">_count++;</code> on its own) — Flutter has no way to know the UI needs rebuilding unless the change happens inside <code class="inline-code">setState()</code>.</div>
+<h3 id="the-statefulwidget-lifecycle">The StatefulWidget Lifecycle</h3>
+<div class="table-wrap"><table><thead><tr><th>Method</th><th>Called when</th></tr></thead><tbody><tr><td><code class="inline-code">initState()</code></td><td>Once, when the State object is first created — good place for one-time setup (subscriptions, controllers)</td></tr><tr><td><code class="inline-code">build()</code></td><td>Every time the widget needs to (re)render</td></tr><tr><td><code class="inline-code">didUpdateWidget()</code></td><td>When the parent rebuilds this widget with new configuration</td></tr><tr><td><code class="inline-code">setState()</code></td><td>Called by your own code to mark state as changed and trigger a rebuild</td></tr><tr><td><code class="inline-code">dispose()</code></td><td>Once, when the State object is permanently removed — release controllers, cancel subscriptions here</td></tr></tbody></table></div>
+<h3 id="buildcontext">BuildContext</h3>
+<p>Every <code class="inline-code">build()</code> method receives a <code class="inline-code">BuildContext</code> — a handle to the widget&#39;s location in the tree. It&#39;s used to look up inherited data (theme, media query, navigation) from ancestor widgets, e.g. <code class="inline-code">Theme.of(context)</code> or <code class="inline-code">Navigator.of(context)</code>.</p>
+<div class="keypoints"><div class="keypoints-label">KEY POINTS</div><ul><li><code class="inline-code">StatelessWidget</code> for UI that never changes on its own; <code class="inline-code">StatefulWidget</code> for UI with mutable, internal data.</li><li><code class="inline-code">setState()</code> is the only correct way to tell Flutter that a <code class="inline-code">State</code> object&#39;s data changed and the UI needs rebuilding.</li><li><code class="inline-code">initState()</code> sets up one-time resources; <code class="inline-code">dispose()</code> releases them — always pair the two.</li><li><code class="inline-code">BuildContext</code> is how a widget looks upward in the tree for shared data like theme or navigation.</li></ul></div></section>
+<section class="unit"><h2 id="unit-22" class="unit-heading"><span class="unit-label">Unit 22</span>Core Layout Widgets</h2><p>Flutter has no CSS — layout is built entirely by nesting widgets. A handful of layout widgets, learned well, cover the vast majority of screens you&#39;ll ever build.</p>
+<h3 id="text-container-image">Text, Container &amp; Image</h3>
+<pre><code>Container(
+  padding: const EdgeInsets.all(16),
+  margin: const EdgeInsets.symmetric(vertical: 8),
+  decoration: BoxDecoration(
+    color: Colors.blue.shade50,
+    borderRadius: BorderRadius.circular(12),
+  ),
+  child: const Text(
+    &#39;Department of AI &amp; DS&#39;,
+    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+  ),
+)</code></pre>
+<h3 id="row-column-the-two-workhorses">Row &amp; Column — the two workhorses</h3>
+<p><code class="inline-code">Row</code> arranges children horizontally; <code class="inline-code">Column</code> arranges children vertically. Both accept <code class="inline-code">mainAxisAlignment</code> (alignment along the direction they lay out) and <code class="inline-code">crossAxisAlignment</code> (alignment perpendicular to it).</p>
+<pre><code>Column(
+  mainAxisAlignment: MainAxisAlignment.center,
+  crossAxisAlignment: CrossAxisAlignment.start,
+  children: [
+    const Text(&#39;Welcome&#39;),
+    const SizedBox(height: 8), // fixed-size spacer
+    Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: const [
+        Icon(Icons.school),
+        Text(&#39;LBRCE&#39;),
+        Icon(Icons.star),
+      ],
+    ),
+  ],
+)</code></pre>
+<div class="table-wrap"><table><thead><tr><th>Widget</th><th>Purpose</th></tr></thead><tbody><tr><td><code class="inline-code">Text</code></td><td>Display a string with styling</td></tr><tr><td><code class="inline-code">Container</code></td><td>A box you can size, pad, color, decorate, and position a single child within</td></tr><tr><td><code class="inline-code">Row</code> / <code class="inline-code">Column</code></td><td>Arrange children horizontally / vertically</td></tr><tr><td><code class="inline-code">Stack</code></td><td>Overlap children on top of one another (for badges, watermarks, layered UI)</td></tr><tr><td><code class="inline-code">Padding</code></td><td>Add space around a single child</td></tr><tr><td><code class="inline-code">Center</code></td><td>Center a single child within available space</td></tr><tr><td><code class="inline-code">SizedBox</code></td><td>A box of a fixed width/height — commonly used purely as a spacer</td></tr><tr><td><code class="inline-code">Image</code></td><td>Display an image from assets, network, memory, or file</td></tr></tbody></table></div>
+<h3 id="stack-overlapping-widgets">Stack — Overlapping Widgets</h3>
+<pre><code>Stack(
+  alignment: Alignment.center,
+  children: [
+    Image.asset(&#39;assets/images/banner.png&#39;),
+    Positioned(
+      bottom: 10,
+      right: 10,
+      child: Container(
+        padding: const EdgeInsets.all(6),
+        color: Colors.black54,
+        child: const Text(&#39;NEW&#39;, style: TextStyle(color: Colors.white)),
+      ),
+    ),
+  ],
+)</code></pre>
+<div class="keypoints"><div class="keypoints-label">KEY POINTS</div><ul><li>There is no CSS in Flutter — every layout decision is a widget you nest.</li><li><code class="inline-code">Row</code>/<code class="inline-code">Column</code> plus <code class="inline-code">mainAxisAlignment</code>/<code class="inline-code">crossAxisAlignment</code> cover most simple layouts.</li><li><code class="inline-code">Stack</code> + <code class="inline-code">Positioned</code> is how you overlap widgets, e.g. a badge on an icon.</li><li><code class="inline-code">SizedBox</code> is the idiomatic way to add fixed empty space between widgets.</li></ul></div></section>
+<section class="unit"><h2 id="unit-23" class="unit-heading"><span class="unit-label">Unit 23</span>Advanced Layouts &amp; Scrolling</h2><h3 id="expanded-flexible">Expanded &amp; Flexible</h3>
+<p>Inside a <code class="inline-code">Row</code> or <code class="inline-code">Column</code>, <code class="inline-code">Expanded</code> forces a child to fill the remaining available space; <code class="inline-code">Flexible</code> lets a child shrink to fit without necessarily filling all remaining space. The <code class="inline-code">flex</code> property distributes space proportionally between multiple <code class="inline-code">Expanded</code> children.</p>
+<pre><code>Row(
+  children: [
+    Expanded(flex: 2, child: Container(color: Colors.red, height: 50)),
+    Expanded(flex: 1, child: Container(color: Colors.green, height: 50)),
+  ],
+)
+// The red box takes twice the width of the green box.</code></pre>
+<h3 id="listview-scrollable-lists">ListView — scrollable lists</h3>
+<pre><code>// Fixed list of children
+ListView(
+  children: const [
+    ListTile(leading: Icon(Icons.book), title: Text(&#39;Data Structures&#39;)),
+    ListTile(leading: Icon(Icons.code), title: Text(&#39;Flutter Lab&#39;)),
+  ],
+)
+
+// Efficient for long or dynamic lists — builds items lazily as they scroll into view
+ListView.builder(
+  itemCount: subjects.length,
+  itemBuilder: (context, index) {
+    return ListTile(title: Text(subjects[index]));
+  },
+)</code></pre>
+<div class="note tip"><span class="note-label">TIP</span>Always prefer <code class="inline-code">ListView.builder</code> over a plain <code class="inline-code">ListView(children: [...])</code> once the list can grow large — <code class="inline-code">.builder</code> only constructs the widgets currently visible on screen, which is dramatically more memory-efficient.</div>
+<h3 id="gridview-grid-layouts">GridView — grid layouts</h3>
+<pre><code>GridView.builder(
+  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+    crossAxisCount: 2,
+    crossAxisSpacing: 8,
+    mainAxisSpacing: 8,
+  ),
+  itemCount: 6,
+  itemBuilder: (context, index) =&gt; Card(
+    child: Center(child: Text(&#39;Item $index&#39;)),
+  ),
+)</code></pre>
+<h3 id="wrap-flowing-layout">Wrap — flowing layout</h3>
+<pre><code>Wrap(
+  spacing: 8,     // horizontal gap between items
+  runSpacing: 8,  // vertical gap between wrapped lines
+  children: [
+    Chip(label: Text(&#39;AI&#39;)),
+    Chip(label: Text(&#39;Data Science&#39;)),
+    Chip(label: Text(&#39;Flutter&#39;)),
+    Chip(label: Text(&#39;IoT&#39;)),
+  ],
+)</code></pre>
+<div class="table-wrap"><table><thead><tr><th>Widget</th><th>Best for</th></tr></thead><tbody><tr><td><code class="inline-code">ListView.builder</code></td><td>Long or dynamic vertical/horizontal lists</td></tr><tr><td><code class="inline-code">GridView.builder</code></td><td>Photo grids, dashboards, card layouts</td></tr><tr><td><code class="inline-code">Wrap</code></td><td>Tags/chips that should flow onto multiple lines</td></tr><tr><td><code class="inline-code">SingleChildScrollView</code></td><td>A single, possibly-overflowing widget (e.g. a tall form) that needs to scroll</td></tr></tbody></table></div>
+<div class="keypoints"><div class="keypoints-label">KEY POINTS</div><ul><li><code class="inline-code">Expanded</code>/<code class="inline-code">Flexible</code> distribute remaining space inside a <code class="inline-code">Row</code>/<code class="inline-code">Column</code>; <code class="inline-code">flex</code> controls the ratio.</li><li><code class="inline-code">.builder</code> constructors (<code class="inline-code">ListView.builder</code>, <code class="inline-code">GridView.builder</code>) are essential for performance once a list can grow large.</li><li><code class="inline-code">Wrap</code> is the go-to widget for tag/chip-style content that should flow across lines instead of overflowing.</li></ul></div></section>
+<section class="unit"><h2 id="unit-24" class="unit-heading"><span class="unit-label">Unit 24</span>User Input, Forms &amp; Buttons</h2><h3 id="buttons">Buttons</h3>
+<pre><code>ElevatedButton(
+  onPressed: () =&gt; print(&#39;Submitted&#39;),
+  child: const Text(&#39;Submit&#39;),
+)
+
+TextButton(onPressed: () {}, child: const Text(&#39;Cancel&#39;)),
+OutlinedButton(onPressed: () {}, child: const Text(&#39;Learn More&#39;)),
+IconButton(icon: const Icon(Icons.favorite), onPressed: () {}),</code></pre>
+<h3 id="textfield-free-form-input">TextField — free-form input</h3>
+<pre><code>final TextEditingController _controller = TextEditingController();
+
+TextField(
+  controller: _controller,
+  decoration: const InputDecoration(
+    labelText: &#39;Faculty Name&#39;,
+    border: OutlineInputBorder(),
+  ),
+  onChanged: (value) =&gt; print(&#39;Typing: $value&#39;),
+)
+
+// Reading the value later:
+print(_controller.text);</code></pre>
+<div class="note warning"><span class="note-label">CAUTION</span>Always call <code class="inline-code">_controller.dispose()</code> inside your <code class="inline-code">State</code>&#39;s <code class="inline-code">dispose()</code> method — <code class="inline-code">TextEditingController</code>s hold resources that must be released when the widget is removed from the tree.</div>
+<h3 id="form-validation">Form &amp; Validation</h3>
+<pre><code>final _formKey = GlobalKey&lt;FormState&gt;();
+
+Form(
+  key: _formKey,
+  child: Column(
+    children: [
+      TextFormField(
+        decoration: const InputDecoration(labelText: &#39;Email&#39;),
+        validator: (value) {
+          if (value == null || !value.contains(&#39;@&#39;)) {
+            return &#39;Enter a valid email&#39;;
+          }
+          return null; // null means &quot;valid&quot;
+        },
+      ),
+      ElevatedButton(
+        onPressed: () {
+          if (_formKey.currentState!.validate()) {
+            print(&#39;Form is valid — proceed&#39;);
+          }
+        },
+        child: const Text(&#39;Submit&#39;),
+      ),
+    ],
+  ),
+)</code></pre>
+<h3 id="other-common-input-widgets">Other Common Input Widgets</h3>
+<div class="table-wrap"><table><thead><tr><th>Widget</th><th>Use</th></tr></thead><tbody><tr><td><code class="inline-code">Checkbox</code></td><td>Boolean on/off, typically paired with a <code class="inline-code">Text</code> label</td></tr><tr><td><code class="inline-code">Switch</code></td><td>Toggle setting, styled like a mobile switch</td></tr><tr><td><code class="inline-code">Radio</code></td><td>Choose one option from a group</td></tr><tr><td><code class="inline-code">DropdownButton</code></td><td>Choose one option from a dropdown list</td></tr><tr><td><code class="inline-code">Slider</code></td><td>Choose a value from a continuous or stepped numeric range</td></tr><tr><td><code class="inline-code">DatePicker</code> / <code class="inline-code">showDatePicker()</code></td><td>Native-style date selection dialog</td></tr></tbody></table></div>
+<div class="keypoints"><div class="keypoints-label">KEY POINTS</div><ul><li><code class="inline-code">TextEditingController</code> reads and controls a <code class="inline-code">TextField</code>&#39;s content — always dispose it.</li><li><code class="inline-code">Form</code> + <code class="inline-code">TextFormField</code> + <code class="inline-code">validator</code> gives you declarative, per-field validation with a single <code class="inline-code">validate()</code> call.</li><li>A <code class="inline-code">validator</code> returning <code class="inline-code">null</code> means the field is valid; any other <code class="inline-code">String</code> is shown as the error message.</li></ul></div></section>
+<section class="unit"><h2 id="unit-25" class="unit-heading"><span class="unit-label">Unit 25</span>Navigation &amp; Routing</h2><p>Flutter manages screens with a <strong>stack</strong> of routes, managed by the <code class="inline-code">Navigator</code> widget — pushing a route shows a new screen on top; popping removes it and reveals what was underneath.</p>
+<h3 id="basic-navigation-with-push-pop">Basic Navigation with push/pop</h3>
+<pre><code>// Navigate to a new screen
+Navigator.push(
+  context,
+  MaterialPageRoute(builder: (context) =&gt; const DetailsPage()),
+);
+
+// Go back to the previous screen
+Navigator.pop(context);</code></pre>
+<h3 id="passing-data-forward">Passing Data Forward</h3>
+<pre><code>Navigator.push(
+  context,
+  MaterialPageRoute(
+    builder: (context) =&gt; DetailsPage(studentName: &#39;Anita&#39;),
+  ),
+);
+
+class DetailsPage extends StatelessWidget {
+  final String studentName;
+  const DetailsPage({super.key, required this.studentName});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(body: Center(child: Text(&#39;Hello, $studentName&#39;)));
+  }
+}</code></pre>
+<h3 id="returning-data-backward">Returning Data Backward</h3>
+<pre><code>// On the calling screen — await the result
+final result = await Navigator.push(
+  context,
+  MaterialPageRoute(builder: (context) =&gt; const SelectionPage()),
+);
+print(&#39;User selected: $result&#39;);
+
+// On the SelectionPage — pop with a value
+Navigator.pop(context, &#39;Option A&#39;);</code></pre>
+<h3 id="named-routes">Named Routes</h3>
+<p>For apps with many screens, named routes centralize navigation in one place instead of importing every page&#39;s class everywhere.</p>
+<pre><code>MaterialApp(
+  initialRoute: &#39;/&#39;,
+  routes: {
+    &#39;/&#39;: (context) =&gt; const HomePage(),
+    &#39;/details&#39;: (context) =&gt; const DetailsPage(),
+    &#39;/settings&#39;: (context) =&gt; const SettingsPage(),
+  },
+)
+
+// Navigate using the route name
+Navigator.pushNamed(context, &#39;/details&#39;);</code></pre>
+<div class="note tip"><span class="note-label">TIP</span>For apps with complex, deep-linkable navigation (especially on the web, where URLs matter), consider the <code class="inline-code">go_router</code> package — it builds on top of Navigator 2.0 and is the community-standard solution for declarative, URL-based routing.</div>
+<div class="keypoints"><div class="keypoints-label">KEY POINTS</div><ul><li><code class="inline-code">Navigator.push</code>/<code class="inline-code">pop</code> manipulate a stack of screens; the top of the stack is what&#39;s visible.</li><li><code class="inline-code">await Navigator.push(...)</code> lets a screen receive a result back once the pushed screen calls <code class="inline-code">Navigator.pop(context, result)</code>.</li><li>Named routes centralize route definitions in <code class="inline-code">MaterialApp</code>, useful once an app has more than a handful of screens.</li></ul></div></section>
+<section class="unit"><h2 id="unit-26" class="unit-heading"><span class="unit-label">Unit 26</span>State Management</h2><p>&quot;State management&quot; is simply the question: <strong>when data changes, how does the right part of the UI find out and rebuild?</strong> <code class="inline-code">setState()</code> (Unit 15) answers this for a single widget&#39;s own local state. As an app grows, you need patterns for sharing state *across* widgets that aren&#39;t directly related in the tree.</p>
+<h3 id="setstate-local-state">setState() — Local State</h3>
+<p>Best for state that belongs to, and is only needed by, one widget and its direct children — a single form&#39;s validity, whether a card is expanded, an animation&#39;s progress.</p>
+<h3 id="inheritedwidget-flutter-s-built-in-sharing-mechanism">InheritedWidget — Flutter&#39;s Built-in Sharing Mechanism</h3>
+<p><code class="inline-code">InheritedWidget</code> lets any descendant efficiently read data from an ancestor without it being passed down manually through every constructor (&quot;prop drilling&quot;). Most higher-level state management packages (including <code class="inline-code">Provider</code>) are built on top of this primitive.</p>
+<h3 id="provider-the-recommended-starting-point">Provider — the recommended starting point</h3>
+<p><code class="inline-code">provider</code> is the package the Flutter team itself recommends for small-to-medium apps. It wraps <code class="inline-code">InheritedWidget</code> in a much friendlier API.</p>
+<pre><code>// 1. Define your state as a ChangeNotifier
+class CounterModel extends ChangeNotifier {
+  int _count = 0;
+  int get count =&gt; _count;
+
+  void increment() {
+    _count++;
+    notifyListeners(); // tells every listening widget to rebuild
+  }
+}
+
+// 2. Provide it above the widgets that need it
+void main() {
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) =&gt; CounterModel(),
+      child: const MyApp(),
+    ),
+  );
+}
+
+// 3. Consume it anywhere below
+class CounterDisplay extends StatelessWidget {
+  const CounterDisplay({super.key});
+  @override
+  Widget build(BuildContext context) {
+    final count = context.watch&lt;CounterModel&gt;().count;
+    return Text(&#39;Count: $count&#39;);
+  }
+}
+
+class IncrementButton extends StatelessWidget {
+  const IncrementButton({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      onPressed: () =&gt; context.read&lt;CounterModel&gt;().increment(),
+      child: const Text(&#39;+1&#39;),
+    );
+  }
+}</code></pre>
+<div class="note tip"><span class="note-label">TIP</span><code class="inline-code">context.watch&lt;T&gt;()</code> subscribes the widget to rebuilds whenever <code class="inline-code">T</code> calls <code class="inline-code">notifyListeners()</code>. <code class="inline-code">context.read&lt;T&gt;()</code> grabs the value once, without subscribing — use it inside callbacks like <code class="inline-code">onPressed</code> where you don&#39;t want a rebuild every time you merely read the value.</div>
+<h3 id="riverpod-provider-s-compile-safe-successor">Riverpod — Provider&#39;s Compile-Safe Successor</h3>
+<p>Riverpod keeps Provider&#39;s core idea but removes its two biggest pain points: providers no longer need a <code class="inline-code">BuildContext</code> to be read (so they work in plain Dart, not just widgets), and mismatched provider types are caught by the compiler instead of at runtime.</p>
+<pre><code>// 1. Declare a provider at the top level of a file
+final counterProvider = StateNotifierProvider&lt;CounterNotifier, int&gt;(
+  (ref) =&gt; CounterNotifier(),
+);
+
+class CounterNotifier extends StateNotifier&lt;int&gt; {
+  CounterNotifier() : super(0);
+  void increment() =&gt; state = state + 1;
+}
+
+// 2. Wrap the app in a ProviderScope (instead of ChangeNotifierProvider)
+void main() {
+  runApp(const ProviderScope(child: MyApp()));
+}
+
+// 3. Consume with a ConsumerWidget instead of StatelessWidget
+class CounterDisplay extends ConsumerWidget {
+  const CounterDisplay({super.key});
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final count = ref.watch(counterProvider);
+    return Text(&#39;Count: $count&#39;);
+  }
+}
+
+class IncrementButton extends ConsumerWidget {
+  const IncrementButton({super.key});
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return ElevatedButton(
+      onPressed: () =&gt; ref.read(counterProvider.notifier).increment(),
+      child: const Text(&#39;+1&#39;),
+    );
+  }
+}</code></pre>
+<h3 id="bloc-strict-event-driven-state-management">Bloc — Strict, Event-Driven State Management</h3>
+<p>Bloc formalizes state changes as a stream of <strong>events in, states out</strong> — every state change must be traceable to an explicit event, which makes very large apps with many contributors easier to reason about and test, at the cost of more upfront boilerplate.</p>
+<pre><code>// Events — what can happen
+abstract class CounterEvent {}
+class IncrementPressed extends CounterEvent {}
+
+// The Bloc — maps events to new states
+class CounterBloc extends Bloc&lt;CounterEvent, int&gt; {
+  CounterBloc() : super(0) {
+    on&lt;IncrementPressed&gt;((event, emit) =&gt; emit(state + 1));
+  }
+}
+
+// Providing it, using flutter_bloc&#39;s BlocProvider
+BlocProvider(
+  create: (context) =&gt; CounterBloc(),
+  child: const CounterScreen(),
+)
+
+// Consuming it with BlocBuilder
+BlocBuilder&lt;CounterBloc, int&gt;(
+  builder: (context, count) =&gt; Text(&#39;Count: $count&#39;),
+)
+
+// Firing an event
+context.read&lt;CounterBloc&gt;().add(IncrementPressed());</code></pre>
+<h3 id="choosing-between-them">Choosing Between Them</h3>
+<div class="table-wrap"><table><thead><tr><th>Approach</th><th>Good fit for</th><th>Trade-off</th></tr></thead><tbody><tr><td><code class="inline-code">setState</code></td><td>Small, single-widget-local state</td><td>Doesn&#39;t scale to sharing state across screens</td></tr><tr><td><code class="inline-code">Provider</code></td><td>Small-to-medium apps; official recommendation for most projects</td><td>Runtime type lookups; easy to misuse <code class="inline-code">watch</code> vs <code class="inline-code">read</code></td></tr><tr><td><code class="inline-code">Riverpod</code></td><td>Same range as Provider, plus apps wanting compile-time safety and testability outside widgets</td><td>Slightly steeper learning curve than Provider</td></tr><tr><td><code class="inline-code">Bloc</code> / <code class="inline-code">flutter_bloc</code></td><td>Large teams/apps wanting a strict, event-driven, highly testable architecture</td><td>More boilerplate per feature (events + states + bloc)</td></tr><tr><td><code class="inline-code">GetX</code></td><td>Rapid development with state management, routing, and DI combined</td><td>Less idiomatic Flutter; more &quot;magic&quot; than the alternatives above</td></tr></tbody></table></div>
+<div class="keypoints"><div class="keypoints-label">KEY POINTS</div><ul><li>State management answers one question: how does a UI change get communicated to everything that depends on it?</li><li><code class="inline-code">ChangeNotifier</code> + <code class="inline-code">notifyListeners()</code> + <code class="inline-code">Provider</code> is the most common beginner-to-intermediate pattern in real Flutter apps.</li><li><code class="inline-code">context.watch&lt;T&gt;()</code> rebuilds on change; <code class="inline-code">context.read&lt;T&gt;()</code> reads once without subscribing — using the wrong one is a very common source of bugs.</li></ul></div></section>
+<section class="unit"><h2 id="unit-27" class="unit-heading"><span class="unit-label">Unit 27</span>Networking &amp; REST APIs</h2><p>The <code class="inline-code">http</code> package (published by the Dart team) is the standard, lightweight way to make network requests. Add it to <code class="inline-code">pubspec.yaml</code> (<code class="inline-code">http: ^1.2.0</code>) and run <code class="inline-code">flutter pub get</code> before using it.</p>
+<h3 id="making-a-get-request">Making a GET Request</h3>
+<pre><code>import &#39;dart:convert&#39;;
+import &#39;package:http/http.dart&#39; as http;
+
+Future&lt;List&lt;dynamic&gt;&gt; fetchStudents() async {
+  final response = await http.get(
+    Uri.parse(&#39;https://api.example.com/students&#39;),
+  );
+
+  if (response.statusCode == 200) {
+    return jsonDecode(response.body) as List&lt;dynamic&gt;;
+  } else {
+    throw Exception(&#39;Failed to load students: ${response.statusCode}&#39;);
+  }
+}</code></pre>
+<h3 id="modeling-json-with-a-class">Modeling JSON with a Class</h3>
+<p>Rather than passing raw <code class="inline-code">Map&lt;String, dynamic&gt;</code> objects around, define a model class with a <code class="inline-code">fromJson</code> factory constructor — this keeps parsing logic in one place and gives you compile-time type safety everywhere else.</p>
+<pre><code>class Student {
+  final String name;
+  final int rollNumber;
+
+  Student({required this.name, required this.rollNumber});
+
+  factory Student.fromJson(Map&lt;String, dynamic&gt; json) {
+    return Student(
+      name: json[&#39;name&#39;] as String,
+      rollNumber: json[&#39;rollNumber&#39;] as int,
+    );
+  }
+}
+
+Future&lt;List&lt;Student&gt;&gt; fetchStudents() async {
+  final response = await http.get(Uri.parse(&#39;https://api.example.com/students&#39;));
+  final List&lt;dynamic&gt; jsonList = jsonDecode(response.body);
+  return jsonList.map((json) =&gt; Student.fromJson(json)).toList();
+}</code></pre>
+<h3 id="displaying-async-data-with-futurebuilder">Displaying Async Data with FutureBuilder</h3>
+<pre><code>FutureBuilder&lt;List&lt;Student&gt;&gt;(
+  future: fetchStudents(),
+  builder: (context, snapshot) {
+    if (snapshot.connectionState == ConnectionState.waiting) {
+      return const CircularProgressIndicator();
+    } else if (snapshot.hasError) {
+      return Text(&#39;Error: ${snapshot.error}&#39;);
+    } else {
+      final students = snapshot.data!;
+      return ListView.builder(
+        itemCount: students.length,
+        itemBuilder: (context, i) =&gt; ListTile(title: Text(students[i].name)),
+      );
+    }
+  },
+)</code></pre>
+<div class="note tip"><span class="note-label">TIP</span><code class="inline-code">FutureBuilder</code> rebuilds automatically as its <code class="inline-code">future</code> moves through waiting → data/error states — you never need to manually call <code class="inline-code">setState()</code> just to show a loading spinner.</div>
+<h3 id="post-request-example">POST Request Example</h3>
+<pre><code>Future&lt;void&gt; createStudent(String name, int roll) async {
+  final response = await http.post(
+    Uri.parse(&#39;https://api.example.com/students&#39;),
+    headers: {&#39;Content-Type&#39;: &#39;application/json&#39;},
+    body: jsonEncode({&#39;name&#39;: name, &#39;rollNumber&#39;: roll}),
+  );
+  if (response.statusCode != 201) {
+    throw Exception(&#39;Failed to create student&#39;);
+  }
+}</code></pre>
+<div class="keypoints"><div class="keypoints-label">KEY POINTS</div><ul><li>The <code class="inline-code">http</code> package handles GET/POST/PUT/DELETE requests; <code class="inline-code">dart:convert</code>&#39;s <code class="inline-code">jsonDecode</code>/<code class="inline-code">jsonEncode</code> handle JSON parsing.</li><li>A <code class="inline-code">fromJson</code> factory constructor on a model class centralizes parsing and gives the rest of your app type safety.</li><li><code class="inline-code">FutureBuilder</code> is the idiomatic Flutter widget for rendering loading/data/error states from a single <code class="inline-code">Future</code>.</li></ul></div></section>
+<section class="unit"><h2 id="unit-28" class="unit-heading"><span class="unit-label">Unit 28</span>Local Data Persistence</h2><h3 id="shared-preferences-simple-key-value-storage">shared_preferences — simple key-value storage</h3>
+<p>Ideal for small amounts of data: user settings, a login flag, a theme preference. Not suitable for structured or large datasets.</p>
+<pre><code>import &#39;package:shared_preferences/shared_preferences.dart&#39;;
+
+Future&lt;void&gt; saveUsername(String name) async {
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.setString(&#39;username&#39;, name);
+}
+
+Future&lt;String?&gt; loadUsername() async {
+  final prefs = await SharedPreferences.getInstance();
+  return prefs.getString(&#39;username&#39;);
+}</code></pre>
+<h3 id="sqflite-local-sql-database">sqflite — local SQL database</h3>
+<p>For structured, relational, and larger datasets stored entirely on-device, <code class="inline-code">sqflite</code> gives you a full local SQLite database.</p>
+<pre><code>import &#39;package:sqflite/sqflite.dart&#39;;
+import &#39;package:path/path.dart&#39;;
+
+Future&lt;Database&gt; openAppDatabase() async {
+  final path = join(await getDatabasesPath(), &#39;app.db&#39;);
+  return openDatabase(
+    path,
+    version: 1,
+    onCreate: (db, version) {
+      return db.execute(
+        &#39;CREATE TABLE students(id INTEGER PRIMARY KEY, name TEXT, roll INTEGER)&#39;,
+      );
+    },
+  );
+}
+
+Future&lt;void&gt; insertStudent(Database db, String name, int roll) async {
+  await db.insert(&#39;students&#39;, {&#39;name&#39;: name, &#39;roll&#39;: roll});
+}
+
+Future&lt;List&lt;Map&lt;String, dynamic&gt;&gt;&gt; getStudents(Database db) async {
+  return db.query(&#39;students&#39;);
+}</code></pre>
+<div class="table-wrap"><table><thead><tr><th>Option</th><th>Best for</th><th>Not ideal for</th></tr></thead><tbody><tr><td><code class="inline-code">shared_preferences</code></td><td>Flags, small settings, simple strings/numbers/bools</td><td>Structured or relational data</td></tr><tr><td><code class="inline-code">sqflite</code></td><td>Relational, queryable, larger local datasets</td><td>Simple one-off flags (overkill)</td></tr><tr><td><code class="inline-code">hive</code></td><td>Fast, NoSQL, no native SQL knowledge required</td><td>Complex relational queries across tables</td></tr></tbody></table></div>
+<div class="keypoints"><div class="keypoints-label">KEY POINTS</div><ul><li><code class="inline-code">shared_preferences</code> is for small, simple key-value data; it is not a database.</li><li><code class="inline-code">sqflite</code> gives full local SQL capability when your data is structured and relational.</li><li>All persistence operations are asynchronous — always <code class="inline-code">await</code> them.</li></ul></div></section>
+<section class="unit"><h2 id="unit-29" class="unit-heading"><span class="unit-label">Unit 29</span>Animations</h2><h3 id="implicit-animations-the-easy-80">Implicit Animations — the easy 80%</h3>
+<p>Widgets prefixed <code class="inline-code">Animated*</code> handle the entire animation for you — just change a property, and the widget smoothly animates from the old value to the new one.</p>
+<pre><code>class FadeBox extends StatefulWidget {
+  const FadeBox({super.key});
+  @override
+  State&lt;FadeBox&gt; createState() =&gt; _FadeBoxState();
+}
+
+class _FadeBoxState extends State&lt;FadeBox&gt; {
+  double _opacity = 1.0;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () =&gt; setState(() =&gt; _opacity = _opacity == 1.0 ? 0.2 : 1.0),
+      child: AnimatedOpacity(
+        opacity: _opacity,
+        duration: const Duration(milliseconds: 400),
+        child: Container(width: 100, height: 100, color: Colors.teal),
+      ),
+    );
+  }
+}</code></pre>
+<div class="table-wrap"><table><thead><tr><th>Widget</th><th>Animates</th></tr></thead><tbody><tr><td><code class="inline-code">AnimatedOpacity</code></td><td>Fade in/out</td></tr><tr><td><code class="inline-code">AnimatedContainer</code></td><td>Size, color, padding, decoration — all at once</td></tr><tr><td><code class="inline-code">AnimatedAlign</code></td><td>Position within a parent</td></tr><tr><td><code class="inline-code">AnimatedCrossFade</code></td><td>Cross-fade between two entirely different widgets</td></tr></tbody></table></div>
+<h3 id="explicit-animations-full-control">Explicit Animations — full control</h3>
+<p>When you need precise control (looping, reversing, chaining multiple properties together), use an <code class="inline-code">AnimationController</code> directly. It requires a <code class="inline-code">TickerProvider</code>, which is why the <code class="inline-code">State</code> class mixes in <code class="inline-code">SingleTickerProviderStateMixin</code>.</p>
+<pre><code>class PulsingIcon extends StatefulWidget {
+  const PulsingIcon({super.key});
+  @override
+  State&lt;PulsingIcon&gt; createState() =&gt; _PulsingIconState();
+}
+
+class _PulsingIconState extends State&lt;PulsingIcon&gt;
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation&lt;double&gt; _scale;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 1),
+    )..repeat(reverse: true);
+    _scale = Tween&lt;double&gt;(begin: 0.8, end: 1.2).animate(_controller);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ScaleTransition(scale: _scale, child: const Icon(Icons.favorite, size: 48));
+  }
+}</code></pre>
+<div class="note warning"><span class="note-label">CAUTION</span>Every <code class="inline-code">AnimationController</code> you create must be disposed in <code class="inline-code">dispose()</code>. A forgotten controller keeps ticking in the background after its widget is gone, wasting resources and, in some cases, causing errors when it eventually calls <code class="inline-code">setState()</code> on an unmounted widget.</div>
+<div class="keypoints"><div class="keypoints-label">KEY POINTS</div><ul><li><code class="inline-code">Animated*</code> widgets cover simple property-change animations with almost no boilerplate.</li><li><code class="inline-code">AnimationController</code> + <code class="inline-code">Tween</code> gives full control for loops, reversals, and custom curves.</li><li>Always dispose an <code class="inline-code">AnimationController</code> in the <code class="inline-code">State</code>&#39;s <code class="inline-code">dispose()</code> method.</li></ul></div></section>
+<section class="unit"><h2 id="unit-30" class="unit-heading"><span class="unit-label">Unit 30</span>Theming &amp; Styling</h2><p>Rather than styling every widget individually, define a single <code class="inline-code">ThemeData</code> and let every Material widget in the app inherit from it — this is what makes rebranding an app (or supporting dark mode) a matter of editing one object instead of hundreds of widgets.</p>
+<pre><code>MaterialApp(
+  theme: ThemeData(
+    colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo),
+    fontFamily: &#39;Poppins&#39;,
+    appBarTheme: const AppBarTheme(centerTitle: true, elevation: 2),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      ),
+    ),
+  ),
+  darkTheme: ThemeData.dark(),
+  themeMode: ThemeMode.system, // follows the device&#39;s light/dark setting
+  home: const HomePage(),
+)</code></pre>
+<h3 id="reading-theme-values-inside-a-widget">Reading Theme Values Inside a Widget</h3>
+<pre><code>Widget build(BuildContext context) {
+  final theme = Theme.of(context);
+  return Text(
+    &#39;Quarterly Report&#39;,
+    style: theme.textTheme.headlineSmall,
+  );
+}</code></pre>
+<h3 id="material-vs-cupertino">Material vs Cupertino</h3>
+<p>Flutter ships two complete design systems out of the box: <strong>Material</strong> (<code class="inline-code">package:flutter/material.dart</code>), Google&#39;s design language used across Android and the web, and <strong>Cupertino</strong> (<code class="inline-code">package:flutter/cupertino.dart</code>), which mimics Apple&#39;s iOS design language. Most cross-platform apps use Material everywhere for consistency, reserving Cupertino widgets for apps that specifically want an iOS-native look and feel.</p>
+<div class="keypoints"><div class="keypoints-label">KEY POINTS</div><ul><li><code class="inline-code">ThemeData</code> centralizes colors, fonts, and component styles for the entire app.</li><li><code class="inline-code">Theme.of(context)</code> reads the active theme from anywhere in the widget tree.</li><li><code class="inline-code">ThemeMode.system</code> automatically switches between <code class="inline-code">theme</code> and <code class="inline-code">darkTheme</code> based on the device setting.</li></ul></div></section>
+<section class="unit"><h2 id="unit-31" class="unit-heading"><span class="unit-label">Unit 31</span>Gestures &amp; Interactivity</h2><p>Flutter widgets like <code class="inline-code">ElevatedButton</code> handle taps for you, but for custom interactive UI (a tappable card, a swipeable item, a draggable widget) you reach for gesture-detection widgets directly.</p>
+<h3 id="gesturedetector">GestureDetector</h3>
+<pre><code>GestureDetector(
+  onTap: () =&gt; print(&#39;Tapped&#39;),
+  onDoubleTap: () =&gt; print(&#39;Double tapped&#39;),
+  onLongPress: () =&gt; print(&#39;Long pressed&#39;),
+  onPanUpdate: (details) =&gt; print(&#39;Dragged: ${details.delta}&#39;),
+  child: Container(
+    width: 120,
+    height: 120,
+    color: Colors.orange,
+    child: const Center(child: Text(&#39;Tap Me&#39;)),
+  ),
+)</code></pre>
+<h3 id="inkwell-material-tap-feedback">InkWell — Material tap feedback</h3>
+<p><code class="inline-code">InkWell</code> behaves like <code class="inline-code">GestureDetector</code> for taps, but also draws Material Design&#39;s signature ripple effect — use it instead of <code class="inline-code">GestureDetector</code> whenever the tappable area sits on top of a Material surface (like a <code class="inline-code">Card</code> or <code class="inline-code">Container</code> with a solid color).</p>
+<pre><code>Material(
+  color: Colors.blue.shade50,
+  child: InkWell(
+    onTap: () =&gt; print(&#39;Card tapped&#39;),
+    borderRadius: BorderRadius.circular(8),
+    child: const Padding(
+      padding: EdgeInsets.all(16),
+      child: Text(&#39;Tap this card&#39;),
+    ),
+  ),
+)</code></pre>
+<h3 id="dismissible-swipe-to-delete">Dismissible — swipe-to-delete</h3>
+<pre><code>Dismissible(
+  key: Key(item.id),
+  direction: DismissDirection.endToStart,
+  onDismissed: (direction) {
+    setState(() =&gt; items.remove(item));
+  },
+  background: Container(color: Colors.red),
+  child: ListTile(title: Text(item.name)),
+)</code></pre>
+<div class="keypoints"><div class="keypoints-label">KEY POINTS</div><ul><li><code class="inline-code">GestureDetector</code> is the general-purpose widget for taps, drags, and long-presses.</li><li><code class="inline-code">InkWell</code> adds the Material ripple effect and should be preferred on Material surfaces.</li><li><code class="inline-code">Dismissible</code> gives you swipe-to-remove behaviour with almost no manual gesture math.</li></ul></div></section>
+<section class="unit"><h2 id="unit-32" class="unit-heading"><span class="unit-label">Unit 32</span>Testing in Flutter</h2><p>Flutter&#39;s testing story spans three levels, and the <code class="inline-code">flutter_test</code> package (included by default) covers the first two out of the box.</p>
+<div class="table-wrap"><table><thead><tr><th>Test type</th><th>What it checks</th><th>Speed</th></tr></thead><tbody><tr><td>Unit test</td><td>A single function or class, in isolation, no UI</td><td>Fastest</td></tr><tr><td>Widget test</td><td>A single widget&#39;s UI and behaviour, in a simulated environment</td><td>Fast</td></tr><tr><td>Integration test</td><td>The full app running on a real device/emulator, end to end</td><td>Slowest, most realistic</td></tr></tbody></table></div>
+<h3 id="unit-test-example">Unit Test Example</h3>
+<pre><code>// lib/calculator.dart
+int add(int a, int b) =&gt; a + b;
+
+// test/calculator_test.dart
+import &#39;package:flutter_test/flutter_test.dart&#39;;
+import &#39;package:my_app/calculator.dart&#39;;
+
+void main() {
+  test(&#39;add() sums two integers correctly&#39;, () {
+    expect(add(2, 3), 5);
+  });
+}</code></pre>
+<h3 id="widget-test-example">Widget Test Example</h3>
+<pre><code>import &#39;package:flutter/material.dart&#39;;
+import &#39;package:flutter_test/flutter_test.dart&#39;;
+import &#39;package:my_app/counter.dart&#39;;
+
+void main() {
+  testWidgets(&#39;Counter increments when button is tapped&#39;, (tester) async {
+    await tester.pumpWidget(const MaterialApp(home: Counter()));
+
+    expect(find.text(&#39;Count: 0&#39;), findsOneWidget);
+
+    await tester.tap(find.text(&#39;Add&#39;));
+    await tester.pump(); // rebuild the widget tree after the state change
+
+    expect(find.text(&#39;Count: 1&#39;), findsOneWidget);
+  });
+}</code></pre>
+<p>Run all tests with:</p>
+<pre><code>flutter test</code></pre>
+<div class="keypoints"><div class="keypoints-label">KEY POINTS</div><ul><li>Unit tests check pure logic; widget tests check a widget&#39;s rendering and interaction; integration tests check the whole app on a real device.</li><li><code class="inline-code">tester.pump()</code> must be called after any action that triggers <code class="inline-code">setState()</code>, so the test framework rebuilds the widget tree before you assert on it.</li><li><code class="inline-code">find.text(...)</code>, <code class="inline-code">find.byType(...)</code>, and <code class="inline-code">find.byKey(...)</code> are the main ways widget tests locate elements to interact with or assert on.</li></ul></div></section>
+<section class="unit"><h2 id="unit-33" class="unit-heading"><span class="unit-label">Unit 33</span>Building, Debugging &amp; Deployment</h2><h3 id="debug-vs-profile-vs-release-builds">Debug vs Profile vs Release Builds</h3>
+<div class="table-wrap"><table><thead><tr><th>Mode</th><th>Purpose</th><th>Command</th></tr></thead><tbody><tr><td>Debug</td><td>Development — hot reload, assertions enabled, unoptimized</td><td><code class="inline-code">flutter run</code></td></tr><tr><td>Profile</td><td>Performance analysis, close to release speed but with profiling hooks</td><td><code class="inline-code">flutter run --profile</code></td></tr><tr><td>Release</td><td>What you ship to users — fully optimized, assertions stripped</td><td><code class="inline-code">flutter run --release</code></td></tr></tbody></table></div>
+<h3 id="building-an-android-apk-app-bundle">Building an Android APK / App Bundle</h3>
+<pre><code># A single APK, useful for direct distribution/testing
+flutter build apk --release
+
+# An App Bundle — the required format for Play Store submission
+flutter build appbundle --release</code></pre>
+<h3 id="building-for-ios">Building for iOS</h3>
+<pre><code>flutter build ios --release
+# Then open ios/Runner.xcworkspace in Xcode to archive and upload to App Store Connect</code></pre>
+<h3 id="debugging-tools">Debugging Tools</h3>
+<ul><li><strong>Flutter DevTools</strong> — a suite of performance, layout, and memory-profiling tools accessible via a browser link printed when you run <code class="inline-code">flutter run</code>.</li><li><strong>Widget Inspector</strong> — visually select any widget on screen and see its full properties and position in the tree.</li><li><strong>`debugPrint()`</strong> — like <code class="inline-code">print()</code>, but automatically avoids truncating very long output, which plain <code class="inline-code">print()</code> can do on some platforms.</li><li><strong>`flutter analyze`</strong> — runs Dart&#39;s static analyzer across your project to catch type errors, unused imports, and lint issues before you even run the app.</li></ul>
+<div class="note tip"><span class="note-label">TIP</span>Keep <code class="inline-code">flutter analyze</code> clean as you go rather than fixing a huge pile of warnings at the end — most Dart/Flutter errors caught this way would otherwise only surface as confusing runtime crashes.</div>
+<div class="keypoints"><div class="keypoints-label">KEY POINTS</div><ul><li>Debug mode is for development; always measure performance in profile mode; always ship release mode.</li><li>Android apps are packaged as an APK (direct install) or App Bundle (Play Store, the required modern format).</li><li>Flutter DevTools and the Widget Inspector are the primary tools for diagnosing layout and performance issues visually.</li></ul></div></section>
+<section class="unit"><h2 id="unit-34" class="unit-heading"><span class="unit-label">Unit 34</span>Custom Widgets &amp; Composition</h2><p>Flutter&#39;s guiding philosophy is <strong>composition over configuration</strong> — instead of one giant, deeply-configurable widget, you build small, focused widgets and combine them. Extracting a repeated chunk of UI into its own widget class is the single most impactful habit for keeping a Flutter codebase readable as it grows.</p>
+<h3 id="extracting-a-reusable-widget">Extracting a Reusable Widget</h3>
+<pre><code>class StatCard extends StatelessWidget {
+  final String label;
+  final String value;
+  final IconData icon;
+
+  const StatCard({
+    super.key,
+    required this.label,
+    required this.value,
+    required this.icon,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Row(
+          children: [
+            Icon(icon, size: 32, color: Theme.of(context).primaryColor),
+            const SizedBox(width: 12),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(value, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                Text(label, style: const TextStyle(color: Colors.grey)),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// Reused anywhere, with different data:
+const StatCard(label: &#39;Papers Published&#39;, value: &#39;118&#39;, icon: Icons.article)</code></pre>
+<div class="note tip"><span class="note-label">TIP</span>A common rule of thumb: if a <code class="inline-code">build()</code> method exceeds roughly 60-80 lines, or the same widget subtree appears more than once, it&#39;s usually time to extract a new widget class rather than a helper method that merely returns a <code class="inline-code">Widget</code> — real widget classes give Flutter&#39;s diffing algorithm useful information that helper methods don&#39;t.</div>
+<h3 id="composing-with-child-and-children">Composing with <code class="inline-code">child</code> and <code class="inline-code">children</code></h3>
+<p>Accepting a <code class="inline-code">Widget child</code> (or <code class="inline-code">List&lt;Widget&gt; children</code>) parameter, rather than hard-coding content, is what makes your own widgets as flexible as Flutter&#39;s built-in ones.</p>
+<pre><code>class RoundedPanel extends StatelessWidget {
+  final Widget child;
+  const RoundedPanel({super.key, required this.child});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 8)],
+      ),
+      child: child,
+    );
+  }
+}</code></pre>
+<div class="keypoints"><div class="keypoints-label">KEY POINTS</div><ul><li>Extract a widget class, not just a method, whenever UI is reused or a <code class="inline-code">build()</code> method grows large.</li><li>Accepting <code class="inline-code">child</code>/<code class="inline-code">children</code> parameters is what makes a custom widget composable rather than a rigid, one-off template.</li><li>Composition is the core Flutter design pattern — nearly every built-in widget is itself built by composing smaller ones.</li></ul></div></section>
+<section class="unit"><h2 id="unit-35" class="unit-heading"><span class="unit-label">Unit 35</span>Slivers &amp; CustomScrollView</h2><p>A <strong>sliver</strong> is a portion of a scrollable area that Flutter can lay out, paint, and clip lazily — the low-level mechanism behind every scrolling widget you&#39;ve already used, including <code class="inline-code">ListView</code>. Working with slivers directly becomes necessary once a screen needs to mix several *different kinds* of scrolling content in one continuous scroll — for example, a collapsing header image above a list.</p>
+<h3 id="customscrollview-with-sliverappbar">CustomScrollView with SliverAppBar</h3>
+<pre><code>CustomScrollView(
+  slivers: [
+    SliverAppBar(
+      expandedHeight: 200,
+      pinned: true,
+      flexibleSpace: FlexibleSpaceBar(
+        title: const Text(&#39;AI &amp; DS Department&#39;),
+        background: Image.asset(&#39;assets/images/banner.png&#39;, fit: BoxFit.cover),
+      ),
+    ),
+    SliverList(
+      delegate: SliverChildBuilderDelegate(
+        (context, index) =&gt; ListTile(title: Text(&#39;Item $index&#39;)),
+        childCount: 20,
+      ),
+    ),
+    SliverGrid(
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+      delegate: SliverChildBuilderDelegate(
+        (context, index) =&gt; Card(child: Center(child: Text(&#39;Grid $index&#39;))),
+        childCount: 6,
+      ),
+    ),
+  ],
+)</code></pre>
+<div class="note tip"><span class="note-label">TIP</span>As soon as you need a scroll effect that a plain <code class="inline-code">ListView</code> or <code class="inline-code">Column</code> can&#39;t express — a header that shrinks as you scroll, mixed list-and-grid sections, sticky section titles — reach for <code class="inline-code">CustomScrollView</code> and its <code class="inline-code">Sliver*</code> children instead of nesting scrollables inside each other, which Flutter does not support well.</div>
+<div class="keypoints"><div class="keypoints-label">KEY POINTS</div><ul><li>Slivers are the lazy-layout primitive underneath every Flutter scrolling widget.</li><li><code class="inline-code">CustomScrollView</code> lets you combine <code class="inline-code">SliverAppBar</code>, <code class="inline-code">SliverList</code>, and <code class="inline-code">SliverGrid</code> into one continuous, coordinated scroll.</li><li>Reach for slivers specifically when a screen needs scroll effects beyond what <code class="inline-code">ListView</code>/<code class="inline-code">Column</code> alone can express.</li></ul></div></section>
+<section class="unit"><h2 id="unit-36" class="unit-heading"><span class="unit-label">Unit 36</span>Custom Painting with CustomPainter</h2><p>For UI that isn&#39;t made of standard shapes — custom charts, signature pads, progress rings, hand-drawn diagrams — Flutter exposes the same low-level <code class="inline-code">Canvas</code> API its own widgets are built on, via <code class="inline-code">CustomPainter</code>.</p>
+<pre><code>class CirclePainter extends CustomPainter {
+  final double progress; // 0.0 to 1.0
+  CirclePainter(this.progress);
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final center = Offset(size.width / 2, size.height / 2);
+    final radius = size.width / 2;
+
+    final backgroundPaint = Paint()
+      ..color = Colors.grey.shade300
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 8;
+    canvas.drawCircle(center, radius, backgroundPaint);
+
+    final progressPaint = Paint()
+      ..color = Colors.indigo
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 8
+      ..strokeCap = StrokeCap.round;
+    canvas.drawArc(
+      Rect.fromCircle(center: center, radius: radius),
+      -3.14159 / 2,           // start at the top
+      2 * 3.14159 * progress, // sweep angle based on progress
+      false,
+      progressPaint,
+    );
+  }
+
+  @override
+  bool shouldRepaint(CirclePainter oldDelegate) =&gt; oldDelegate.progress != progress;
+}
+
+// Usage:
+CustomPaint(size: const Size(100, 100), painter: CirclePainter(0.7))</code></pre>
+<div class="note tip"><span class="note-label">TIP</span>Always implement <code class="inline-code">shouldRepaint</code> deliberately — returning <code class="inline-code">true</code> unconditionally forces a repaint on every frame regardless of whether anything actually changed, which is wasteful for anything animated or frequently rebuilt.</div>
+<div class="keypoints"><div class="keypoints-label">KEY POINTS</div><ul><li><code class="inline-code">CustomPainter</code> gives direct <code class="inline-code">Canvas</code> access for shapes, charts, and effects no built-in widget provides.</li><li><code class="inline-code">shouldRepaint</code> controls whether an expensive repaint actually happens — return <code class="inline-code">false</code> when the painted output hasn&#39;t changed.</li><li>Wrap a <code class="inline-code">CustomPainter</code> in the <code class="inline-code">CustomPaint</code> widget, giving it an explicit <code class="inline-code">size</code> when it has no child to size itself by.</li></ul></div></section>
+<section class="unit"><h2 id="unit-37" class="unit-heading"><span class="unit-label">Unit 37</span>Responsive &amp; Adaptive Design</h2><p>A Flutter app might run on a phone, a tablet, a foldable, or a desktop window of any size — good layouts adapt rather than assume a fixed screen size. Two tools cover the great majority of real-world responsive needs.</p>
+<h3 id="mediaquery-read-the-available-space">MediaQuery — read the available space</h3>
+<pre><code>Widget build(BuildContext context) {
+  final width = MediaQuery.of(context).size.width;
+  final isTablet = width &gt; 600;
+
+  return isTablet
+      ? const TwoColumnLayout()
+      : const SingleColumnLayout();
+}</code></pre>
+<h3 id="layoutbuilder-react-to-the-parent-s-constraints">LayoutBuilder — react to the parent&#39;s constraints</h3>
+<p><code class="inline-code">MediaQuery</code> reports the whole screen&#39;s size; <code class="inline-code">LayoutBuilder</code> reports the space actually available to *this* widget from its parent — the more correct choice when building a reusable widget that might be placed inside a sidebar, a dialog, or a full screen.</p>
+<pre><code>LayoutBuilder(
+  builder: (context, constraints) {
+    if (constraints.maxWidth &gt; 600) {
+      return const GridView.count(crossAxisCount: 3, children: []);
+    } else {
+      return const GridView.count(crossAxisCount: 1, children: []);
+    }
+  },
+)</code></pre>
+<div class="table-wrap"><table><thead><tr><th>Tool</th><th>Reports</th><th>Use when</th></tr></thead><tbody><tr><td><code class="inline-code">MediaQuery.of(context)</code></td><td>The full screen/window size, orientation, padding (e.g. notches)</td><td>Deciding overall app layout, text scaling, safe areas</td></tr><tr><td><code class="inline-code">LayoutBuilder</code></td><td>The constraints handed down from this widget&#39;s immediate parent</td><td>Building a self-contained, reusable widget that adapts regardless of where it&#39;s placed</td></tr></tbody></table></div>
+<div class="keypoints"><div class="keypoints-label">KEY POINTS</div><ul><li><code class="inline-code">MediaQuery</code> gives screen-level information; <code class="inline-code">LayoutBuilder</code> gives parent-level constraints — use the one that matches the actual question you&#39;re asking.</li><li>A common breakpoint convention: under ~600 logical pixels wide = phone layout, 600–900 = tablet, above 900 = desktop/large tablet — adjust to your app&#39;s actual content.</li><li>Design layouts to respond to available space rather than hard-coding pixel values, so the same codebase looks correct across phones, tablets, and desktop windows.</li></ul></div></section>
+<section class="unit"><h2 id="unit-38" class="unit-heading"><span class="unit-label">Unit 38</span>Accessibility</h2><p>Flutter builds a parallel <strong>semantics tree</strong> alongside the widget tree specifically for screen readers (TalkBack on Android, VoiceOver on iOS) and other assistive technology. Most built-in widgets (buttons, text fields, icons with a <code class="inline-code">tooltip</code>) already populate reasonable semantics automatically; the <code class="inline-code">Semantics</code> widget lets you fill in the gaps for custom widgets.</p>
+<pre><code>Semantics(
+  label: &#39;Submit quarterly report&#39;,
+  button: true,
+  child: GestureDetector(
+    onTap: submitReport,
+    child: Container(
+      padding: const EdgeInsets.all(12),
+      color: Colors.indigo,
+      child: const Icon(Icons.send, color: Colors.white),
+    ),
+  ),
+)</code></pre>
+<h3 id="a-practical-accessibility-checklist">A Practical Accessibility Checklist</h3>
+<ul><li>Every tappable <code class="inline-code">Icon</code>-only button has either a <code class="inline-code">tooltip</code> or an explicit <code class="inline-code">Semantics(label: ...)</code>.</li><li>Text and background colors meet a reasonable contrast ratio — don&#39;t rely on color alone to convey meaning (e.g. red/green status).</li><li>Tap targets are at least 48×48 logical pixels, per Material Design guidance.</li><li>Text respects the user&#39;s device font-scale setting rather than being locked to a fixed pixel size wherever reasonable.</li><li>Test the app with TalkBack/VoiceOver turned on at least once before release — issues that are invisible visually are often immediately obvious by ear.</li></ul>
+<div class="keypoints"><div class="keypoints-label">KEY POINTS</div><ul><li>Flutter maintains a semantics tree specifically for screen readers; most built-in widgets populate it automatically.</li><li>Use the <code class="inline-code">Semantics</code> widget to describe custom, non-standard widgets that lack an inherent accessible meaning.</li><li>Accessibility is a checklist worth reviewing before every release, not a one-time setup step.</li></ul></div></section>
+<section class="unit"><h2 id="unit-39" class="unit-heading"><span class="unit-label">Unit 39</span>Internationalization (i18n &amp; l10n)</h2><p>Flutter&#39;s official internationalization approach uses the <code class="inline-code">flutter_localizations</code> SDK package together with <code class="inline-code">.arb</code> (Application Resource Bundle) files — one per language — and code generation to produce type-safe access to translated strings.</p>
+<h3 id="setting-up">Setting Up</h3>
+<pre><code># pubspec.yaml
+dependencies:
+  flutter_localizations:
+    sdk: flutter
+  intl: ^0.19.0
+
+flutter:
+  generate: true</code></pre>
+<pre><code>// lib/l10n/app_en.arb
+{
+  &quot;helloUser&quot;: &quot;Hello, {name}!&quot;,
+  &quot;@helloUser&quot;: { &quot;placeholders&quot;: { &quot;name&quot;: {} } },
+  &quot;submit&quot;: &quot;Submit&quot;
+}
+
+// lib/l10n/app_te.arb (Telugu)
+{
+  &quot;helloUser&quot;: &quot;నమస్కారం, {name}!&quot;,
+  &quot;submit&quot;: &quot;సమర్పించు&quot;
+}</code></pre>
+<pre><code>MaterialApp(
+  localizationsDelegates: AppLocalizations.localizationsDelegates,
+  supportedLocales: AppLocalizations.supportedLocales,
+  home: const HomePage(),
+)
+
+// Anywhere in the widget tree:
+Text(AppLocalizations.of(context)!.helloUser(&#39;Sudhakar&#39;))</code></pre>
+<div class="note tip"><span class="note-label">TIP</span>Run <code class="inline-code">flutter gen-l10n</code> (or simply <code class="inline-code">flutter run</code>, which triggers it automatically when <code class="inline-code">generate: true</code> is set) after editing any <code class="inline-code">.arb</code> file to regenerate the type-safe <code class="inline-code">AppLocalizations</code> class.</div>
+<h3 id="formatting-dates-numbers-currency">Formatting Dates, Numbers &amp; Currency</h3>
+<pre><code>import &#39;package:intl/intl.dart&#39;;
+
+final formattedDate = DateFormat.yMMMMd(&#39;en_US&#39;).format(DateTime.now());
+final formattedCurrency = NumberFormat.currency(locale: &#39;en_IN&#39;, symbol: &#39;₹&#39;).format(45000);
+print(formattedDate);      // e.g. July 6, 2026
+print(formattedCurrency); // ₹45,000.00</code></pre>
+<div class="keypoints"><div class="keypoints-label">KEY POINTS</div><ul><li><code class="inline-code">.arb</code> files hold translated strings per locale; <code class="inline-code">AppLocalizations</code> (generated) gives type-safe access to them.</li><li><code class="inline-code">intl</code>&#39;s <code class="inline-code">DateFormat</code>/<code class="inline-code">NumberFormat</code> handle locale-aware formatting far more correctly than manual string building.</li><li>Localization should be planned early — retrofitting hard-coded strings across a large, finished app is far more work than starting with <code class="inline-code">AppLocalizations</code> in place.</li></ul></div></section>
+<section class="unit"><h2 id="unit-40" class="unit-heading"><span class="unit-label">Unit 40</span>Platform Channels — Talking to Native Code</h2><p>When a feature genuinely isn&#39;t available through any Flutter package — a proprietary native SDK, a very device-specific API — <strong>platform channels</strong> let Dart code call into native Android (Kotlin/Java) or iOS (Swift/Objective-C) code, and receive a result back, asynchronously.</p>
+<h3 id="dart-side">Dart Side</h3>
+<pre><code>import &#39;package:flutter/services.dart&#39;;
+
+const platform = MethodChannel(&#39;com.lbrce.aids/battery&#39;);
+
+Future&lt;int&gt; getBatteryLevel() async {
+  try {
+    final int result = await platform.invokeMethod(&#39;getBatteryLevel&#39;);
+    return result;
+  } on PlatformException catch (e) {
+    print(&#39;Failed to get battery level: ${e.message}&#39;);
+    return -1;
+  }
+}</code></pre>
+<h3 id="android-side-kotlin-simplified">Android Side (Kotlin, simplified)</h3>
+<pre><code>// android/app/src/main/kotlin/.../MainActivity.kt
+MethodChannel(flutterEngine.dartExecutor.binaryMessenger, &quot;com.lbrce.aids/battery&quot;)
+    .setMethodCallHandler { call, result -&gt;
+        if (call.method == &quot;getBatteryLevel&quot;) {
+            val level = getBatteryLevelNative()
+            result.success(level)
+        } else {
+            result.notImplemented()
+        }
+    }</code></pre>
+<div class="note tip"><span class="note-label">TIP</span>Before reaching for a custom platform channel, search pub.dev thoroughly — the vast majority of native functionality (battery, sensors, camera, biometrics, connectivity) already has a well-maintained plugin wrapping the platform channel for you.</div>
+<div class="keypoints"><div class="keypoints-label">KEY POINTS</div><ul><li>Platform channels are the bridge between Dart and native Android/iOS code, used only when no existing plugin covers the need.</li><li><code class="inline-code">MethodChannel</code> sends a named method call with arguments and awaits a single result — conceptually similar to a <code class="inline-code">Future</code>-based RPC.</li><li>Most plugins on pub.dev (camera, sensors, notifications, etc.) are themselves built on top of platform channels.</li></ul></div></section>
+<section class="unit"><h2 id="unit-41" class="unit-heading"><span class="unit-label">Unit 41</span>Firebase Integration Overview</h2><p>Firebase is Google&#39;s mobile/web backend-as-a-service platform, and it integrates with Flutter through officially maintained plugins (<code class="inline-code">firebase_core</code> plus one package per product). It&#39;s a common choice for adding authentication, a real-time database, and push notifications without standing up custom backend infrastructure.</p>
+<h3 id="initial-setup">Initial Setup</h3>
+<pre><code>// pubspec.yaml
+dependencies:
+  firebase_core: ^3.0.0
+  cloud_firestore: ^5.0.0
+  firebase_auth: ^5.0.0</code></pre>
+<pre><code>void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(const MyApp());
+}</code></pre>
+<h3 id="firebase-authentication">Firebase Authentication</h3>
+<pre><code>import &#39;package:firebase_auth/firebase_auth.dart&#39;;
+
+Future&lt;User?&gt; signIn(String email, String password) async {
+  final credential = await FirebaseAuth.instance
+      .signInWithEmailAndPassword(email: email, password: password);
+  return credential.user;
+}</code></pre>
+<h3 id="cloud-firestore-reading-writing-data">Cloud Firestore — reading &amp; writing data</h3>
+<pre><code>import &#39;package:cloud_firestore/cloud_firestore.dart&#39;;
+
+Future&lt;void&gt; addStudent(String name, int roll) async {
+  await FirebaseFirestore.instance.collection(&#39;students&#39;).add({
+    &#39;name&#39;: name,
+    &#39;rollNumber&#39;: roll,
+    &#39;createdAt&#39;: FieldValue.serverTimestamp(),
+  });
+}
+
+// Live-updating stream of data — pairs naturally with StreamBuilder
+Stream&lt;QuerySnapshot&gt; studentsStream() {
+  return FirebaseFirestore.instance.collection(&#39;students&#39;).snapshots();
+}</code></pre>
+<div class="note tip"><span class="note-label">TIP</span>Firestore&#39;s <code class="inline-code">.snapshots()</code> returns a <code class="inline-code">Stream</code> that emits every time the underlying data changes — combine it directly with <code class="inline-code">StreamBuilder</code> (Unit 21) to build UI that updates in real time with no manual polling or refresh logic.</div>
+<div class="keypoints"><div class="keypoints-label">KEY POINTS</div><ul><li><code class="inline-code">firebase_core</code> must be initialized once, before <code class="inline-code">runApp()</code>, before using any other Firebase product.</li><li><code class="inline-code">firebase_auth</code> covers email/password, phone, and social sign-in out of the box.</li><li>Firestore&#39;s real-time <code class="inline-code">Stream</code>s pair naturally with <code class="inline-code">StreamBuilder</code> for live-updating UI.</li></ul></div></section>
+<section class="unit"><h2 id="unit-42" class="unit-heading"><span class="unit-label">Unit 42</span>Push Notifications</h2><p>Two complementary packages cover most notification needs: <strong>`firebase_messaging`</strong> for remote push notifications sent from a server/Firebase console, and <strong>`flutter_local_notifications`</strong> for notifications scheduled or triggered entirely on-device, without any backend involved.</p>
+<h3 id="remote-push-with-firebase-cloud-messaging">Remote Push with Firebase Cloud Messaging</h3>
+<pre><code>import &#39;package:firebase_messaging/firebase_messaging.dart&#39;;
+
+Future&lt;void&gt; setupPushNotifications() async {
+  final messaging = FirebaseMessaging.instance;
+  await messaging.requestPermission();
+
+  final token = await messaging.getToken();
+  print(&#39;Device token: $token&#39;); // send this to your backend
+
+  FirebaseMessaging.onMessage.listen((message) {
+    print(&#39;Notification received: ${message.notification?.title}&#39;);
+  });
+}</code></pre>
+<h3 id="local-on-device-notifications">Local, On-Device Notifications</h3>
+<pre><code>import &#39;package:flutter_local_notifications/flutter_local_notifications.dart&#39;;
+
+final _notifications = FlutterLocalNotificationsPlugin();
+
+Future&lt;void&gt; showReminder() async {
+  const androidDetails = AndroidNotificationDetails(
+    &#39;reports_channel&#39;, &#39;Report Reminders&#39;,
+    importance: Importance.high,
+  );
+  await _notifications.show(
+    0, &#39;Quarterly Report Due&#39;,
+    &#39;Please submit your section before Friday.&#39;,
+    const NotificationDetails(android: androidDetails),
+  );
+}</code></pre>
+<div class="keypoints"><div class="keypoints-label">KEY POINTS</div><ul><li><code class="inline-code">firebase_messaging</code> handles server-sent push notifications; <code class="inline-code">flutter_local_notifications</code> handles on-device scheduling.</li><li>Requesting notification permission explicitly (iOS especially) is required before notifications will be delivered.</li><li>A device&#39;s FCM token identifies it for push targeting and should be sent to your backend once retrieved.</li></ul></div></section>
+<section class="unit"><h2 id="unit-43" class="unit-heading"><span class="unit-label">Unit 43</span>App Icons, Splash Screens &amp; Build Flavors</h2><h3 id="app-icons">App Icons</h3>
+<p>The <code class="inline-code">flutter_launcher_icons</code> package generates every required icon resolution for both Android and iOS from a single source image.</p>
+<pre><code># pubspec.yaml
+dev_dependencies:
+  flutter_launcher_icons: ^0.13.0
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: &#39;assets/icon/app_icon.png&#39;</code></pre>
+<pre><code>flutter pub run flutter_launcher_icons</code></pre>
+<h3 id="splash-screens">Splash Screens</h3>
+<p>The <code class="inline-code">flutter_native_splash</code> package similarly generates the native splash screen shown while the Flutter engine initializes — before any Dart code, including <code class="inline-code">main()</code>, has run.</p>
+<pre><code>flutter_native_splash:
+  color: &#39;#FFFFFF&#39;
+  image: assets/icon/splash_logo.png</code></pre>
+<h3 id="build-flavors-dev-staging-production">Build Flavors — dev / staging / production</h3>
+<p>Flavors let one codebase produce distinct app variants (different API endpoints, app names, or icons) for development, staging, and production — installed side-by-side on the same device without conflicting.</p>
+<pre><code>// lib/main_dev.dart
+void main() {
+  runApp(const MyApp(apiUrl: &#39;https://dev.api.example.com&#39;));
+}
+
+// lib/main_prod.dart
+void main() {
+  runApp(const MyApp(apiUrl: &#39;https://api.example.com&#39;));
+}</code></pre>
+<pre><code>flutter run --target lib/main_dev.dart
+flutter build apk --target lib/main_prod.dart --release</code></pre>
+<div class="keypoints"><div class="keypoints-label">KEY POINTS</div><ul><li><code class="inline-code">flutter_launcher_icons</code> and <code class="inline-code">flutter_native_splash</code> automate two of the most tedious, error-prone manual asset tasks in mobile development.</li><li>Build flavors let dev/staging/production variants of an app coexist and point at different backends without maintaining separate codebases.</li></ul></div></section>
+<section class="unit"><h2 id="unit-44" class="unit-heading"><span class="unit-label">Unit 44</span>App Architecture &amp; Dependency Injection</h2><p>As a Flutter app grows past a handful of screens, mixing UI, business logic, and data-fetching directly inside widgets becomes hard to test and maintain. A layered architecture separates these concerns; <strong>dependency injection</strong> (DI) is the technique of supplying a class&#39;s dependencies from the outside rather than having it construct them itself, which is what makes each layer independently testable.</p>
+<h3 id="a-simple-repository-pattern">A Simple Repository Pattern</h3>
+<pre><code>// 1. Abstract contract — the UI and business logic depend on this, not a concrete implementation
+abstract class StudentRepository {
+  Future&lt;List&lt;Student&gt;&gt; getStudents();
+}
+
+// 2. A concrete implementation talking to a real API
+class ApiStudentRepository implements StudentRepository {
+  final http.Client client;
+  ApiStudentRepository(this.client);
+
+  @override
+  Future&lt;List&lt;Student&gt;&gt; getStudents() async {
+    final response = await client.get(Uri.parse(&#39;https://api.example.com/students&#39;));
+    final list = jsonDecode(response.body) as List;
+    return list.map((j) =&gt; Student.fromJson(j)).toList();
+  }
+}
+
+// 3. A fake implementation — trivially swapped in for tests, no network needed
+class FakeStudentRepository implements StudentRepository {
+  @override
+  Future&lt;List&lt;Student&gt;&gt; getStudents() async =&gt;
+      [Student(name: &#39;Test Student&#39;, rollNumber: 1)];
+}</code></pre>
+<h3 id="injecting-the-dependency">Injecting the Dependency</h3>
+<pre><code>class StudentListScreen extends StatelessWidget {
+  final StudentRepository repository; // supplied from outside, not created here
+  const StudentListScreen({super.key, required this.repository});
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder&lt;List&lt;Student&gt;&gt;(
+      future: repository.getStudents(),
+      builder: (context, snapshot) {
+        // ... render based on snapshot, exactly as in Unit 21
+        return const SizedBox();
+      },
+    );
+  }
+}
+
+// Production: StudentListScreen(repository: ApiStudentRepository(http.Client()))
+// Testing:    StudentListScreen(repository: FakeStudentRepository())</code></pre>
+<div class="note tip"><span class="note-label">TIP</span>For larger apps, packages like <code class="inline-code">get_it</code> (a simple service locator) or <code class="inline-code">riverpod</code> (which has DI built into its provider model) automate wiring dependencies together, but the underlying idea — depend on an abstraction, supply the concrete implementation from outside — stays the same.</div>
+<div class="table-wrap"><table><thead><tr><th>Layer</th><th>Responsibility</th></tr></thead><tbody><tr><td>Presentation (widgets)</td><td>Display data and forward user actions — no business logic or direct API/database calls</td></tr><tr><td>Domain / business logic</td><td>Application rules, validation, orchestration — framework-agnostic where possible</td></tr><tr><td>Data (repositories)</td><td>Fetching and persisting data — the only layer that knows about the API, database, or cache</td></tr></tbody></table></div>
+<div class="keypoints"><div class="keypoints-label">KEY POINTS</div><ul><li>Dependency injection means a class receives its dependencies from outside rather than constructing them itself.</li><li>Coding against an abstract repository interface, not a concrete implementation, is what makes swapping in a fake/test version trivial.</li><li>Separating presentation, domain, and data layers keeps a growing app testable and easier to reason about.</li></ul></div></section>
+<section class="unit"><h2 id="unit-45" class="unit-heading"><span class="unit-label">Unit 45</span>Integration Testing</h2><p>Integration tests (via the <code class="inline-code">integration_test</code> package) run the <strong>complete, real app</strong> — not a simulated widget environment — on an actual device or emulator, driving it exactly the way a user would. They&#39;re slower than unit or widget tests but catch problems those levels cannot, such as issues specific to a real platform&#39;s rendering or plugin behaviour.</p>
+<pre><code># pubspec.yaml
+dev_dependencies:
+  integration_test:
+    sdk: flutter</code></pre>
+<pre><code>// integration_test/app_test.dart
+import &#39;package:flutter_test/flutter_test.dart&#39;;
+import &#39;package:integration_test/integration_test.dart&#39;;
+import &#39;package:my_app/main.dart&#39; as app;
+
+void main() {
+  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+
+  testWidgets(&#39;full login flow&#39;, (tester) async {
+    app.main();
+    await tester.pumpAndSettle();
+
+    await tester.enterText(find.byKey(const Key(&#39;emailField&#39;)), &#39;test@lbrce.ac.in&#39;);
+    await tester.enterText(find.byKey(const Key(&#39;passwordField&#39;)), &#39;password123&#39;);
+    await tester.tap(find.byKey(const Key(&#39;loginButton&#39;)));
+    await tester.pumpAndSettle();
+
+    expect(find.text(&#39;Welcome&#39;), findsOneWidget);
+  });
+}</code></pre>
+<pre><code>flutter test integration_test/app_test.dart</code></pre>
+<div class="note tip"><span class="note-label">TIP</span><code class="inline-code">pumpAndSettle()</code> repeatedly pumps frames until no more are scheduled — ideal after actions that trigger animations or async work, so the test waits for the UI to fully finish reacting before making assertions.</div>
+<div class="keypoints"><div class="keypoints-label">KEY POINTS</div><ul><li>Integration tests exercise the real, compiled app on a device/emulator — the closest automated testing gets to actual user behaviour.</li><li><code class="inline-code">find.byKey(...)</code> is the most robust way to locate widgets in tests, since it doesn&#39;t depend on visible text that might change or be localized.</li><li><code class="inline-code">pumpAndSettle()</code> waits out animations and async work before assertions run.</li></ul></div></section>
+<section class="unit"><h2 id="unit-46" class="unit-heading"><span class="unit-label">Unit 46</span>Performance Optimization &amp; Best Practices</h2><p>Flutter targets 60 (or 120, on capable devices) frames per second by default. Most performance problems come from rebuilding, laying out, or repainting more of the widget tree than actually changed.</p>
+<h3 id="use-const-constructors-wherever-possible">Use const Constructors Wherever Possible</h3>
+<pre><code>// Rebuilt every time the parent rebuilds, even though nothing about it changes
+Text(&#39;Static Label&#39;)
+
+// Built once and reused — Flutter skips rebuilding it entirely
+const Text(&#39;Static Label&#39;)</code></pre>
+<h3 id="keep-build-methods-cheap">Keep build() Methods Cheap</h3>
+<ul><li>Never perform network calls, heavy computation, or file I/O directly inside <code class="inline-code">build()</code> — it can run many times per second during animations.</li><li>Extract widgets that don&#39;t depend on frequently-changing state into their own <code class="inline-code">const</code> or separately-built classes, rather than rebuilding them as part of a large parent&#39;s <code class="inline-code">build()</code>.</li><li>Prefer <code class="inline-code">ListView.builder</code>/<code class="inline-code">GridView.builder</code> over eagerly building every item up front for any list that could grow large (Unit 17).</li></ul>
+<h3 id="scope-rebuilds-precisely">Scope Rebuilds Precisely</h3>
+<pre><code>// Rebuilds the ENTIRE subtree whenever CounterModel changes
+Consumer&lt;CounterModel&gt;(
+  builder: (context, model, child) =&gt; Column(
+    children: [
+      ExpensiveStaticHeader(), // gets needlessly rebuilt too
+      Text(&#39;${model.count}&#39;),
+    ],
+  ),
+)
+
+// Better — the &#39;child&#39; parameter is built once and passed through untouched
+Consumer&lt;CounterModel&gt;(
+  builder: (context, model, child) =&gt; Column(
+    children: [child!, Text(&#39;${model.count}&#39;)],
+  ),
+  child: const ExpensiveStaticHeader(),
+)</code></pre>
+<h3 id="diagnose-don-t-guess">Diagnose, Don&#39;t Guess</h3>
+<div class="table-wrap"><table><thead><tr><th>Tool</th><th>Shows you</th></tr></thead><tbody><tr><td>DevTools Performance tab</td><td>Frame render times; spot janky frames over 16ms (60fps) or 8ms (120fps)</td></tr><tr><td>&quot;Repaint Rainbow&quot; (<code class="inline-code">debugRepaintRainbowEnabled</code>)</td><td>Visually flashes any region that repaints, revealing unnecessary repaints at a glance</td></tr><tr><td>Widget rebuild counts (DevTools)</td><td>Which widgets rebuild far more often than expected</td></tr></tbody></table></div>
+<div class="keypoints"><div class="keypoints-label">KEY POINTS</div><ul><li><code class="inline-code">const</code> constructors let Flutter skip rebuilding widgets that provably haven&#39;t changed — use them by default wherever a widget&#39;s arguments are compile-time constants.</li><li>Keep <code class="inline-code">build()</code> fast and side-effect-free; heavy work belongs in a repository/service layer, not inline in the widget tree.</li><li>The <code class="inline-code">child</code> parameter pattern (seen in <code class="inline-code">AnimatedBuilder</code> and <code class="inline-code">Consumer</code>) lets you exclude a static subtree from rebuilding.</li><li>Use DevTools to measure before optimizing — intuition about what&#39;s &quot;probably slow&quot; in Flutter is often wrong.</li></ul></div></section>
+<section class="unit"><h2 id="unit-47" class="unit-heading"><span class="unit-label">Unit 47</span>App Lifecycle &amp; State Restoration</h2><p>A mobile app moves through several lifecycle states as the user switches apps, locks the phone, or the OS reclaims memory. Reacting correctly — pausing a video, saving a draft, disconnecting a stream — prevents wasted resources and, at worst, data loss.</p>
+<h3 id="observing-lifecycle-changes">Observing Lifecycle Changes</h3>
+<pre><code>class LifecycleAwareScreen extends StatefulWidget {
+  const LifecycleAwareScreen({super.key});
+  @override
+  State&lt;LifecycleAwareScreen&gt; createState() =&gt; _LifecycleAwareScreenState();
+}
+
+class _LifecycleAwareScreenState extends State&lt;LifecycleAwareScreen&gt;
+    with WidgetsBindingObserver {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.paused) {
+      print(&#39;App moved to background — save draft state here&#39;);
+    } else if (state == AppLifecycleState.resumed) {
+      print(&#39;App back in foreground — refresh data if needed&#39;);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) =&gt; const SizedBox();
+}</code></pre>
+<div class="table-wrap"><table><thead><tr><th>State</th><th>Meaning</th></tr></thead><tbody><tr><td><code class="inline-code">resumed</code></td><td>App is visible and responding to user input</td></tr><tr><td><code class="inline-code">inactive</code></td><td>App is in the foreground but not receiving input (e.g. an incoming call overlay)</td></tr><tr><td><code class="inline-code">paused</code></td><td>App is not visible — moved to the background</td></tr><tr><td><code class="inline-code">detached</code></td><td>App is still hosted by Flutter but detached from any view (rare, mostly during teardown)</td></tr></tbody></table></div>
+<div class="keypoints"><div class="keypoints-label">KEY POINTS</div><ul><li><code class="inline-code">WidgetsBindingObserver</code> + <code class="inline-code">didChangeAppLifecycleState</code> is how a widget reacts to the app moving to background/foreground.</li><li><code class="inline-code">paused</code> is the natural place to persist unsaved work; <code class="inline-code">resumed</code> is a natural place to refresh stale data.</li><li>Always remove the observer in <code class="inline-code">dispose()</code>, mirroring the pairing rule from other lifecycle-bound resources (Unit 15, Unit 23).</li></ul></div></section>
+<section class="unit"><h2 id="unit-48" class="unit-heading"><span class="unit-label">Unit 48</span>Error Handling &amp; Crash Reporting in Production</h2><p>A shipped app needs a strategy for errors beyond a local <code class="inline-code">try</code>/<code class="inline-code">catch</code> — both to avoid a blank, crashed screen for the user, and to actually find out an error happened at all once the app is in someone else&#39;s hands.</p>
+<h3 id="catching-flutter-framework-errors">Catching Flutter Framework Errors</h3>
+<pre><code>void main() {
+  FlutterError.onError = (FlutterErrorDetails details) {
+    // Log to console during development
+    FlutterError.presentError(details);
+    // In production, forward to a crash-reporting service instead/also:
+    // FirebaseCrashlytics.instance.recordFlutterFatalError(details);
+  };
+  runApp(const MyApp());
+}</code></pre>
+<h3 id="catching-everything-else-with-runzonedguarded">Catching Everything Else with runZonedGuarded</h3>
+<p><code class="inline-code">FlutterError.onError</code> only covers errors thrown during widget building/layout/painting. Errors in your own async code (a background <code class="inline-code">Future</code>, an uncaught exception in a callback) need a Zone-level guard to be caught centrally.</p>
+<pre><code>import &#39;dart:async&#39;;
+
+void main() {
+  runZonedGuarded(() {
+    runApp(const MyApp());
+  }, (error, stackTrace) {
+    print(&#39;Uncaught error: $error&#39;);
+    // FirebaseCrashlytics.instance.recordError(error, stackTrace);
+  });
+}</code></pre>
+<h3 id="a-user-friendly-fallback-ui">A User-Friendly Fallback UI</h3>
+<pre><code>ErrorWidget.builder = (FlutterErrorDetails details) {
+  return Scaffold(
+    body: Center(
+      child: Text(&#39;Something went wrong. Please restart the app.&#39;),
+    ),
+  );
+};</code></pre>
+<div class="note tip"><span class="note-label">TIP</span><code class="inline-code">firebase_crashlytics</code> and <code class="inline-code">sentry_flutter</code> are the two most widely used crash-reporting services in the Flutter ecosystem — both provide drop-in hooks for exactly the two handlers shown above, plus a dashboard of every crash, its stack trace, and how many users it affected.</div>
+<div class="keypoints"><div class="keypoints-label">KEY POINTS</div><ul><li><code class="inline-code">FlutterError.onError</code> catches framework-level errors (build/layout/paint); <code class="inline-code">runZonedGuarded</code> catches everything else, including async errors.</li><li><code class="inline-code">ErrorWidget.builder</code> replaces Flutter&#39;s default red error screen with something presentable to end users.</li><li>A crash-reporting service (Crashlytics, Sentry) is what turns &quot;a user&#39;s app is crashing somewhere&quot; into an actionable, specific bug report.</li></ul></div></section>
+<section class="unit"><h2 id="unit-49" class="unit-heading"><span class="unit-label">Unit 49</span>Working with Camera, Gallery &amp; Media</h2><p>The <code class="inline-code">image_picker</code> package covers the overwhelming majority of apps&#39; media needs — capturing a photo, recording video, or picking existing media from the gallery — through one simple, cross-platform API.</p>
+<pre><code>import &#39;package:image_picker/image_picker.dart&#39;;
+
+final ImagePicker _picker = ImagePicker();
+
+Future&lt;void&gt; pickFromGallery() async {
+  final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+  if (image != null) {
+    print(&#39;Picked: ${image.path}&#39;);
+  }
+}
+
+Future&lt;void&gt; takePhoto() async {
+  final XFile? photo = await _picker.pickImage(
+    source: ImageSource.camera,
+    maxWidth: 1200,
+    imageQuality: 85,
+  );
+  if (photo != null) {
+    print(&#39;Captured: ${photo.path}&#39;);
+  }
+}</code></pre>
+<h3 id="displaying-the-picked-image">Displaying the Picked Image</h3>
+<pre><code>import &#39;dart:io&#39;;
+
+Image.file(File(image.path))</code></pre>
+<div class="note warning"><span class="note-label">CAUTION</span>Camera and gallery access require platform-specific permission declarations — <code class="inline-code">NSCameraUsageDescription</code>/<code class="inline-code">NSPhotoLibraryUsageDescription</code> in iOS&#39;s <code class="inline-code">Info.plist</code>, and the <code class="inline-code">CAMERA</code> permission in Android&#39;s manifest — plus a runtime permission request via a package like <code class="inline-code">permission_handler</code> on Android 6.0+ and iOS.</div>
+<div class="keypoints"><div class="keypoints-label">KEY POINTS</div><ul><li><code class="inline-code">image_picker</code> handles both camera capture and gallery selection through one unified API returning an <code class="inline-code">XFile</code>.</li><li><code class="inline-code">maxWidth</code>/<code class="inline-code">imageQuality</code> let you downscale/compress an image at pick time, avoiding unnecessarily large uploads later.</li><li>Camera/gallery access always requires explicit platform permission declarations, not just a Dart-side package.</li></ul></div></section>
+<section class="unit"><h2 id="unit-50" class="unit-heading"><span class="unit-label">Unit 50</span>Geolocation &amp; Maps Overview</h2><p>The <code class="inline-code">geolocator</code> package is the standard way to read a device&#39;s GPS location; <code class="inline-code">google_maps_flutter</code> (or <code class="inline-code">flutter_map</code> for an open-source, non-Google alternative) renders an interactive map.</p>
+<h3 id="getting-the-current-location">Getting the Current Location</h3>
+<pre><code>import &#39;package:geolocator/geolocator.dart&#39;;
+
+Future&lt;Position&gt; getCurrentLocation() async {
+  LocationPermission permission = await Geolocator.checkPermission();
+  if (permission == LocationPermission.denied) {
+    permission = await Geolocator.requestPermission();
+  }
+
+  return Geolocator.getCurrentPosition(
+    desiredAccuracy: LocationAccuracy.high,
+  );
+}</code></pre>
+<h3 id="displaying-a-map">Displaying a Map</h3>
+<pre><code>import &#39;package:google_maps_flutter/google_maps_flutter.dart&#39;;
+
+GoogleMap(
+  initialCameraPosition: const CameraPosition(
+    target: LatLng(16.4419, 80.6183), // Mylavaram, Andhra Pradesh
+    zoom: 14,
+  ),
+  markers: {
+    const Marker(
+      markerId: MarkerId(&#39;college&#39;),
+      position: LatLng(16.4419, 80.6183),
+      infoWindow: InfoWindow(title: &#39;LBRCE&#39;),
+    ),
+  },
+)</code></pre>
+<div class="note tip"><span class="note-label">TIP</span><code class="inline-code">google_maps_flutter</code> requires an API key configured natively for both Android (<code class="inline-code">AndroidManifest.xml</code>) and iOS (<code class="inline-code">AppDelegate.swift</code>) — this is a native platform setup step, not something Dart code alone can configure.</div>
+<div class="keypoints"><div class="keypoints-label">KEY POINTS</div><ul><li>Always check and, if needed, request location permission before calling <code class="inline-code">getCurrentPosition()</code> — it throws if permission was never granted.</li><li><code class="inline-code">google_maps_flutter</code> needs a valid, natively-configured Google Maps API key per platform before it will render anything.</li><li><code class="inline-code">flutter_map</code> is a common Google-Maps-free alternative when avoiding Google API keys/billing is a requirement.</li></ul></div></section>
+<section class="unit"><h2 id="unit-51" class="unit-heading"><span class="unit-label">Unit 51</span>WebSockets &amp; Real-Time Communication</h2><p>REST APIs (Unit 21) are request/response — the client always initiates. For genuinely real-time features (live chat, live scores, collaborative editing), a <strong>WebSocket</strong> keeps a persistent, two-way connection open, letting the server push data the instant it changes.</p>
+<pre><code>import &#39;dart:convert&#39;;
+import &#39;package:web_socket_channel/web_socket_channel.dart&#39;;
+
+class ChatService {
+  final channel = WebSocketChannel.connect(
+    Uri.parse(&#39;wss://example.com/chat&#39;),
+  );
+
+  Stream&lt;dynamic&gt; get messages =&gt; channel.stream;
+
+  void sendMessage(String text) {
+    channel.sink.add(jsonEncode({&#39;message&#39;: text}));
+  }
+
+  void close() {
+    channel.sink.close();
+  }
+}</code></pre>
+<pre><code>// In a widget — pair the Stream directly with StreamBuilder (Unit 21)
+StreamBuilder(
+  stream: chatService.messages,
+  builder: (context, snapshot) {
+    if (!snapshot.hasData) return const Text(&#39;Waiting for messages...&#39;);
+    return Text(&#39;New message: ${snapshot.data}&#39;);
+  },
+)</code></pre>
+<div class="note warning"><span class="note-label">CAUTION</span>Always close a WebSocket channel (<code class="inline-code">channel.sink.close()</code>) when the screen using it is disposed — an open socket left dangling keeps consuming battery and network resources in the background.</div>
+<div class="keypoints"><div class="keypoints-label">KEY POINTS</div><ul><li>WebSockets keep a persistent connection open, allowing the server to push updates without the client polling repeatedly.</li><li><code class="inline-code">web_socket_channel</code> exposes an incoming <code class="inline-code">Stream</code> and an outgoing <code class="inline-code">sink</code> — the <code class="inline-code">Stream</code> half pairs naturally with <code class="inline-code">StreamBuilder</code>.</li><li>Always close the channel when it&#39;s no longer needed, mirroring the disposal discipline used for controllers and animations.</li></ul></div></section>
+<section class="unit"><h2 id="unit-52" class="unit-heading"><span class="unit-label">Unit 52</span>Advanced Forms &amp; Multi-Step Wizards</h2><p>Beyond single-screen forms (Unit 18), many real apps need multi-field cross-validation or a multi-step &quot;wizard&quot; flow — a registration process broken across several screens that still validates and submits as one logical unit.</p>
+<h3 id="cross-field-validation">Cross-Field Validation</h3>
+<pre><code>final _passwordController = TextEditingController();
+
+TextFormField(
+  decoration: const InputDecoration(labelText: &#39;Confirm Password&#39;),
+  validator: (value) {
+    if (value != _passwordController.text) {
+      return &#39;Passwords do not match&#39;;
+    }
+    return null;
+  },
+)</code></pre>
+<h3 id="a-simple-multi-step-wizard-with-stepper">A Simple Multi-Step Wizard with Stepper</h3>
+<pre><code>int _currentStep = 0;
+
+Stepper(
+  currentStep: _currentStep,
+  onStepContinue: () {
+    if (_currentStep &lt; 2) {
+      setState(() =&gt; _currentStep++);
+    } else {
+      print(&#39;Wizard complete — submit all collected data&#39;);
+    }
+  },
+  onStepCancel: () {
+    if (_currentStep &gt; 0) setState(() =&gt; _currentStep--);
+  },
+  steps: const [
+    Step(title: Text(&#39;Personal Details&#39;), content: Text(&#39;Name, email...&#39;)),
+    Step(title: Text(&#39;Academic Details&#39;), content: Text(&#39;Roll number, year...&#39;)),
+    Step(title: Text(&#39;Review&#39;), content: Text(&#39;Confirm and submit&#39;)),
+  ],
+)</code></pre>
+<div class="note tip"><span class="note-label">TIP</span>For a wizard spanning multiple full screens (rather than one scrollable <code class="inline-code">Stepper</code>), hold the shared, accumulated form data in a single object owned above all the steps — via <code class="inline-code">Provider</code>/<code class="inline-code">Riverpod</code> (Unit 20) — rather than trying to pass and merge partial data manually through <code class="inline-code">Navigator</code> route arguments.</div>
+<div class="keypoints"><div class="keypoints-label">KEY POINTS</div><ul><li>Cross-field validators compare against another field&#39;s current value, typically read from its <code class="inline-code">TextEditingController</code>.</li><li><code class="inline-code">Stepper</code> provides a ready-made, linear multi-step UI for forms that fit comfortably on one screen.</li><li>For wizards spanning multiple full screens, centralize the shared form state above the steps rather than threading it through navigation arguments.</li></ul></div></section>
+    <div class="page-nav"><a href="part1-dart.html"><span class="dir">&larr; Previous</span>I. The Dart Language</a><a href="part3-capstone.html" class="next"><span class="dir">Next &rarr;</span>III. Capstone Project</a></div>
+  </div>
+</main>
+</div>
+<script src="assets/script.js"></script>
+</body>
+</html>
